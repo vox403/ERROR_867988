@@ -6490,7 +6490,19 @@ body.error-red .desktop-hero{
 
           <section class="window hidden" id="window-errors" style="top:126px; left:190px; width:min(860px, calc(100vw - 72px));">
             <div class="window-header" data-drag-handle><div class="window-title">ERRORS <small>pilot vees album</small></div><div class="window-controls"><button class="window-btn window-close" data-close="window-errors">✕</button></div></div>
-            <div class="window-body"><div class="gallery-shell"><div class="gallery-frame"><div class="asset-fallback" style="display:flex">ERRORS ALBUM</div></div><div class="gallery-footer"><div class="gallery-index">파일럿 브이즈 앨범 예정</div></div></div></div>
+            <div class="window-body">
+              <div class="gallery-shell">
+                <div class="gallery-frame">
+                  <button class="gallery-arrow left" id="errorsPrev" aria-label="이전 이미지">‹</button>
+                  <img id="errorsImage" src="error_1.png" alt="ERROR_01" onerror="assetFail(this)">
+                  <div class="asset-fallback" id="errorsFallback">ERROR_01</div>
+                  <button class="gallery-arrow right" id="errorsNext" aria-label="다음 이미지">›</button>
+                </div>
+                <div class="gallery-footer">
+                  <div class="gallery-index" id="errorsIndex">ERROR_01 / 13</div>
+                </div>
+              </div>
+            </div>
           </section>
 
           <section class="window hidden" id="window-signal" style="top:104px; left:248px; width:min(880px, calc(100vw - 72px));">
@@ -6614,7 +6626,8 @@ body.error-red .desktop-hero{
     <div id="cutLog" class="cut-log"></div>
   </div>
 
-      <audio id="bgAudio" src="vox_1.mp3" loop preload="auto"></audio>
+      <audio id="bgAudio" src="EDM.mp3" loop preload="auto"></audio>
+    <audio id="transitionAudio" src="noise.mp3" loop preload="auto"></audio>
   </div>
 
 
@@ -6672,6 +6685,7 @@ body.error-red .desktop-hero{
   const clockChip = $('#clockChip');
   const soundToggle = $('#soundToggle');
   const bgAudio = $('#bgAudio');
+  const transitionAudio = $('#transitionAudio');
   const windowLayer = $('#windowLayer');
   const quitModal = $('#quitModal');
   const cancelQuit = $('#cancelQuit');
@@ -6683,6 +6697,26 @@ body.error-red .desktop-hero{
 
   const windows = $$('.window');
   const desktopIcons = $$('.desktop-icon');
+  const errorsImage = $('#errorsImage');
+  const errorsIndexLabel = $('#errorsIndex');
+  const errorsPrevBtn = $('#errorsPrev');
+  const errorsNextBtn = $('#errorsNext');
+  const errorsFallback = $('#errorsFallback');
+  const ERROR_ALBUM = [
+    { src:'error_1.png', label:'ERROR_01' },
+    { src:'error_2.png', label:'ERROR_02' },
+    { src:'error_3.png', label:'ERROR_03' },
+    { src:'error_4.png', label:'ERROR_04' },
+    { src:'error_5.png', label:'ERROR_05' },
+    { src:'error_6.png', label:'ERROR_06' },
+    { src:'error_7.png', label:'ERROR_07' },
+    { src:'error_8.png', label:'ERROR_08' },
+    { src:'error_9.png', label:'ERROR_09' },
+    { src:'error_10.png', label:'ERROR_10' },
+    { src:'error_11.png', label:'ERROR_11' },
+    { src:'error_12.jpg', label:'ERROR_12' },
+    { src:'error_13.png', label:'ERROR_13' }
+  ];
   let activeEmployee = null;
   let isBooting = false;
   let redRoute = false;
@@ -6691,6 +6725,7 @@ body.error-red .desktop-hero{
   let conversionFinalNoiseTimer = null;
   let conversionHideTimer = null;
   let cutsceneRunning = false;
+  let currentErrorAlbumIndex = 0;
 
   function safeGet(key){ try{ return localStorage.getItem(key); }catch(e){ return null; } }
   function safeSet(key, value){ try{ localStorage.setItem(key, value); }catch(e){} }
@@ -6835,6 +6870,8 @@ body.error-red .desktop-hero{
     closeAllWindows();
     setRedRoute(false);
     conversionPlayed = false;
+    stopTransitionAudio();
+    stopErrorAudio(false);
   }
 
   function showIntroProfile(employee){
@@ -6855,6 +6892,8 @@ body.error-red .desktop-hero{
       document.body.classList.remove('noise-burst');
       setRedRoute(false);
       conversionPlayed = false;
+      stopTransitionAudio();
+      stopErrorAudio(false);
     }, 640);
   }
   function centerIntroPopup(){
@@ -6897,6 +6936,8 @@ body.error-red .desktop-hero{
       cutscene.setAttribute('aria-hidden', 'true');
     }
     if (cutLog) cutLog.textContent = '';
+    stopTransitionAudio();
+    stopErrorAudio(false);
     document.body.classList.remove('glitch-hit', 'noise-burst');
     setRedRoute(false);
     closeAllWindows();
@@ -6912,20 +6953,110 @@ body.error-red .desktop-hero{
     if (soundToggle) soundToggle.textContent = on ? 'SOUND ON' : 'SOUND OFF';
     if (persist) safeSet(SOUND_KEY, on ? 'on' : 'off');
   }
-  async function toggleSound(){
-    const on = safeGet(SOUND_KEY) === 'on';
-    if (on){
-      bgAudio.pause();
-      bgAudio.currentTime = 0;
-      setSoundState(false);
-    } else {
-      try{ await bgAudio.play(); setSoundState(true); }catch(e){ setSoundState(false); }
+
+  function prepareErrorAudio(){
+    if (!bgAudio) return;
+    if (!/EDM\.mp3(?:$|\?)/.test(bgAudio.getAttribute('src') || '')){
+      bgAudio.src = 'EDM.mp3';
+    }
+    bgAudio.loop = true;
+    bgAudio.volume = 0.88;
+  }
+
+  function prepareTransitionAudio(){
+    if (!transitionAudio) return;
+    if (!/noise\.mp3(?:$|\?)/.test(transitionAudio.getAttribute('src') || '')){
+      transitionAudio.src = 'noise.mp3';
+    }
+    transitionAudio.loop = true;
+    transitionAudio.volume = 0.88;
+  }
+
+  async function startTransitionAudio(){
+    if (!transitionAudio) return false;
+    prepareTransitionAudio();
+    try{
+      transitionAudio.currentTime = 0;
+      await transitionAudio.play();
+      return true;
+    }catch(e){
+      return false;
     }
   }
+
+  function stopTransitionAudio(){
+    if (!transitionAudio) return;
+    transitionAudio.pause();
+    transitionAudio.currentTime = 0;
+  }
+
+  async function unlockErrorAudioForTransition(){
+    /*
+      Browser autoplay policies are stricter when audio starts after a timeout.
+      This silently unlocks EDM during the user's click, then we unmute it only
+      when RED ROUTE finishes loading.
+    */
+    if (!bgAudio) return;
+    prepareErrorAudio();
+    try{
+      bgAudio.pause();
+      bgAudio.currentTime = 0;
+      bgAudio.muted = true;
+      bgAudio.volume = 0;
+      await bgAudio.play();
+    }catch(e){}
+  }
+
+  async function startErrorAudio(persist=true){
+    if (!bgAudio) return false;
+    prepareErrorAudio();
+    try{
+      bgAudio.muted = false;
+      bgAudio.volume = 0.88;
+      if (bgAudio.currentTime < 0.05) bgAudio.currentTime = 0;
+      await bgAudio.play();
+      setSoundState(true, persist);
+      return true;
+    }catch(e){
+      setSoundState(false, persist);
+      return false;
+    }
+  }
+
+  function stopErrorAudio(persist=true){
+    if (bgAudio){
+      bgAudio.pause();
+      bgAudio.currentTime = 0;
+      bgAudio.muted = false;
+      bgAudio.volume = 0.88;
+    }
+    setSoundState(false, persist);
+  }
+
+  async function toggleSound(){
+    /*
+      BLUE STATE: sound button acts like an icon click and starts the error-route transition.
+      During the transition, noise.mp3 plays.
+      RED ROUTE: sound button toggles EDM.mp3.
+    */
+    if (!redRoute && !conversionPlayed){
+      playConversion(true);
+      return;
+    }
+
+    const actuallyPlaying = bgAudio && !bgAudio.paused && !bgAudio.muted;
+    if (actuallyPlaying) stopErrorAudio(true);
+    else await startErrorAudio(true);
+  }
+
   function restoreSound(){
-    if (safeGet(SOUND_KEY) === 'on'){
-      bgAudio.play().then(() => setSoundState(true, false)).catch(() => setSoundState(false, false));
-    } else setSoundState(false, false);
+    /*
+      Do not autoplay on the clean/blue login route.
+      noise.mp3 plays only during transition; EDM.mp3 starts only when SOUND is pressed on RED ROUTE.
+    */
+    stopTransitionAudio();
+    stopErrorAudio(false);
+    safeSet(SOUND_KEY, 'off');
   }
 
   function syncWindowLayerState(){
@@ -6961,6 +7092,38 @@ body.error-red .desktop-hero{
     win.style.top = `${Math.max(22, Math.round((layerRect.height - rect.height)/2) - 10)}px`;
   }
 
+
+  function renderErrorsAlbum(){
+    if (!errorsImage || !errorsIndexLabel || !ERROR_ALBUM.length) return;
+    const item = ERROR_ALBUM[currentErrorAlbumIndex];
+    errorsImage.src = item.src;
+    errorsImage.alt = item.label;
+    if (errorsFallback) {
+      errorsFallback.textContent = item.label;
+      errorsFallback.style.display = 'none';
+    }
+    errorsImage.style.display = 'block';
+    errorsIndexLabel.textContent = `${item.label} / ${ERROR_ALBUM.length}`;
+  }
+
+  function stepErrorsAlbum(direction){
+    if (!ERROR_ALBUM.length) return;
+    currentErrorAlbumIndex = (currentErrorAlbumIndex + direction + ERROR_ALBUM.length) % ERROR_ALBUM.length;
+    renderErrorsAlbum();
+  }
+
+  function handleErrorsAlbumKey(event){
+    const errorsWin = document.getElementById('window-errors');
+    if (!errorsWin || errorsWin.classList.contains('hidden')) return;
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      stepErrorsAlbum(-1);
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      stepErrorsAlbum(1);
+    }
+  }
+
   function openApp(app){
     if (!redRoute && !conversionPlayed){
       playConversion();
@@ -6975,11 +7138,14 @@ body.error-red .desktop-hero{
     bringFront(win);
     if (app === 'idcard') renderIdCard();
     if (app === 'contents') renderContents();
+    if (app === 'errors') renderErrorsAlbum();
   }
 
-  function playConversion(){
+  function playConversion(startSound=false){
     if (cutsceneRunning) return;
     conversionPlayed = true;
+    startTransitionAudio();
+    setSoundState(false, false);
     closeAllWindows();
     clearTimeout(conversionFinalNoiseTimer);
     clearTimeout(conversionHideTimer);
@@ -6989,8 +7155,10 @@ body.error-red .desktop-hero{
     document.body.classList.add('noise-burst');
 
     if (!cutscene || !cutLog){
+      stopTransitionAudio();
       setRedRoute(true);
       document.body.classList.remove('noise-burst');
+      stopErrorAudio(true);
       return;
     }
 
@@ -7029,7 +7197,9 @@ body.error-red .desktop-hero{
       cutscene.className = 'cutscene';
       cutscene.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('glitch-hit', 'noise-burst');
+      stopTransitionAudio();
       setRedRoute(true);
+      stopErrorAudio(true);
       cutsceneRunning = false;
     }, 4100);
   }
@@ -7071,6 +7241,7 @@ body.error-red .desktop-hero{
     contentsTitle.value = '';
     contentsBody.value = '';
     renderContents();
+    renderErrorsAlbum();
   }
 
   function makeDraggable(win){
@@ -7155,7 +7326,10 @@ body.error-red .desktop-hero{
     const action = () => openApp(btn.dataset.app);
     btn.addEventListener('click', action);
   });
-  $$('.window-close').forEach(btn => btn.addEventListener('click', () => closeWindow(btn.dataset.close)));
+  if (errorsPrevBtn) errorsPrevBtn.addEventListener('click', () => stepErrorsAlbum(-1));
+  if (errorsNextBtn) errorsNextBtn.addEventListener('click', () => stepErrorsAlbum(1));
+  document.addEventListener('keydown', handleErrorsAlbumKey);
+    $$('.window-close').forEach(btn => btn.addEventListener('click', () => closeWindow(btn.dataset.close)));
   windows.forEach(win => { win.addEventListener('mousedown', () => bringFront(win)); makeDraggable(win); });
   windowLayer.addEventListener('click', e => {
     if (!window.matchMedia('(max-width:720px)').matches) return;
@@ -7854,6 +8028,227 @@ body.error-red .desktop-hero{
 
     #adminLoginModal{
       z-index:40000 !important;
+    }
+  </style>
+
+
+  <style id="v20-errors-album">
+    /* v20: ERRORS album thumbnails */
+    #window-errors.window{
+      width:min(980px, calc(100vw - 72px)) !important;
+    }
+
+    #window-errors .window-body{
+      padding:16px !important;
+    }
+
+    .error-album-shell{
+      width:100%;
+    }
+
+    .error-album-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(190px, 1fr));
+      gap:14px;
+      align-items:stretch;
+    }
+
+    .error-album-card{
+      position:relative;
+      min-height:180px;
+      aspect-ratio:4 / 3;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      border:1px solid rgba(255,43,99,.28);
+      border-radius:18px;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255,43,99,.10), transparent 48%),
+        rgba(0,0,0,.36);
+      box-shadow:0 0 18px rgba(255,43,99,.08), inset 0 0 18px rgba(255,43,99,.035);
+      text-decoration:none;
+      color:#ffdce5;
+      transition:transform .14s ease, border-color .14s ease, box-shadow .14s ease, filter .14s ease;
+    }
+
+    .error-album-card:hover{
+      transform:translateY(-2px);
+      border-color:rgba(255,43,99,.62);
+      box-shadow:0 0 24px rgba(255,43,99,.22), inset 0 0 22px rgba(255,43,99,.06);
+      filter:brightness(1.05);
+    }
+
+    .error-album-card img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+      background:rgba(0,0,0,.68);
+    }
+
+    .error-album-card .asset-fallback{
+      position:absolute;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      font:900 18px/1 var(--font-display);
+      letter-spacing:.12em;
+      color:#ffdce5;
+      background:rgba(0,0,0,.70);
+    }
+
+    .error-album-tag{
+      position:absolute;
+      left:10px;
+      bottom:10px;
+      z-index:2;
+      padding:5px 8px;
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:999px;
+      background:rgba(0,0,0,.48);
+      backdrop-filter:blur(6px);
+      color:#ffcad8;
+      font:900 10px/1 var(--font-display);
+      letter-spacing:.08em;
+      text-shadow:0 0 10px rgba(255,43,99,.42);
+      pointer-events:none;
+    }
+
+    @media (max-width:720px){
+      #window-errors.window{
+        left:10px !important;
+        top:64px !important;
+        width:calc(100vw - 20px) !important;
+        height:calc(100dvh - 74px) !important;
+      }
+
+      #window-errors .window-body{
+        padding:12px !important;
+      }
+
+      .error-album-grid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+        gap:10px;
+      }
+
+      .error-album-card{
+        min-height:130px;
+        border-radius:14px;
+      }
+
+      .error-album-tag{
+        left:7px;
+        bottom:7px;
+        font-size:8px;
+        padding:4px 6px;
+      }
+    }
+
+    @media (max-width:420px){
+      .error-album-grid{
+        grid-template-columns:1fr;
+      }
+
+      .error-album-card{
+        min-height:210px;
+      }
+    }
+  </style>
+
+
+  <style id="v21-errors-carousel">
+    #window-errors.window{
+      width:min(980px, calc(100vw - 72px)) !important;
+    }
+
+    #window-errors .window-body{
+      padding:14px !important;
+    }
+
+    #window-errors .gallery-shell{
+      display:grid !important;
+      gap:12px !important;
+    }
+
+    #window-errors .gallery-frame{
+      min-height:min(64vh, 560px) !important;
+      border-radius:22px !important;
+      background:rgba(255,255,255,.03) !important;
+    }
+
+    #window-errors #errorsImage{
+      width:100% !important;
+      height:min(64vh, 560px) !important;
+      object-fit:contain !important;
+      display:block !important;
+      background:#000 !important;
+    }
+
+    #window-errors .gallery-footer{
+      justify-content:center !important;
+      padding-bottom:2px !important;
+    }
+
+    #window-errors .gallery-index{
+      min-width:fit-content;
+      padding:7px 14px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:999px;
+      background:rgba(0,0,0,.34);
+      letter-spacing:.1em !important;
+    }
+
+    @media (max-width:720px){
+      #window-errors.window{
+        left:10px !important;
+        top:64px !important;
+        width:calc(100vw - 20px) !important;
+        height:auto !important;
+        max-height:calc(100dvh - 76px) !important;
+      }
+
+      #window-errors .window-body{
+        padding:12px !important;
+      }
+
+      #window-errors .gallery-frame{
+        min-height:0 !important;
+        height:min(52dvh, 420px) !important;
+        border-radius:18px !important;
+      }
+
+      #window-errors #errorsImage{
+        height:min(52dvh, 420px) !important;
+      }
+    }
+
+    @media (max-width:420px){
+      #window-errors .gallery-frame{
+        height:min(46dvh, 340px) !important;
+      }
+
+      #window-errors #errorsImage{
+        height:min(46dvh, 340px) !important;
+      }
+
+      #window-errors .gallery-arrow{
+        width:40px !important;
+        height:40px !important;
+      }
+
+      #window-errors .gallery-index{
+        font-size:13px !important;
+        padding:6px 10px !important;
+      }
+    }
+  </style>
+
+
+  <style id="v22-edm-sound">
+    /* v24: noise.mp3 during transition; EDM.mp3 stays OFF after RED ROUTE and starts only by button. */
+    #soundToggle{
+      user-select:none;
     }
   </style>
 
