@@ -3023,7 +3023,6 @@
     }
 
 
-    /* 미션 안내 문구가 비어 있을 때 숨김 */
     #missionStageNotice:empty{
       display:none;
     }
@@ -5435,10 +5434,7 @@
 }
 
 
-/* =========================
-   VOXTEK ERROR ROUTE PATCH
-   - original sizing/layout preserved
-   ========================= */
+
 :root{
   --error-red:#ff2b63;
   --error-red-soft:rgba(255,43,99,.34);
@@ -5539,7 +5535,7 @@ body.error-red .error-noise{ opacity:.25; }
   display:none !important;
 }
 
-/* V-SYNC boot overlay: keep the old effect the user liked */
+
 .vsync-overlay{
   position:fixed;
   inset:0;
@@ -5630,7 +5626,7 @@ body.error-red .error-noise{ opacity:.25; }
   75%{ transform:skewX(-0.15deg); }
 }
 
-/* Profile overlay: use original desktop behind it */
+
 .intro-screen.error-profile-stage{
   z-index:70;
   background:rgba(0,0,0,.15);
@@ -5725,7 +5721,7 @@ body.error-red .error-noise{ opacity:.25; }
   font-weight:700;
 }
 
-/* Main desktop error theming */
+
 body.error-red .topbar,
 body.error-red .window-header{
   border-color:rgba(255,43,99,.22);
@@ -5758,7 +5754,6 @@ body.error-red .search-empty{
   box-shadow:0 0 24px rgba(255,43,99,.10), 0 14px 40px rgba(0,0,0,.54);
 }
 
-/* Conversion overlay */
 .conversion-overlay{
   position:fixed;
   inset:0;
@@ -5840,7 +5835,6 @@ body.error-red .search-empty{
   75%{ transform:skewX(-0.18deg); clip-path:inset(0 0 24% 0); }
 }
 
-/* Simplified app contents */
 .error-window-copy{
   border:1px solid rgba(123,205,255,.18);
   border-radius:18px;
@@ -5917,10 +5911,6 @@ body.error-red .contents-item{
 }
 
 
-/* =========================
-   VOXTEK ERROR ROUTE v9 INTENSITY PASS
-   - keep original sizes, increase corruption only
-   ========================= */
 :root{
   --error-noise-strong:.34;
   --error-haze-red:rgba(255, 28, 82, .26);
@@ -6014,7 +6004,6 @@ body.noise-burst .error-stutter{ animation:errorStutterBurst .58s steps(2,end) i
   75%{ opacity:.38; background-position:0 3px, 0 0; }
 }
 
-/* login: noisy, but original box scale */
 .login-screen::after{
   opacity:.18;
   background:
@@ -6031,7 +6020,6 @@ body.noise-burst .error-stutter{ animation:errorStutterBurst .58s steps(2,end) i
   89%{ filter:none; }
 }
 
-/* Boot screen: harsher old-style corruption */
 .vsync-overlay{
   background:
     radial-gradient(circle at 50% 18%, rgba(255,43,99,.24), transparent 34%),
@@ -6118,7 +6106,6 @@ body.noise-burst .error-stutter{ animation:errorStutterBurst .58s steps(2,end) i
   50%{ opacity:.72; filter:brightness(1.2); letter-spacing:.05em; clip-path:inset(8% 0 10% 0); }
 }
 
-/* original bot profile; closing corruption */
 .intro-screen{
   z-index:70;
   background:rgba(0,0,0,.18);
@@ -6171,7 +6158,6 @@ body.noise-burst .error-stutter{ animation:errorStutterBurst .58s steps(2,end) i
   100%{ opacity:0; background-position:0 0%, 0 0; }
 }
 
-/* conversion: darker, louder, bottom-left logs */
 .conversion-overlay{
   place-items:center;
   background:
@@ -6259,7 +6245,6 @@ body.noise-burst .error-stutter{ animation:errorStutterBurst .58s steps(2,end) i
   85%{ opacity:.48; }
 }
 
-/* red route main: sick, foggy, unstable */
 body.error-red .desktop-main::after{
   content:"";
   position:absolute;
@@ -6419,40 +6404,40 @@ body.error-red .desktop-hero{
 
       <div class="desktop-main">
         <div class="icon-dock">
-          <button class="desktop-icon" data-app="defeat">
-            <div class="icon-frame"><img data-blue-src="icon_00.png" data-red-src="icon_00-1.png" src="icon_00.png" alt="DEFEAT 아이콘" onerror="assetFail(this)" loading="lazy" decoding="async"><div class="icon-fallback">DEFEAT</div></div>
-            <div class="icon-label">DEFEAT</div>
+          <button class="desktop-icon" data-app="defeat" data-blue-label="MAIL" data-red-label="DEFEAT">
+            <div class="icon-frame"><img data-blue-src="icon_1.png" data-red-src="icon_1-1.png" src="icon_1.png" alt="MAIL 아이콘" onerror="assetFail(this)" loading="lazy" decoding="async"><div class="icon-fallback">MAIL</div></div>
+            <div class="icon-label">MAIL</div>
           </button>
-          <button class="desktop-icon" data-app="wiki">
-            <div class="icon-frame"><img data-blue-src="icon_1.png" data-red-src="icon_1-1.png" src="icon_1.png" alt="WIKI 아이콘" onerror="assetFail(this)" loading="lazy" decoding="async"><div class="icon-fallback">WIKI</div></div>
+          <button class="desktop-icon" data-app="wiki" data-blue-label="WIKI" data-red-label="WIKI">
+            <div class="icon-frame"><img data-blue-src="icon_2.png" data-red-src="icon_2-1.png" src="icon_2.png" alt="WIKI 아이콘" onerror="assetFail(this)" loading="lazy" decoding="async"><div class="icon-fallback">WIKI</div></div>
             <div class="icon-label">WIKI</div>
           </button>
-          <button class="desktop-icon" data-app="dread">
-            <div class="icon-frame"><img data-blue-src="icon_2.png" data-red-src="icon_2-1.png" src="icon_2.png" alt="DREAD 아이콘" onerror="assetFail(this)" loading="lazy" decoding="async"><div class="icon-fallback">DREAD</div></div>
-            <div class="icon-label">DREAD</div>
+          <button class="desktop-icon" data-app="dread" data-blue-label="MISSION" data-red-label="DREAD">
+            <div class="icon-frame"><img data-blue-src="icon_8.png" data-red-src="icon_8-1.png" src="icon_8.png" alt="MISSION 아이콘" onerror="assetFail(this)" loading="lazy" decoding="async"><div class="icon-fallback">MISSION</div></div>
+            <div class="icon-label">MISSION</div>
           </button>
-          <button class="desktop-icon" data-app="despair">
-            <div class="icon-frame"><img data-blue-src="icon_3.png" data-red-src="icon_3-1.png" src="icon_3.png" alt="DESPAIR 아이콘" onerror="assetFail(this)" loading="lazy" decoding="async"><div class="icon-fallback">DESPAIR</div></div>
-            <div class="icon-label">DESPAIR</div>
+          <button class="desktop-icon" data-app="despair" data-blue-label="VOC" data-red-label="DESPAIR">
+            <div class="icon-frame"><img data-blue-src="icon_5.png" data-red-src="icon_5-1.png" src="icon_5.png" alt="VOC 아이콘" onerror="assetFail(this)" loading="lazy" decoding="async"><div class="icon-fallback">VOC</div></div>
+            <div class="icon-label">VOC</div>
           </button>
-          <button class="desktop-icon" data-app="blackbox">
-            <div class="icon-frame"><img data-blue-src="icon_4.png" data-red-src="icon_4-1.png" src="icon_4.png" alt="BLACKBOX 아이콘" onerror="assetFail(this)" loading="lazy" decoding="async"><div class="icon-fallback">BLACKBOX</div></div>
-            <div class="icon-label">BLACKBOX</div>
+          <button class="desktop-icon" data-app="blackbox" data-blue-label="EVALUATION" data-red-label="BLACKBOX">
+            <div class="icon-frame"><img data-blue-src="icon_7.png" data-red-src="icon_7-1.png" src="icon_7.png" alt="EVALUATION 아이콘" onerror="assetFail(this)" loading="lazy" decoding="async"><div class="icon-fallback">EVALUATION</div></div>
+            <div class="icon-label">EVALUATION</div>
           </button>
-          <button class="desktop-icon" data-app="errors">
-            <div class="icon-frame"><img data-blue-src="icon_5.png" data-red-src="icon_5-1.png" src="icon_5.png" alt="ERRORS 아이콘" onerror="assetFail(this)" loading="lazy" decoding="async"><div class="icon-fallback">ERRORS</div></div>
-            <div class="icon-label">ERRORS</div>
+          <button class="desktop-icon" data-app="errors" data-blue-label="ALBUM" data-red-label="ERRORS">
+            <div class="icon-frame"><img data-blue-src="icon_4.png" data-red-src="icon_4-1.png" src="icon_4.png" alt="ALBUM 아이콘" onerror="assetFail(this)" loading="lazy" decoding="async"><div class="icon-fallback">ALBUM</div></div>
+            <div class="icon-label">ALBUM</div>
           </button>
-          <button class="desktop-icon" data-app="signal">
-            <div class="icon-frame"><img data-blue-src="icon_6.png" data-red-src="icon_6-1.png" src="icon_6.png" alt="SIGNAL 아이콘" onerror="assetFail(this)" loading="lazy" decoding="async"><div class="icon-fallback">SIGNAL</div></div>
-            <div class="icon-label">SIGNAL</div>
+          <button class="desktop-icon" data-app="signal" data-blue-label="BROADCAST" data-red-label="SIGNAL">
+            <div class="icon-frame"><img data-blue-src="icon_3.png" data-red-src="icon_3-1.png" src="icon_3.png" alt="BROADCAST 아이콘" onerror="assetFail(this)" loading="lazy" decoding="async"><div class="icon-fallback">BROADCAST</div></div>
+            <div class="icon-label">BROADCAST</div>
           </button>
-          <button class="desktop-icon" data-app="contents">
-            <div class="icon-frame"><img data-blue-src="icon_7.png" data-red-src="icon_7-1.png" src="icon_7.png" alt="CONTENTS 아이콘" onerror="assetFail(this)" loading="lazy" decoding="async"><div class="icon-fallback">CONTENTS</div></div>
+          <button class="desktop-icon" data-app="contents" data-blue-label="CONTENTS" data-red-label="CONTENTS">
+            <div class="icon-frame"><img data-blue-src="icon_00.png" data-red-src="icon_00-1.png" src="icon_00.png" alt="CONTENTS 아이콘" onerror="assetFail(this)" loading="lazy" decoding="async"><div class="icon-fallback">CONTENTS</div></div>
             <div class="icon-label">CONTENTS</div>
           </button>
-          <button class="desktop-icon" data-app="idcard">
-            <div class="icon-frame"><img data-blue-src="icon_8.png" data-red-src="icon_8-1.png" src="icon_8.png" alt="ID 아이콘" onerror="assetFail(this)" loading="lazy" decoding="async"><div class="icon-fallback">ID</div></div>
+          <button class="desktop-icon" data-app="idcard" data-blue-label="ID" data-red-label="ID">
+            <div class="icon-frame"><img data-blue-src="icon_6.png" data-red-src="icon_6-1.png" src="icon_6.png" alt="ID 아이콘" onerror="assetFail(this)" loading="lazy" decoding="async"><div class="icon-fallback">ID</div></div>
             <div class="icon-label">ID</div>
           </button>
         </div>
@@ -6465,27 +6450,89 @@ body.error-red .desktop-hero{
         <div class="window-layer" id="windowLayer">
           <section class="window hidden" id="window-defeat" style="top:84px; left:136px; width:min(820px, calc(100vw - 72px));">
             <div class="window-header" data-drag-handle><div class="window-title">DEFEAT <small>contaminated archive</small></div><div class="window-controls"><button class="window-btn window-close" data-close="window-defeat">✕</button></div></div>
-            <div class="window-body"><div class="error-window-copy"><h3>패배감 기록</h3><p>승패의 문제가 아니라, 이미 결론이 내려진 회선입니다. 이 구간은 복스의 자만감 아래에 남은 균열을 보관합니다.</p><p class="mono">STATUS: WRITABLE AFTER RED ROUTE</p></div></div>
+            <div class="window-body">
+              <div class="error-window-copy update-pending">
+                <h3>업데이트 예정인 페이지입니다.</h3>
+                <p>해당 기록은 현재 구상 중입니다. 정리된 데이터가 준비되는 대로 이 구간에 연결됩니다.</p>
+                <p class="mono">STATUS: PENDING_UPDATE</p>
+              </div>
+            </div>
           </section>
 
-          <section class="window hidden" id="window-wiki" style="top:96px; left:214px; width:min(860px, calc(100vw - 72px));">
-            <div class="window-header" data-drag-handle><div class="window-title">WIKI <small>corrupted voxpedia</small></div><div class="window-controls"><button class="window-btn window-close" data-close="window-wiki">✕</button></div></div>
-            <div class="window-body"><div class="search-empty"><strong>WIKI 회선 대기 중.</strong><br>기존 위키 구간을 이곳에 연결하면 됩니다. 링크형으로 바꿀 경우 JS의 <span class="mono">window-wiki</span> 처리만 교체하면 됩니다.</div></div>
+          <section class="window hidden" id="window-wiki" style="top:96px; left:214px; width:min(900px, calc(100vw - 72px));">
+            <div class="window-header" data-drag-handle><div class="window-title">WIKI <small>voxpedia search</small></div><div class="window-controls"><button class="window-btn window-close" data-close="window-wiki">✕</button></div></div>
+            <div class="window-body">
+              <div class="search-shell wiki-red-search">
+                <div class="search-bar">
+                  <input id="wikiSearchInput" class="search-input" type="text" autocomplete="off" placeholder="검색어를 입력하세요. 예: vees / errors">
+                  <button id="wikiSearchBtn" class="vox-btn vox-btn-primary" type="button">검색</button>
+                  <div class="search-tags">
+                    <button class="tag" type="button" data-wiki-entry="vees">vees</button>
+                    <button class="tag" type="button" data-wiki-entry="errors">errors</button>
+                  </div>
+                </div>
+                <div id="wikiResult" class="wiki-result">
+                  <div class="wiki-waiting error-waiting">
+                    <strong>Voxpedia 검색 대기 중.</strong>
+                    <p>좌측 검색창에 이름을 입력하면 관련 정보가 표시됩니다.</p>
+                    <p>검색 가능 항목: <span class="mono">????</span></p>
+                    <p class="wiki-wait-note">※ □부 결■■ R□□ R■□T■ 오염 ■■를 □쳐 출□■니다.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
 
           <section class="window hidden" id="window-dread" style="top:92px; left:170px; width:min(780px, calc(100vw - 72px));">
             <div class="window-header" data-drag-handle><div class="window-title">DREAD <small>fear residue</small></div><div class="window-controls"><button class="window-btn window-close" data-close="window-dread">✕</button></div></div>
-            <div class="window-body"><div class="error-window-copy"><h3>공포 잔류값</h3><p>화면 뒤편에 눌어붙은 반응입니다. 비명도, 경고음도 아닌데 계속 같은 위치에서 되돌아옵니다.</p><p class="mono">DREAD_INDEX: UNSTABLE</p></div></div>
+            <div class="window-body">
+              <div class="error-window-copy update-pending">
+                <h3>업데이트 예정인 페이지입니다.</h3>
+                <p>해당 기록은 현재 구상 중입니다. 정리된 데이터가 준비되는 대로 이 구간에 연결됩니다.</p>
+                <p class="mono">STATUS: PENDING_UPDATE</p>
+              </div>
+            </div>
           </section>
 
           <section class="window hidden" id="window-despair" style="top:112px; left:220px; width:min(780px, calc(100vw - 72px));">
             <div class="window-header" data-drag-handle><div class="window-title">DESPAIR <small>red route log</small></div><div class="window-controls"><button class="window-btn window-close" data-close="window-despair">✕</button></div></div>
-            <div class="window-body"><div class="error-window-copy"><h3>절망 회선</h3><p>도려내지 않는 이상 지워지지 않을 값. 압도적인 패배감과 공포가 내부 구조를 따라 번집니다.</p><p class="mono">BLUE CHANNEL: OVERRIDDEN</p></div></div>
+            <div class="window-body">
+              <div class="despair-book-shell">
+                <aside class="despair-book-list">
+                  <div class="despair-book-kicker">DESPAIR ARCHIVE</div>
+                  <button class="despair-chapter" type="button" data-despair-index="0"><span>프롤로그</span><b>Prologue</b></button>
+                  <button class="despair-chapter" type="button" data-despair-index="1"><span>제 1화</span><b>호환 호출</b></button>
+                  <button class="despair-chapter" type="button" data-despair-index="2"><span>제 2화</span><b>?</b></button>
+                  <button class="despair-chapter" type="button" data-despair-index="3"><span>제 3화</span><b>?</b></button>
+                </aside>
+                <section class="despair-reader">
+                  <div class="despair-reader-head">
+                    <div>
+                      <div id="despairPageLabel" class="despair-page-label">PAGE SELECT</div>
+                      <h3 id="despairTitle">목록에서 페이지를 선택하세요.</h3>
+                    </div>
+                    <div class="despair-page-controls">
+                      <button id="despairPrev" type="button" aria-label="이전 장">‹</button>
+                      <button id="despairNext" type="button" aria-label="다음 장">›</button>
+                    </div>
+                  </div>
+                  <article id="despairText" class="despair-text">
+                    <p>좌측 목록에서 기록을 선택하면 책장을 넘기듯 내용이 표시됩니다.</p>
+                  </article>
+                </section>
+              </div>
+            </div>
           </section>
 
           <section class="window hidden" id="window-blackbox" style="top:104px; left:248px; width:min(850px, calc(100vw - 72px));">
             <div class="window-header" data-drag-handle><div class="window-title">BLACKBOX <small>host interior</small></div><div class="window-controls"><button class="window-btn window-close" data-close="window-blackbox">✕</button></div></div>
-            <div class="window-body"><div class="error-window-copy"><h3>복스 내부 블랙박스</h3><p>정돈된 인터페이스 아래쪽에 남은 엉망진창의 기록입니다. 자신감, 분노, 수치심, 통제 욕구가 서로의 이름으로 저장되어 있습니다.</p><p class="mono">HOST_DATA: PARTIALLY ACCESSIBLE</p></div></div>
+            <div class="window-body">
+              <div class="error-window-copy update-pending">
+                <h3>업데이트 예정인 페이지입니다.</h3>
+                <p>해당 기록은 현재 구상 중입니다. 정리된 데이터가 준비되는 대로 이 구간에 연결됩니다.</p>
+                <p class="mono">STATUS: PENDING_UPDATE</p>
+              </div>
+            </div>
           </section>
 
           <section class="window hidden" id="window-errors" style="top:126px; left:190px; width:min(860px, calc(100vw - 72px));">
@@ -6507,12 +6554,29 @@ body.error-red .desktop-hero{
 
           <section class="window hidden" id="window-signal" style="top:104px; left:248px; width:min(880px, calc(100vw - 72px));">
             <div class="window-header" data-drag-handle><div class="window-title">SIGNAL <small>internal broadcast</small></div><div class="window-controls"><button class="window-btn window-close" data-close="window-signal">✕</button></div></div>
-            <div class="window-body"><div class="broadcast-shell"><div class="broadcast-frame"><div class="broadcast-intro"><div class="broadcast-intro-title">내부 방송</div><div class="broadcast-intro-copy">파일럿 애니메이션 링크는 추후 연결 예정입니다.</div></div></div><div class="broadcast-current">SIGNAL WAITING...</div></div></div>
+            <div class="window-body">
+              <div class="broadcast-shell">
+                <div class="broadcast-frame">
+                  <div class="broadcast-intro">
+                    <div class="broadcast-intro-title">내부 방송</div>
+                    <div class="broadcast-intro-copy">SIGNAL ROUTE CONNECTED.</div>
+                    <a class="vox-btn vox-btn-primary signal-link" href="https://youtu.be/_WVyAl-e3R8?si=_JAflVHA_nKzD6MZ" target="_blank" rel="noopener">OPEN INTERNAL BROADCAST</a>
+                  </div>
+                </div>
+                <div class="broadcast-current">SIGNAL ONLINE // _WVyAl-e3R8</div>
+              </div>
+            </div>
           </section>
 
           <section class="window hidden" id="window-contents" style="top:86px; left:188px; width:min(900px, calc(100vw - 72px));">
             <div class="window-header" data-drag-handle><div class="window-title">CONTENTS <small>story archive</small></div><div class="window-controls"><button class="window-btn window-close" data-close="window-contents">✕</button></div></div>
-            <div class="window-body"><div class="error-window-copy contents-editor"><h3>서사 기록 업로드</h3><input id="contentsTitle" type="text" placeholder="제목"><textarea id="contentsBody" placeholder="지금까지 있었던 서사/역극을 소설 형식으로 붙여넣으세요."></textarea><button id="contentsSave" class="vox-btn vox-btn-primary" type="button">저장</button><div id="contentsList" class="contents-list"></div></div></div>
+            <div class="window-body">
+              <div class="error-window-copy update-pending">
+                <h3>업데이트 예정인 페이지입니다.</h3>
+                <p>해당 기록은 현재 구상 중입니다. 정리된 데이터가 준비되는 대로 이 구간에 연결됩니다.</p>
+                <p class="mono">STATUS: PENDING_UPDATE</p>
+              </div>
+            </div>
           </section>
 
           <section class="window hidden" id="window-idcard" style="top:122px; left:350px; width:min(520px, calc(100vw - 72px));">
@@ -6694,6 +6758,9 @@ body.error-red .desktop-hero{
   const contentsBody = $('#contentsBody');
   const contentsSave = $('#contentsSave');
   const contentsList = $('#contentsList');
+  const wikiSearchInput = $('#wikiSearchInput');
+  const wikiSearchBtn = $('#wikiSearchBtn');
+  const wikiResult = $('#wikiResult');
 
   const windows = $$('.window');
   const desktopIcons = $$('.desktop-icon');
@@ -6702,6 +6769,12 @@ body.error-red .desktop-hero{
   const errorsPrevBtn = $('#errorsPrev');
   const errorsNextBtn = $('#errorsNext');
   const errorsFallback = $('#errorsFallback');
+  const despairTitle = $('#despairTitle');
+  const despairText = $('#despairText');
+  const despairPageLabel = $('#despairPageLabel');
+  const despairPrevBtn = $('#despairPrev');
+  const despairNextBtn = $('#despairNext');
+  const DESPAIR_STORIES = [{"label": "프롤로그", "title": "Prologue", "body": "처음엔 단순한 오류인 줄 알았다. 패널 위의 글자가 흔들리고, 메일 알림음이 이상하게 길게 늘어져 들렸다. 손끝은 아직 키보드 패널 위에 있었고, 미처 닫지 못한 승인 요청서가 눈앞에 떠 있었기에 분명 다음 문장을 읽으려 했다. 그다음 지시를 내리고, 그다음 보고서를 넘기고, 그다음 빌어먹을 오류를 확인하려고 했다.\n\n그런데 어느 순간, 머릿속 신호가 끊겼다. 누군가 전원을 내린 것처럼. 아니, 오래 과열된 퓨즈가 끝내 타버린 것처럼.\n\n눈을 떴을 때 가장 먼저 느껴진 건 차갑게 식은 책상 표면이었다. 한쪽 팔은 패널 위에 엉망으로 걸쳐졌고, 손바닥에는 식은땀이 흥건했다. 얼마나 세게 쥐고 있었는지 손가락 마디가 뻐근했으며, 패널에는 키보드가 눌렸는지 의미 없는 글자가 길게 입력되어 있었다. ······씨발.\n\n몸을 일으키려 하자 머리 안쪽이 둔하게 울렸다. 목덜미가 뻣뻣했고, 등은 의자에 어정쩡하게 걸친 채 굳어 있었다. 의자에서 미끄러져 바닥으로 처박히지 않은 게 신기할 정도였다.\n\n손으로 이마를 짚었다. 축축했다. 기분 나쁠 만큼. 숨을 고르기도 전에 패널을 끌어당겼다. 손끝이 미끄러져 첫 입력은 빗나갔고, 두 번째에야 겨우 시간을 확인할 수 있었다.\n\n지금 몇 시지. ······오후 8시 54분.\n\n대략 3시간인가.\n\n순간 속이 차갑게 가라앉았다. 세 시간. 책상 앞에서 아무것도 못 하고 있던 시간 동안 메일은 쌓였겠고, 누군가는 멍청한 결정을 했을지도 모른다. ······잠깐, 일은?\n\n메일함을 열자 숫자가 줄줄이 떠올랐다. 미확인 보고, 오류 리포트, 일정 변경, 승인 대기. 화면이 눈앞에서 겹쳐 보였다. 젠장. 머리가······.\n\n이를 악물고 손바닥을 바지에 대충 문질렀다. 식은땀은 쉽게 마르지 않았다. 손끝은 아직도 미세하게 떨리고 있었고, 화면 가장자리에는 얕은 노이즈가 끼어 있었다. 빌어먹을. 갑자기 왜 이 지랄인 건지.\n\n그렇게 정리하고 나서야 겨우 의자에 몸을 바로 세웠다. 등받이에 닿는 순간 다시 눈앞이 흐려졌지만, 고개를 숙이지 않았다. 아니, 숙일 수 없었다. 또 동일한 상황이 벌어졌다간 수습이 불가능했다.\n\n우선 수습을 위해 에단에게 전화를 걸었고, 어떠한 대답을 듣기도 전에 먼저 짧게 이름을 불렀다.\n\n\"에단.\"\n\n약간의 노이즈가 낀 목소리를 잠시 가다듬고, 다시 말을 이어갔다.\n\n\"······내가 대응 안 한 세 시간 동안 올라온 보고 전부 정리해. 긴급도 순으로. 승인 필요한 건 맨 위로 올리고, 처리 끝난 건 결과 붙여서.\"\n\n관자놀이가 욱신거리는 통에 손끝으로 미간을 꾹 눌렀다가, 곧 첫 번째 메일을 열었다.\n\n\"그리고··· 내가 잠시 자리를 비운 건 대외비로 처리해. 특히 발렌티노와 벨벳에겐 더더욱.\"\n"}, {"label": "제 1화", "title": "호환 호출", "body": "통화를 끊기도 전에, 사무실 안의 공기가 달라졌다.\n\n이번엔 단순한 잔상으로 넘길 수 없었다. 방금 전까지는 과부하 탓이라 쳐도, 지금의 노이즈는 외부에서 침투하듯이 들어오는 형태였다. 얇고, 집요하고, 기분 나쁠 정도로 낯설지만 익숙한 신호.\n\n사무실 조명이 한 박자 늦게 깜빡인다. ──내 공간 안에 무언가가 있다.\n\n메일을 열던 손이 멈춘다. 손끝의 떨림은 아직 완전히 가라앉지 않았고, 여전히 흐릿하게 잔상이 남았지만 늘 주의하는 만큼 기민한 자신이었다.\n\n그리고 그것을 따라 시선을 들었을 때, 맞은편 의자에 누군가 앉아 있었다.\n\n분명 방금 전까지 비어 있던 자리였다.\n\n그놈은 태연하게 소다를 빨아 마시고 있었다. 마치 원래부터 그곳에 있었다는 듯이. 아무런 침입 경고도, 요청도, 방어 시스템의 반응도 없이.\n\n내 것과 닮은 화면.\n그러나 낡고 조잡한 색감.\n지워졌어야 할 시작점의 잔재.\n\n'구형 모델.'\n\n그 단어가 머릿속에 먼저 떠올랐다.\n\n\"씨발, 빌어먹을 새끼······. 여긴 왜 왔어.\"\n\n\"내 선물 마음에 들어?\"\n\n입 밖으로 튀어나온 욕설은 생각보다 거칠게 갈라졌다. 방금 전의 여파가 아직 가시지 않은 탓이었다.\n\n자연스레 미간이 구겨지고, 당장 여기서 꺼지라며 그대로 쏘아붙이려던 말이, 네 한마디에 멈췄다.\n\n선물.\n\n방금 전 사라진 세 시간. 책상 위에 엎어진 채 아무것도 못 하고 있던 시간. 신호가 끊기고, 내부 로그마저 어긋난 그 공백. 그건 단순한 오류가 아니었다.\n\n\"······잠깐. 선물?\"\n\n놈은 즐겁다는 듯 의자를 빙글 돌렸다. 과하게 여유로운 태도였지만, 그게 방심이 아니라는 것쯤은 알 수 있었다. 신호를 다루는 방식이 너무 병적으로 지저분했고, 오히려 저 정도로 느슨하게 구는 쪽이 더 의도적인 게 분명했다.\n\n\"하하! 네 취향은 아닐 줄 알았어. 방화벽을 뚫는 대신 네 시스템 안에 남아 있던 호환 모듈을 좀 깨웠어. 우리 둘이 비록 버전은 다르더라도 기저값이 같잖아?\"\n\n호환.\n\n방화벽을 뚫은 게 아니다. 내 안에 남아 있던 구형 모듈을 깨웠다. 외부 침입이 아니라 내부 호출. 차단할 대상이 바깥에 있었던 게 아니라, 애초에 안쪽에 남아 있었다는 뜻이었다.\n\n······빌어먹을.\n\n상황을 이해하지 못할 만큼 멍청하진 않았다. 다만 그게 가능한 일이라는 사실을 미처 계산하지 못했다는 충격에, 잠시 말문이 막혔을 뿐이다.\n\n그러나 그것도 오래가진 않았다. 곧 팔짱을 낀 채 턱을 들어 올리고, 짐짓 여유로운 얼굴로 너를 내려다본다.\n\n\"하. 아주 자랑스럽겠어. 기저값이 같다는 건 네가 나와 같다는 뜻이 아니야. 내가 최고가 되기 전 지나온 시작점의 잔재가 아직 남아 있었다는 뜻일 뿐이지.\"\n\n등 뒤에서 케이블이 뻗어나갔다. 주변 기기에 하나씩 연결되자, 푸른 로그 패널들이 허공에 떠올랐다. 끊겼던 신호의 흔적. 비정상적으로 기동된 내부 모듈. 승인되지 않은 호환 호출. 사라진 세 시간의 빈 궤적.\n\n전부 눈앞에 줄줄이 펼쳐졌다.\n\n\"······좋아.\"\n\n목소리가 낮게 가라앉았다.\n\n\"그 통로, 지금부터 역추적해 주지. 네가 선물이라고 부른 그 빌어먹을 공백이, 네 무덤 입구가 될 거야.\"\n\n돌아가던 의자가 우뚝 멈췄다.\n\n놈은 음영진 자리 안에서 이쪽을 바라보았다. 웃음이 들렸다. 그러나 웃음이라기엔 지나치게 무기질했다. 오래된 기계가 감정을 흉내 내는 소리와 같은.\n\n\"들어와. 통로 열어 뒀으니까.\"\n\n케이블 끝이 허공에서 꿈틀거렸다.\n\n그리고 그 순간, 놈이 손을 뻗었다.\n\n\"아니. 그래, 내가 직접 연결해 주지.\"\n\n\"미친 새끼가······!\"\n\n반사적으로 팔을 뻗었지만 늦었다. 놈은 케이블 하나를 낚아채더니 그대로 제 뒷목에 꽂아 넣었다. 규격이 맞지 않는 접합부에서 푸른 스파크가 튀었으며, 단자 끝이 녹아내리고, 피복 타는 냄새가 집무실 안에 퍼졌다.\n\n동시에 낡은 신호가 역류한다.\n\n구형 회로 특유의 잡음. 오래된 송출 패턴. 지워졌어야 할 기저값. 그것들이 케이블을 타고 머릿속을 긁었다.\n\n눈앞이 거칠게 흔들렸다.\n\n신음이 목구멍까지 차올랐지만 이대로 무너지는 건 자존심이 허락하지 않았기에, 이를 악문 채 책상 가장자리를 움켜쥐었다. 손아귀 안에서 금속이 작게 삐걱인다.\n\n\"하······. 그래. 직접 연결해 주셨다 이거지.\"\n\n등 뒤의 케이블들이 일제히 경련하듯 꿈틀거린다. 이성적으로는 당장 회선을 끊어내야 했다.\n\n놈이 일부러 열어 둔 통로다.\n\n어떤 문제를 일으킬지 모르는 변수는 뽑아내고, 차단하고, 격리하는 게 맞았다.\n\n하지만 동시에, 이건 내 케이블이었다. 흐름을 장악하는 건 결국 나일 것이라고 확신했다.\n\n놈이 열어 둔 회선을 타고, 역으로 데이터를 긁어내기 시작한다. 전류가 거세질수록 주변 전자기기들의 불빛이 불안정하게 맥동했다.\n\n\"-… ㄲ.—^&*)) . 큭흐. 하. 들어왔군.\"\n\n\"넌 후회하게 될 거야. 네 존재를 지워 주지, 구형 모델.\"\n\n\"후/회는··· 잃을 게 많은 놈이 하는 법,이지······. 하-하.하.\"\n\n잡음 섞인 목소리가 끊겼다 이어진다. 거슬리는 웃음소리가 방안을 가득 메웠다.\n\n그리고, 그 순간이었다.\n\n[MEMORY: ██████]\n\n무언가가 열렸다.\n\n아니, 열린 게 아니었다.\n이건, 찢긴 것.\n\n깜빡.\n\n화면이 꺼졌다.\n\n깜빡.\n\n다시 켜졌다.\n\n밀려든 것은 정리된 데이터가 아니었다. 기억의 형태를 한 공백이었다. 문장도, 이미지도, 기록도 되지 못한 결락이 한꺼번에 수신부를 짓눌렀다.\n\nERR:: ▒▒▒ █사█된 이 역류하고, 기록은 중간부터 공허 기원되는 공허의 공허의 공허의 근원▒▒▒▒▒▒\n\n\"──윽, 씨발······!\"\n\n책상 모서리가 손아귀 안에서 더 크게 삐걱였다.\n\n읽었다.\n아니, 읽으려 했다.\n\n하지만 넘어온 건 메모리가 아니었다. 메모리라는 이름표를 붙인 폐허였다. 내용을 확인하는 순간 내용이 무너지고, 기록을 따라가는 순간 기록이 공백으로 접혔다. 눈앞의 패널들이 겹쳐 보이다가 서로 어긋나기 시작했다.\n\n메모리.\n\n그 글자만 잔상처럼 박혔다가 녹아내렸다.\n\n고개가 아래로 꺾였다. 헛구역질이었다. 토해낼 내용물도 없으면서, 과부하된 신호를 억지로 밀어내려는 듯 목구멍 안쪽에서 뜨거운 전류와 노이즈가 끓었다.\n\n바닥에 떨어진 것은 침도 피도 아니었다.\n\n검게 깨진 픽셀 같은 잔광과, 냉각수 냄새가 섞인 희미한 증기뿐이었다.\n\n\"이, 씨발······ 이딴 걸······ 일부러······.\"\n\n말이 제대로 이어지지 않았다. 문장 중간이 끊기고, 연결된 케이블들이 제멋대로 경련하며 주변 기기들을 끌어당겼다. 그래도 회선을 놓지 않았다.\n\n놓는 순간, 졌다는 뜻이 될 테니까.\n\n그렇게 버티던 찰나, 갑작스러운 단절이 찾아왔다.\n\n아무것도 보이지 않았다.\n\n회선을 놓은 건 아니었다. 케이블은 여전히 연결되어 있었고, 저쪽에서 밀어 넣는 데이터도 끊기지 않았다. 다만 받아들이는 쪽이 먼저 죽었다. 해석해야 할 신호가 끊긴 채, 방대한 정보만이 내부를 들이받았다.\n\n짧은 암전.\n\n그 사이 주변 기기들이 먼저 비명을 질렀다.\n\n\"──허억.\"\n\n숨을 들이킨 건지, 재부팅된 건지 모를 소리가 목 안쪽에서 터졌다. 꺼졌던 화면이 다시 켜지는 순간, 감각이 뒤늦게 한꺼번에 몰려왔다.\n\n두통.\n열기.\n목구멍을 긁는 노이즈.\n손끝을 타고 튀는 잔전류.\n\n그리고 아직도 눈앞에 잔상처럼 박혀 있는, 읽다 만 공백.\n\n\"······씨발.\"\n\n전부 읽지 못했다.\n\n아니, 이 방식으로는 읽을 수 없었다.\n\n이대로 저놈의 데이터를 통째로 삼키려 들었다간, 안쪽에 닿기도 전에 수신부가 먼저 타버린다. 그 사실을 인정하는 데까지 걸린 시간은 짧았다.\n\n받아들이는 건 별개의 문제였지만.\n\n맞은편에서 짧은 숨이 새어 나왔다. 실소에 가까웠다.\n\n\"고작 이것도 못 받아들이면서 뭘 어쩌려고.\"\n\n놈이 다가왔다.\n\n느긋했다. 이미 승부가 났다고 확신하는 걸음. 피복이 벗겨져 너덜대는 손이 턱을 움켜쥐고 고개를 들어 올렸다. 손가락 끝에 힘이 들어가자 플라스틱과 금속이 마찰하는 소리가 짧게 난다.\n\n몸이 바로 움직이지 않았다.\n방금 전 과부하와 저놈의 데이터가 내부를 긁고 있었다.\n\n\"이 방종한 새끼야. 네 세상만이 전부인 줄 알지.\"\n\n손바닥이 화면을 붙들었다.\n\n\"네가 엿본 건 기껏해야 시작점인데, 그조차도 못 버티는군.\"\n\n\"······손 치워.\"\n\n\"뭐, 그래도 여기까지 본 기념으로 선물 하나는 줘야겠지.\"\n\n불길한 전류음이 끌어올려졌다.\n\n\"도려내지 않는 이상 지워지지 않을 만한 걸로 엄선해 줄게.\"\n\n아직 끊어지지 않은 회선을 따라 무언가가 밀려들었다.\n\n이번엔 데이터가 아니었다.\n\n이건, 감정.\n\n패배감.\n공포.\n절망.\n\n남의 것이라고 인식하는 순간에도, 이미 안쪽을 긁고 있었다. 끈적하게 들러붙는 감각들이 회로 사이로 스며들었다. 밀려든 감각은 데이터라기보단 오염에 가까웠다.\n\n자만감을 먹고 사는 내부에 패배의 감각을 박아 넣는 방식.\n\n씨발, 역겨웠다.\n\n놈이 웃었다.\n\n\"잘 가지고 있어. 이것도 버티면 조금은 인정해주지.\"\n\n손이 떨어진 뒤에도 한동안 고개가 들린 채 굳어 있었다. 놈의 손바닥이 닿았던 화면 가장자리에서 검은 노이즈가 끈적하게 번졌다가 사라지길 반복한다.\n\n\"······하.\"\n\n웃음처럼 뱉으려 했으나, 목 안쪽에서 갈라진 잡음이 먼저 섞였다.\n\n손끝이 경련하듯 떨리고, 등 뒤의 케이블 몇 가닥이 뒤늦게 회선을 끊으려다 허공에서 휘청거렸다.\n\n몸은 아직 완전히 돌아오지 않았다. 내 통제를 따르지 않는다는 사실이 불쾌하기 짝이 없었다.\n\n그러나 지금껏 자존심 하나로 버텨온 내가 이 정도로 무너질 리는 없었다.\n\n아직 네게 이어져 있던 내 케이블을 움켜쥐고, 그대로 거칠게 잡아당겨 뽑아냈다.\n\n그게 너든, 나든. 어딘가를 망가뜨려도 상관없다는 듯한 우악스러운 손길이었다.\n\n\"선물이라······.\"\n\n화면에는 아직도 밀어 넣은 감정의 잔상이 얼룩처럼 남아 있었다. 손등으로 놈이 붙잡았던 자리를 거칠게 문질렀다.\n\n\"참 고맙기도 하셔라. 직접 네 약점으로 이어질 흔적을 넘겨주다니.\"\n\n숨을 고르려는 듯 잠시 말을 멈췄다. 그러나 내부 깊은 곳에서 다시금 패배감이 끈적하게 올라오는 순간, 미간이 거칠게 구겨졌다.\n\n\"씨발, 역겹군. 남의 절망을 이딴 식으로 들이밀다니.\"\n\n그러나 다음 순간, 의연한 표정을 가장하듯 억지로 입꼬리를 비틀어 올린다. 살아 있는 자존심을 기반으로 한, 거의 본능에 가까운 몸짓이었다.\n\n\"이딴 건 내 것이 아니야. 내가 그 구분도 못 할 것 같아? 잘 가지고 있으라고? 그래. 가지고 있어 주지.\"\n\n한 걸음 비틀거리듯 물러섰지만, 끝내 무릎은 꿇지 않았다.\n\n\"이건 결국 네 일부니까. 분석하고, 추적하고, 네가 어디서부터 썩어 들어갔는지 찾아낼 때까지.\"\n\n화면에 번지던 검은 노이즈 사이로 푸른 빛이 다시 선명하게 돌아온다.\n\n\"조금은 인정해 준다고 했나? 하. 필요 없어. 언제나 인정해 주는 쪽은 나야. 네까짓 놈이 하는 인정 따윈 가치가 없으니까.\"\n\n놈은 내 말을 듣고만 있었다. 그러나 이어서,\n\n딱.\n\n짧은 소리가 난다.\n\n클레퍼처럼. 장면이 바뀌는 소리처럼.\n\n\"아니.\"\n\n말투가 변했다.\n\n\"이제 네 거야.\"\n\n시야는 그대로였다. 그러나 체감의 형식이 달라졌다. 한 번 스며든 것은 더 이상 본래 누구의 것이었는지 따지는 소유의 문제로 남지 않는다. 견뎌낸 쪽의 일부가 된다.\n\n그 사실이 아주 차갑고 불쾌하게 내부에 박혔다.\n\n\"네가 그러고 싶지 않다고 해도 결국 그건 널 침해할 것이고.\"\n\n놈의 화면이 불안정하게 깜빡였다.\n\n\"넌 이미 알아버렸으니, 네가 부정하더라도 그것이 그 자리에 있었노라는 사실만큼은 변하지 않겠지.\"\n\n케이블이 우악스럽게 뜯겨 나간 반동으로, 가둬두었던 전류들이 뒤늦게 역류했다. 놈의 머리 뒤쪽 회로에서 간헐적으로 스파크가 튀었다.\n\n기긱.\n\n기기긱.\n\n소름 끼치는 구동음이 반복됐다.\n\n\"이제 네가 성공한 모든 순간마다 네가 겪어본 패배가 따라붙을 것이며, 네가 얻은 모든 것들은 언젠가 모든 것을 잃었던 상실감과 함께할 거야.\"\n\n대답하지 않았다.\n\n못 한 게 아니었다.\n\n하지 않았다.\n\n\"그게 비록 널 무너뜨리진 못하겠다만······ 뭐, 곧 알게 되겠지.\"\n\n짧은 웃음이 이어졌다.\n\n그리고 그 웃음이 끝나기도 전에, 놈의 화면 위로 검은 노이즈가 번져 나간다. 몇 차례 밝아졌다 어두워지기를 반복하던 화면이 마지막으로 알아들을 수 없는 오류를 토해냈다.\n\n\"... ██^&/.-- ███████ ... ...\"\n\n그 말을 끝으로 기체의 작동이 강제로 중단됐다.\n\n사무실은 다시 조용해졌지만, 완전히 모든 것이 종료된 건 아니었다.\n\n내부 어딘가에, 방금 전 심어진 감각이 남아 있었다. 패배감. 공포. 절망. 남의 것이라고 부정해도 이미 인식해 버린 것. 지워지지 않는 얼룩처럼, 화면 가장자리에서 아주 느리게 맥동하는 검은 노이즈.\n\n한참 동안 움직이지 못했다.\n\n손끝은 여전히 떨리고 있었다.\n\n\"······웃기지 마.\"\n\n목소리에 노이즈가 섞였다.\n\n\"아직 난 지지 않았어.\"\n\n패널을 다시 켜자 깨진 로그, 남은 회선 흔적, 강제로 열린 호환 모듈의 잔재가 푸른 화면 위로 떠올랐다.\n\n지워지지 않는다면 분석하면 된다.\n도려낼 수 없다면 격리하면 된다.\n격리할 수 없다면 이용하면 된다.\n\n그게 내 방식이었다.\n\n\"에단.\"\n\n통신을 다시 열었다. 문제가 발생되었다는 것을 누구도 느끼지 못할 만큼, 아주 초연한 목소리로.\n\n\"방금 전 사무실 내부 신호 전체 백업 떠. 외부 기록은 삭제하고, 내부 로그는 전부 내 개인 보안 구역으로 보내.\"\n\n잠시 숨을 골랐다.\n\n화면 가장자리에 검은 노이즈가 한 번 더 번졌지만, 티를 낼 수는 없었다.\n\n\"그리고 아까 한 말은 수정하지.\"\n\n대외비.\n발렌티노와 벨벳에게는 더더욱.\n\n\"그 누구에게도 말하지 마.\"\n"}, {"label": "제 2화", "title": "?", "body": ""}, {"label": "제 3화", "title": "?", "body": ""}];
   const ERROR_ALBUM = [
     { src:'error_1.png', label:'ERROR_01' },
     { src:'error_2.png', label:'ERROR_02' },
@@ -6710,12 +6783,13 @@ body.error-red .desktop-hero{
     { src:'error_5.png', label:'ERROR_05' },
     { src:'error_6.png', label:'ERROR_06' },
     { src:'error_7.png', label:'ERROR_07' },
-    { src:'error_8.png', label:'ERROR_08' },
+    { src:'error_8.jpg', label:'ERROR_08' },
     { src:'error_9.png', label:'ERROR_09' },
     { src:'error_10.png', label:'ERROR_10' },
     { src:'error_11.png', label:'ERROR_11' },
-    { src:'error_12.jpg', label:'ERROR_12' },
-    { src:'error_13.png', label:'ERROR_13' }
+    { src:'error_12.png', label:'ERROR_12' },
+    { src:'error_13.png', label:'ERROR_13' },
+    { src:'error_14.png', label:'ERROR_14' }
   ];
   let activeEmployee = null;
   let isBooting = false;
@@ -6726,6 +6800,7 @@ body.error-red .desktop-hero{
   let conversionHideTimer = null;
   let cutsceneRunning = false;
   let currentErrorAlbumIndex = 0;
+  let currentDespairIndex = -1;
 
   function safeGet(key){ try{ return localStorage.getItem(key); }catch(e){ return null; } }
   function safeSet(key, value){ try{ localStorage.setItem(key, value); }catch(e){} }
@@ -6791,12 +6866,22 @@ body.error-red .desktop-hero{
   function updateIconTheme(){
     desktopIcons.forEach(btn => {
       const img = btn.querySelector('img');
-      if (!img) return;
-      img.style.display = 'block';
-      const fallback = img.parentElement ? img.parentElement.querySelector('.icon-fallback') : null;
-      if (fallback) fallback.style.display = 'none';
-      const next = redRoute ? img.dataset.redSrc : img.dataset.blueSrc;
-      if (next) img.src = next;
+      const nextLabel = redRoute ? (btn.dataset.redLabel || '') : (btn.dataset.blueLabel || '');
+      const label = btn.querySelector('.icon-label');
+      if (label && nextLabel) label.textContent = nextLabel;
+
+      if (img){
+        img.style.display = 'block';
+        const next = redRoute ? img.dataset.redSrc : img.dataset.blueSrc;
+        if (next) img.src = next;
+        if (nextLabel) img.alt = `${nextLabel} 아이콘`;
+      }
+
+      const fallback = img && img.parentElement ? img.parentElement.querySelector('.icon-fallback') : btn.querySelector('.icon-fallback');
+      if (fallback){
+        fallback.textContent = nextLabel || fallback.textContent;
+        fallback.style.display = 'none';
+      }
     });
   }
 
@@ -6991,11 +7076,7 @@ body.error-red .desktop-hero{
   }
 
   async function unlockErrorAudioForTransition(){
-    /*
-      Browser autoplay policies are stricter when audio starts after a timeout.
-      This silently unlocks EDM during the user's click, then we unmute it only
-      when RED ROUTE finishes loading.
-    */
+
     if (!bgAudio) return;
     prepareErrorAudio();
     try{
@@ -7034,11 +7115,7 @@ body.error-red .desktop-hero{
   }
 
   async function toggleSound(){
-    /*
-      BLUE STATE: sound button acts like an icon click and starts the error-route transition.
-      During the transition, noise.mp3 plays.
-      RED ROUTE: sound button toggles EDM.mp3.
-    */
+
     if (!redRoute && !conversionPlayed){
       playConversion(true);
       return;
@@ -7050,10 +7127,7 @@ body.error-red .desktop-hero{
   }
 
   function restoreSound(){
-    /*
-      Do not autoplay on the clean/blue login route.
-      noise.mp3 plays only during transition; EDM.mp3 starts only when SOUND is pressed on RED ROUTE.
-    */
+ 
     stopTransitionAudio();
     stopErrorAudio(false);
     safeSet(SOUND_KEY, 'off');
@@ -7110,6 +7184,8 @@ body.error-red .desktop-hero{
     if (!ERROR_ALBUM.length) return;
     currentErrorAlbumIndex = (currentErrorAlbumIndex + direction + ERROR_ALBUM.length) % ERROR_ALBUM.length;
     renderErrorsAlbum();
+    renderDespairBlank();
+    renderWikiWaiting();
   }
 
   function handleErrorsAlbumKey(event){
@@ -7139,6 +7215,8 @@ body.error-red .desktop-hero{
     if (app === 'idcard') renderIdCard();
     if (app === 'contents') renderContents();
     if (app === 'errors') renderErrorsAlbum();
+    if (app === 'despair') renderDespairBlank();
+    if (app === 'wiki') { if (wikiSearchInput) wikiSearchInput.value = ''; renderWikiWaiting(); }
   }
 
   function playConversion(startSound=false){
@@ -7204,12 +7282,183 @@ body.error-red .desktop-hero{
     }, 4100);
   }
 
+
+  const WIKI_DATA = {
+    vees: {
+      nameKo: 'Vees',
+      nameEn: 'Vees',
+      img: 'vees1.jpg',
+      rows: [
+        ['구성원', 'Vox / Valentino / Velvette'],
+        ['소속', 'V-타워 / VoxTek 연합'],
+        ['분야', '미디어 · 유흥 · 패션 · 지배력']
+      ],
+      paragraphs: [
+        'Vees는 펜타그램 시티에서 가장 현대적이고, 가장 영향력 있으며, 가장 눈부신 브랜드 연합입니다.',
+        '방송, 패션, 유흥, 트렌드, 여론, 소비 심리까지. 이 셋이 손대는 순간 시장은 곧장 방향을 바꾸죠.',
+        '그 중심엔 언제나 최신 기술과 가장 빠른 감각, 그리고 압도적인 존재감이 있습니다.',
+        '한마디로 말해, 지옥에서 시대를 만든다는 게 무슨 뜻인지 궁금하다면 그냥 Vees를 보면 됩니다.'
+      ],
+      members: [
+        'Vox : 867988 @vox403_',
+        'Valentino : mariposa @pimplife_',
+        'Velvette : 𝘗𝘳𝘰𝘵𝘢𝘨𝘰𝘯𝘪𝘴𝘵 @Vel_spotlight_'
+      ]
+    },
+    errors: {
+      nameKo: 'ERRORS',
+      nameEn: 'ERR0R ROUTE',
+      img: 'errors1.png',
+      rows: [
+        ['구성원', 'V□■ / VAL■■□IN□ / VE□□ET■■'],
+        ['소속', '■■□■ / □□□□'],
+        ['분야', '미■어 · 유■ · 패■ · □□□']
+      ],
+      paragraphs: [
+        '■■□■는 ■■그□ 시■에서 가장 현□적이고, 가장 영향□ 있으며, 가장 눈부신 브□■ 연합□□다.',
+        '방송, 패션, 유흥, 트■드, 여론, 소■ 심리까지. 이 ■이 손□□ 순간 시장은 □□ 방향을 바꾸죠.',
+        '그 중■■ □제나 최신 기□과 가□ ■른 감각, 그□고 압도적인 존■감이 있습니다.',
+        '한마디로 말해, 지■■서 시대를 만■다는 게 무슨 뜻인지 궁금□□면 그냥 □□■□를 보면 됩■■.'
+      ],
+      members: [
+        'VOX : ᴠᴏx @ERR0R_99A',
+        'VALENTINO : ᴠᴀʟ @ERR0R_69V',
+        'VELVETTE : ᴠᴇʟ @ERR0R_CAK3'
+      ]
+    }
+  };
+
+  function resolveWikiKey(raw){
+    const q = String(raw || '').trim().toLowerCase();
+    if (!q) return '';
+    if (q.includes('error') || q.includes('err0r') || q.includes('errors')) return 'errors';
+    if (q.includes('vee') || q.includes('vox') || q.includes('val') || q.includes('vel') || q.includes('브이')) return 'vees';
+    return WIKI_DATA[q] ? q : '';
+  }
+
+  function renderWikiWaiting(){
+    if (!wikiResult) return;
+    wikiResult.innerHTML = `
+      <div class="wiki-waiting error-waiting">
+        <strong>Voxpedia 검색 대기 중.</strong>
+        <p>좌측 검색창에 이름을 입력하면 관련 정보가 표시됩니다.</p>
+        <p>검색 가능 항목: <span class="mono">????</span></p>
+        <p class="wiki-wait-note">※ □부 결■■ R□□ R■□T■ 오염 ■■를 □쳐 출□■니다.</p>
+      </div>`;
+  }
+
+  function renderWiki(key=''){
+    if (!wikiResult) return;
+    const resolved = resolveWikiKey(key);
+    if (!resolved){
+      renderWikiWaiting();
+      return;
+    }
+    const item = WIKI_DATA[resolved];
+    if (!item){
+      wikiResult.innerHTML = '<div class="search-empty"><strong>검색 결과 없음.</strong><br>등록된 항목은 <span class="mono">vees</span> / <span class="mono">errors</span> 뿐입니다.</div>';
+      return;
+    }
+
+    if (wikiSearchInput) wikiSearchInput.value = resolved;
+
+    const rows = item.rows.map(([k, v]) => `<dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd>`).join('');
+    const paragraphs = item.paragraphs.map(p => `<p>${escapeHtml(p)}</p>`).join('');
+    const members = item.members.map(line => `<div>${escapeHtml(line)}</div>`).join('');
+
+    wikiResult.innerHTML = `
+      <div class="wiki">
+        <aside class="wiki-left">
+          <div class="wiki-image">
+            <img src="${item.img}" alt="${escapeHtml(item.nameKo)}" onerror="assetFail(this)" loading="lazy" decoding="async">
+            <div class="fallback">${escapeHtml(item.nameKo)}</div>
+          </div>
+          <div>
+            <div class="name-ko">${escapeHtml(item.nameKo)}</div>
+            <div class="name-en">${escapeHtml(item.nameEn)}</div>
+          </div>
+        </aside>
+        <section class="wiki-right">
+          <div class="wiki-right-top">
+            <dl class="profile-grid">${rows}</dl>
+          </div>
+          <div class="wiki-right-bottom wiki-entry-copy">
+            ${paragraphs}
+            <div class="wiki-member-box">${members}</div>
+          </div>
+        </section>
+      </div>`;
+  }
+
+  function searchWiki(){
+    const key = resolveWikiKey(wikiSearchInput ? wikiSearchInput.value : '');
+    if (!key){
+      renderWikiWaiting();
+      return;
+    }
+    renderWiki(key);
+  }
+
+
+  function renderDespairBlank(){
+    currentDespairIndex = -1;
+    if (despairPageLabel) despairPageLabel.textContent = 'PAGE SELECT';
+    if (despairTitle) despairTitle.textContent = '목록에서 페이지를 선택하세요.';
+    if (despairText) despairText.innerHTML = '<p>좌측 목록에서 기록을 선택하시면 서사가 출력됩니다.</p>';
+    $$('.despair-chapter').forEach(btn => btn.classList.remove('active'));
+  }
+
+  function renderDespairStory(index){
+    const item = DESPAIR_STORIES[index];
+    if (!item) return;
+    currentDespairIndex = index;
+
+    $$('.despair-chapter').forEach(btn => {
+      btn.classList.toggle('active', Number(btn.dataset.despairIndex) === index);
+    });
+
+    if (despairPageLabel) despairPageLabel.textContent = item.label;
+    if (despairTitle) despairTitle.textContent = `${item.label} : ${item.title}`;
+
+    if (!despairText) return;
+
+    if (!item.body){
+      despairText.innerHTML = '<div class="despair-unwritten">아직 작성되지 않은 페이지입니다.</div>';
+      return;
+    }
+
+    const blocks = String(item.body)
+      .split(/\n\s*\n/g)
+      .map(part => part.trim())
+      .filter(Boolean);
+
+    despairText.innerHTML = blocks.map(part => {
+      const safe = escapeHtml(part).replace(/\n/g, '<br>');
+      return `<p>${safe}</p>`;
+    }).join('');
+    despairText.scrollTop = 0;
+  }
+
+  function stepDespairStory(direction){
+    let next = currentDespairIndex;
+    if (next < 0) next = direction > 0 ? 0 : DESPAIR_STORIES.length - 1;
+    else next = (next + direction + DESPAIR_STORIES.length) % DESPAIR_STORIES.length;
+    renderDespairStory(next);
+  }
+
   function renderIdCard(){
     const employee = activeEmployee || getStoredEmployee();
+    const joinDate = new Date(2019, 9, 29);
+    const today = new Date();
+    const joinStart = new Date(joinDate.getFullYear(), joinDate.getMonth(), joinDate.getDate());
+    const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const dayMs = 24 * 60 * 60 * 1000;
+    const tenureDays = Math.max(1, Math.floor((todayStart - joinStart) / dayMs) + 1);
+
     $('#cardName').textContent = employee ? employee.name : '-';
     $('#cardGreeting').textContent = '접속 기록이 오염되었습니다.';
-    $('#cardJoinDate').textContent = '-';
-    $('#cardDayCount').textContent = '입사 00일';
+    $('#cardJoinDate').textContent = '2019.10.29';
+    $('#cardDayCount').textContent = `입사 ${tenureDays.toLocaleString('ko-KR')}일`;
     $('#cardEmployment').textContent = '?';
     $('#cardPosition').textContent = '□■■□□□';
     const badge = $('#cardBadgeImage');
@@ -7307,7 +7556,6 @@ body.error-red .desktop-hero{
     handle.addEventListener('pointercancel', stop);
   }
 
-  // Event binding
   loginBtn.addEventListener('click', handleLogin);
   employeeNameInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleLogin(); });
   adminLoginOpenBtn.addEventListener('click', () => adminLoginModal.classList.remove('hidden'));
@@ -7326,6 +7574,12 @@ body.error-red .desktop-hero{
     const action = () => openApp(btn.dataset.app);
     btn.addEventListener('click', action);
   });
+  if (wikiSearchBtn) wikiSearchBtn.addEventListener('click', searchWiki);
+  if (wikiSearchInput) wikiSearchInput.addEventListener('keydown', e => { if (e.key === 'Enter') searchWiki(); });
+  $$('[data-wiki-entry]').forEach(btn => btn.addEventListener('click', () => renderWiki(btn.dataset.wikiEntry)));
+  if (despairPrevBtn) despairPrevBtn.addEventListener('click', () => stepDespairStory(-1));
+  if (despairNextBtn) despairNextBtn.addEventListener('click', () => stepDespairStory(1));
+  $$('.despair-chapter').forEach(btn => btn.addEventListener('click', () => renderDespairStory(Number(btn.dataset.despairIndex))));
   if (errorsPrevBtn) errorsPrevBtn.addEventListener('click', () => stepErrorsAlbum(-1));
   if (errorsNextBtn) errorsNextBtn.addEventListener('click', () => stepErrorsAlbum(1));
   document.addEventListener('keydown', handleErrorsAlbumKey);
@@ -7357,7 +7611,6 @@ body.error-red .desktop-hero{
   }
   initialize();
 
-  /* v18 defensive click rebinding */
   function forceLoginClick(event){
     if (event) {
       event.preventDefault();
@@ -7411,12 +7664,11 @@ body.error-red .desktop-hero{
   </script>
 
   <style id="v13-tuning">
-    /* 전체 기본 노이즈는 낮추고, 특정 구간만 세게 */
+
     .error-noise{ opacity:.06 !important; animation:errorNoiseMove .34s steps(3,end) infinite !important; }
     body.error-red .error-noise{ opacity:.11 !important; }
     .login-screen::after{ opacity:.14 !important; animation:errorNoiseMove .30s steps(3,end) infinite !important; }
 
-    /* 로딩창: 초반은 비교적 정상 / 끝부분만 버그처럼 강하게 */
     .vsync-overlay::before{
       opacity:.06 !important;
       animation:errorNoiseMove .24s steps(2,end) infinite !important;
@@ -7468,7 +7720,6 @@ body.error-red .desktop-hero{
       50%{ opacity:.78; letter-spacing:.04em; clip-path:inset(8% 0 12% 0); filter:brightness(1.12); }
     }
 
-    /* 전환 화면: 사진은 고정, 노이즈/세로선/가로선만 강조 */
     .conversion-overlay::before{
       opacity:.14 !important;
       animation:errorNoiseMove .18s steps(2,end) infinite !important;
@@ -7562,9 +7813,7 @@ body.error-red .desktop-hero{
 
 
   <style id="v14-no-window-shake">
-    /* v14: 창/사진 자체 흔들림 제거, 노이즈 레이어만 움직이게 고정 */
 
-    /* 로딩창은 기본 상태에서 완전히 고정 */
     .vsync-panel{
       transform:none !important;
     }
@@ -7574,7 +7823,6 @@ body.error-red .desktop-hero{
       transform:none !important;
     }
 
-    /* [ERR] pilot state... 이후에만 아주 짧은 흔들림 허용 */
     .vsync-panel.boot-error-jitter{
       animation:bootErrOnlyJitter .18s steps(2,end) 5 !important;
       transform-origin:center center;
@@ -7587,7 +7835,6 @@ body.error-red .desktop-hero{
       75%{ transform:translate3d(0,1px,0); }
     }
 
-    /* fatal 이후는 흔들지 말고 노이즈/스캔 깨짐만 */
     .vsync-panel.fatal.boot-error-jitter{
       animation:bootErrOnlyJitter .18s steps(2,end) 3 !important;
     }
@@ -7602,7 +7849,6 @@ body.error-red .desktop-hero{
       transform:none !important;
     }
 
-    /* 전환창: 카드/프레임/사진은 절대 흔들지 않음 */
     .conversion-card,
     .conversion-frame,
     .conversion-frame img{
@@ -7618,7 +7864,6 @@ body.error-red .desktop-hero{
       transform-origin:center center !important;
     }
 
-    /* 화면 전체 흔들림/찢김 방지: 전환 중 body에 남아도 무효화 */
     body.full-glitch,
     .full-glitch{
       animation:none !important;
@@ -7627,7 +7872,6 @@ body.error-red .desktop-hero{
       filter:none !important;
     }
 
-    /* 전환은 노이즈 레이어만 움직이게 */
     .conversion-overlay::before{
       transform:none !important;
       animation:errorNoiseMove .16s steps(2,end) infinite !important;
@@ -7661,9 +7905,7 @@ body.error-red .desktop-hero{
 
 
   <style id="v17-old-source-boot-cutscene">
-    /* v17: uploaded ERROR_867988 boot/cutscene source transplant */
 
-    /* 메인 화면의 굵은 가로줄 제거 */
     body.error-red .desktop-main::after{
       background:
         radial-gradient(circle at 42% 46%, rgba(255,43,99,.26), transparent 26%),
@@ -7674,7 +7916,6 @@ body.error-red .desktop-hero{
       filter:blur(.2px) !important;
     }
 
-    /* Old global hit used by ERROR_867988 */
     .glitch-hit{
       animation: fullScreenHit 0.32s steps(2) 2;
     }
@@ -7686,7 +7927,7 @@ body.error-red .desktop-hero{
       100% { filter: none; transform: translate(0); }
     }
 
-    /* BOOT — ERROR_867988 visual source */
+
     #bootScreen.boot-screen{
       --red:#ff194d;
       --blue:#42dfff;
@@ -7871,7 +8112,6 @@ body.error-red .desktop-hero{
       100% { transform: scaleY(0); opacity: 0; filter: brightness(0); }
     }
 
-    /* CUTSCENE — ERROR_867988 visual source */
     .cutscene {
       position: fixed;
       inset: 0;
@@ -7989,7 +8229,7 @@ body.error-red .desktop-hero{
 
 
   <style id="v18-click-fix">
-    /* v18: login/admin click recovery */
+
     #bootScreen:not(.active),
     #cutscene:not(.active),
     #vsyncOverlay.hidden,
@@ -8033,7 +8273,7 @@ body.error-red .desktop-hero{
 
 
   <style id="v20-errors-album">
-    /* v20: ERRORS album thumbnails */
+
     #window-errors.window{
       width:min(980px, calc(100vw - 72px)) !important;
     }
@@ -8246,9 +8486,425 @@ body.error-red .desktop-hero{
 
 
   <style id="v22-edm-sound">
-    /* v24: noise.mp3 during transition; EDM.mp3 stays OFF after RED ROUTE and starts only by button. */
+
     #soundToggle{
       user-select:none;
+    }
+  </style>
+
+
+  <style id="v25-icon-order-labels">
+
+    .desktop-icon .icon-label{
+      min-height:1.35em;
+    }
+  </style>
+
+
+  <style id="v26-wiki-vees-errors">
+    #window-wiki.window{
+      width:min(920px, calc(100vw - 72px)) !important;
+    }
+
+    #window-wiki .window-body{
+      padding:18px !important;
+    }
+
+    .wiki-red-search .search-bar{
+      align-items:center;
+    }
+
+    .wiki-red-search .search-input{
+      font-weight:800;
+    }
+
+    .wiki-result{
+      min-height:360px;
+    }
+
+    .wiki-entry-copy p{
+      margin:0 0 14px;
+      word-break:keep-all;
+    }
+
+    .wiki-member-box{
+      margin-top:18px;
+      padding:13px 14px;
+      border:1px solid rgba(123,205,255,.18);
+      border-radius:16px;
+      background:rgba(0,0,0,.20);
+      display:grid;
+      gap:7px;
+      color:#dff7ff;
+      font:800 13px/1.45 var(--font-display);
+      letter-spacing:.04em;
+    }
+
+    body.error-red .wiki-member-box{
+      border-color:rgba(255,43,99,.24);
+      color:#ffdce5;
+      box-shadow:inset 0 0 18px rgba(255,43,99,.035);
+    }
+
+    @media (max-width:720px){
+      #window-wiki.window{
+        left:10px !important;
+        top:64px !important;
+        width:calc(100vw - 20px) !important;
+        height:calc(100dvh - 74px) !important;
+      }
+
+      #window-wiki .window-body{
+        padding:12px !important;
+      }
+
+      .wiki-red-search{
+        gap:12px !important;
+      }
+
+      .wiki-red-search .search-bar{
+        display:grid !important;
+        grid-template-columns:1fr;
+      }
+
+      .wiki-red-search .search-tags{
+        width:100%;
+      }
+
+      .wiki-member-box{
+        font-size:12px;
+        line-height:1.55;
+      }
+    }
+  </style>
+
+
+  <style id="v27-wiki-waiting-error">
+    .wiki-waiting{
+      position:relative;
+      overflow:hidden;
+      min-height:170px;
+      padding:26px 28px;
+      border:1px solid rgba(123,205,255,.18);
+      border-radius:18px;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(37,208,255,.08), transparent 34%),
+        radial-gradient(circle at 86% 82%, rgba(255,43,99,.07), transparent 38%),
+        rgba(0,0,0,.16);
+      color:var(--text);
+    }
+
+    .wiki-waiting::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:.16;
+      background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,.08) 0 1px, transparent 1px 5px),
+        linear-gradient(90deg, transparent, rgba(37,208,255,.16), transparent);
+      mix-blend-mode:screen;
+    }
+
+    .wiki-waiting::after{
+      content:"QUERY_STANDBY // INDEX_PARTIAL // ROUTE_UNSTABLE";
+      position:absolute;
+      right:18px;
+      bottom:14px;
+      color:rgba(123,205,255,.26);
+      font:900 10px/1 var(--font-display);
+      letter-spacing:.12em;
+      pointer-events:none;
+    }
+
+    .wiki-waiting strong{
+      position:relative;
+      z-index:1;
+      display:block;
+      margin-bottom:12px;
+      color:#ecfbff;
+      font-size:18px;
+      text-shadow:0 0 14px rgba(37,208,255,.20);
+    }
+
+    .wiki-waiting p{
+      position:relative;
+      z-index:1;
+      margin:0 0 9px;
+      color:#b8d5e4;
+      line-height:1.7;
+      word-break:keep-all;
+    }
+
+    .wiki-waiting .wiki-wait-note{
+      color:#ffcad8;
+      opacity:.78;
+    }
+
+    body.error-red .wiki-waiting,
+    .error-waiting{
+      border-color:rgba(255,43,99,.30);
+      background:
+        radial-gradient(circle at 18% 18%, rgba(255,43,99,.12), transparent 34%),
+        radial-gradient(circle at 86% 82%, rgba(37,208,255,.06), transparent 36%),
+        rgba(0,0,0,.24);
+      box-shadow:0 0 24px rgba(255,43,99,.08), inset 0 0 22px rgba(255,43,99,.035);
+    }
+
+    body.error-red .wiki-waiting::before,
+    .error-waiting::before{
+      opacity:.24;
+      background:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E"),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.06) 0 1px, transparent 1px 5px),
+        linear-gradient(90deg, transparent, rgba(255,43,99,.22), transparent);
+      background-size:140px 140px, 100% 5px, 100% 100%;
+      animation:errorNoiseMove .22s steps(2,end) infinite;
+    }
+
+    body.error-red .wiki-waiting::after,
+    .error-waiting::after{
+      color:rgba(255,43,99,.34);
+    }
+
+    body.error-red .wiki-waiting strong,
+    .error-waiting strong{
+      color:#ffdce5;
+      text-shadow:0 0 14px rgba(255,43,99,.34);
+    }
+
+    @media (max-width:720px){
+      .wiki-waiting{
+        padding:20px 18px;
+        min-height:180px;
+      }
+
+      .wiki-waiting::after{
+        left:18px;
+        right:auto;
+        bottom:12px;
+        max-width:calc(100% - 36px);
+        white-space:normal;
+        line-height:1.4;
+      }
+    }
+  </style>
+
+
+  <style id="v29-pages-signal-id-despair">
+    .update-pending{
+      min-height:220px;
+      display:grid;
+      align-content:center;
+      justify-items:start;
+    }
+
+    .update-pending h3{
+      color:#ffdce5;
+      text-shadow:0 0 16px rgba(255,43,99,.30);
+    }
+
+    .signal-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-top:16px;
+      text-decoration:none;
+      min-height:44px;
+      padding:0 18px;
+    }
+
+    .despair-book-shell{
+      display:grid;
+      grid-template-columns:minmax(190px, 250px) minmax(0, 1fr);
+      gap:18px;
+      min-height:min(66vh, 620px);
+    }
+
+    .despair-book-list{
+      border:1px solid rgba(255,43,99,.24);
+      border-radius:18px;
+      background:rgba(0,0,0,.22);
+      padding:14px;
+      display:grid;
+      align-content:start;
+      gap:10px;
+      box-shadow:inset 0 0 22px rgba(255,43,99,.035);
+    }
+
+    .despair-book-kicker{
+      color:#ffcad8;
+      font:900 11px/1 var(--font-display);
+      letter-spacing:.16em;
+      margin:4px 2px 8px;
+      opacity:.82;
+    }
+
+    .despair-chapter{
+      width:100%;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:14px;
+      background:rgba(255,255,255,.035);
+      color:var(--text);
+      padding:12px 13px;
+      text-align:left;
+      display:grid;
+      gap:5px;
+      cursor:pointer;
+      transition:background .14s ease, border-color .14s ease, transform .14s ease, box-shadow .14s ease;
+    }
+
+    .despair-chapter span{
+      color:#ffb8cb;
+      font:900 11px/1 var(--font-display);
+      letter-spacing:.10em;
+    }
+
+    .despair-chapter b{
+      font-size:15px;
+      line-height:1.35;
+      word-break:keep-all;
+    }
+
+    .despair-chapter:hover,
+    .despair-chapter.active{
+      transform:translateY(-1px);
+      border-color:rgba(255,43,99,.48);
+      background:rgba(255,43,99,.10);
+      box-shadow:0 0 18px rgba(255,43,99,.12);
+    }
+
+    .despair-reader{
+      border:1px solid rgba(123,205,255,.16);
+      border-radius:18px;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(255,43,99,.07), transparent 34%),
+        rgba(0,0,0,.18);
+      overflow:hidden;
+      display:grid;
+      grid-template-rows:auto minmax(0, 1fr);
+    }
+
+    .despair-reader-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:18px 20px;
+      border-bottom:1px solid rgba(255,255,255,.09);
+      background:rgba(0,0,0,.18);
+    }
+
+    .despair-page-label{
+      color:#ff9db7;
+      font:900 11px/1 var(--font-display);
+      letter-spacing:.14em;
+      margin-bottom:8px;
+    }
+
+    .despair-reader h3{
+      margin:0;
+      font-size:22px;
+      color:#fff;
+      word-break:keep-all;
+    }
+
+    .despair-page-controls{
+      display:flex;
+      gap:8px;
+      flex:0 0 auto;
+    }
+
+    .despair-page-controls button{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.28);
+      color:#ecfbff;
+      font-size:26px;
+      line-height:1;
+      display:grid;
+      place-items:center;
+    }
+
+    .despair-page-controls button:hover{
+      border-color:rgba(255,43,99,.48);
+      box-shadow:0 0 18px rgba(255,43,99,.16);
+    }
+
+    .despair-text{
+      padding:24px 26px 32px;
+      overflow:auto;
+      max-height:min(58vh, 540px);
+      color:#dcecf4;
+      line-height:1.9;
+      word-break:keep-all;
+      scrollbar-width:thin;
+    }
+
+    .despair-text p{
+      margin:0 0 1.35em;
+      text-indent:.4em;
+    }
+
+    .despair-unwritten{
+      min-height:260px;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      color:#ffcad8;
+      border:1px dashed rgba(255,43,99,.26);
+      border-radius:16px;
+      background:rgba(255,43,99,.045);
+      font-weight:900;
+      letter-spacing:.03em;
+    }
+
+    @media (max-width:720px){
+      #window-despair.window{
+        left:10px !important;
+        top:64px !important;
+        width:calc(100vw - 20px) !important;
+        height:calc(100dvh - 74px) !important;
+      }
+
+      #window-despair .window-body{
+        padding:12px !important;
+      }
+
+      .despair-book-shell{
+        grid-template-columns:1fr;
+        min-height:0;
+      }
+
+      .despair-book-list{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+
+      .despair-book-kicker{
+        grid-column:1/-1;
+      }
+
+      .despair-reader-head{
+        padding:15px;
+      }
+
+      .despair-reader h3{
+        font-size:18px;
+      }
+
+      .despair-text{
+        max-height:46dvh;
+        padding:18px;
+        line-height:1.82;
+      }
+    }
+
+    @media (max-width:420px){
+      .despair-book-list{
+        grid-template-columns:1fr;
+      }
     }
   </style>
 
