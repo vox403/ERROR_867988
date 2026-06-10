@@ -6966,6 +6966,67 @@ const OLD_BOOT_LINES = [
     routeSwitchCover.classList.remove('active');
     setTimeout(() => routeSwitchCover.classList.add('hidden'), 160);
   }
+
+  function clearDesktopIconState(){
+    desktopIcons.forEach(btn => btn.blur());
+    if (document.activeElement && typeof document.activeElement.blur === 'function'){
+      document.activeElement.blur();
+    }
+  }
+
+  function waitForRouteImage(img){
+    return new Promise(resolve => {
+      if (!img || img.complete) {
+        resolve();
+        return;
+      }
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        img.removeEventListener('load', finish);
+        img.removeEventListener('error', finish);
+        resolve();
+      };
+      img.addEventListener('load', finish, { once:true });
+      img.addEventListener('error', finish, { once:true });
+      setTimeout(finish, 900);
+    });
+  }
+
+  function waitForRouteAssets(){
+    const imgs = [];
+    if (heroImg) imgs.push(heroImg);
+    desktopIcons.forEach(btn => {
+      const img = btn.querySelector('img');
+      if (img) imgs.push(img);
+    });
+    return Promise.all(imgs.map(waitForRouteImage));
+  }
+
+  function finishRouteSwitch(){
+    clearDesktopIconState();
+    document.body.classList.add('route-switch-lock', 'route-assets-pending');
+    showRouteSwitchCover();
+
+    setRedRoute(true);
+    document.body.classList.remove('glitch-hit', 'noise-burst');
+    stopTransitionAudio();
+    stopErrorAudio(true);
+
+    waitForRouteAssets().then(() => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          document.body.classList.remove('route-assets-pending');
+          setTimeout(() => {
+            document.body.classList.remove('route-switch-lock');
+            hideRouteSwitchCover();
+            clearDesktopIconState();
+          }, 180);
+        });
+      });
+    });
+  }
   function updateIconTheme(){
     desktopIcons.forEach(btn => {
       const img = btn.querySelector('img');
@@ -7336,18 +7397,7 @@ const OLD_BOOT_LINES = [
     document.body.classList.add('noise-burst');
 
     if (!cutscene || !cutLog){
-      stopTransitionAudio();
-      document.body.classList.add('route-switch-lock');
-      showRouteSwitchCover();
-      setRedRoute(true);
-      document.body.classList.remove('noise-burst');
-      stopErrorAudio(true);
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          document.body.classList.remove('route-switch-lock');
-          hideRouteSwitchCover();
-        }, 120);
-      });
+      finishRouteSwitch();
       return;
     }
 
@@ -7383,24 +7433,13 @@ const OLD_BOOT_LINES = [
     }, 3450);
 
 setTimeout(() => {
-  document.body.classList.add('route-switch-lock');
-  showRouteSwitchCover();
-
-  setRedRoute(true);
-  document.body.classList.remove('glitch-hit', 'noise-burst');
-  stopTransitionAudio();
-  stopErrorAudio(true);
+  finishRouteSwitch();
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       cutscene.className = 'cutscene';
       cutscene.setAttribute('aria-hidden', 'true');
       cutsceneRunning = false;
-
-      setTimeout(() => {
-        document.body.classList.remove('route-switch-lock');
-        hideRouteSwitchCover();
-      }, 120);
     });
   });
 }, 4050);
@@ -7708,8 +7747,14 @@ setTimeout(() => {
   confirmQuit.addEventListener('click', resetEmployee);
   quitModal.addEventListener('click', e => { if (e.target === quitModal) quitModal.classList.add('hidden'); });
   desktopIcons.forEach(btn => {
-    const action = () => openApp(btn.dataset.app);
+    const action = () => {
+      clearDesktopIconState();
+      btn.blur();
+      openApp(btn.dataset.app);
+      setTimeout(clearDesktopIconState, 0);
+    };
     btn.addEventListener('click', action);
+    btn.addEventListener('touchend', () => setTimeout(clearDesktopIconState, 0), { passive:true });
   });
   if (wikiSearchBtn) wikiSearchBtn.addEventListener('click', searchWiki);
   if (wikiSearchInput) wikiSearchInput.addEventListener('keydown', e => { if (e.key === 'Enter') searchWiki(); });
@@ -9301,6 +9346,62 @@ setTimeout(() => {
 @media (min-width:721px){
   .despair-mobile-back{
     display:none !important;
+  }
+}
+</style>
+
+<style id="mobile-route-icon-fix-0610b">
+body.route-assets-pending .icon-dock,
+body.route-assets-pending .desktop-hero,
+body.route-switch-lock .icon-dock,
+body.route-switch-lock .desktop-hero{
+  opacity:0 !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+}
+
+@media (max-width:720px){
+  .desktop-icon,
+  .desktop-icon *{
+    -webkit-tap-highlight-color:transparent !important;
+  }
+
+  .desktop-icon{
+    touch-action:manipulation;
+  }
+
+  .desktop-icon:focus,
+  .desktop-icon:focus-visible,
+  .desktop-icon:hover,
+  .desktop-icon:active,
+  body.error-red .desktop-icon:focus,
+  body.error-red .desktop-icon:focus-visible,
+  body.error-red .desktop-icon:hover,
+  body.error-red .desktop-icon:active{
+    outline:none !important;
+    background:transparent !important;
+    transform:none !important;
+    box-shadow:none !important;
+  }
+
+  .desktop-icon:focus .icon-frame,
+  .desktop-icon:active .icon-frame,
+  body.error-red .desktop-icon:focus .icon-frame,
+  body.error-red .desktop-icon:active .icon-frame{
+    transform:none !important;
+  }
+
+  body.route-assets-pending .desktop-icon,
+  body.route-switch-lock .desktop-icon{
+    animation:none !important;
+  }
+
+  .route-switch-cover{
+    transition:opacity .06s linear !important;
+  }
+
+  .route-switch-cover.active{
+    opacity:1 !important;
   }
 }
 </style>
