@@ -7485,7 +7485,309 @@ const OLD_BOOT_LINES = [
     requestAnimationFrame(() => {
       blackboxFrame.style.width = '100%';
       blackboxFrame.style.height = '100%';
+      setTimeout(applyBlackboxMobileCompact, 80);
+      setTimeout(applyBlackboxMobileCompact, 420);
     });
+  }
+
+  function applyBlackboxMobileCompact(){
+    if (!blackboxFrame) return;
+    let doc = null;
+    try {
+      doc = blackboxFrame.contentDocument || (blackboxFrame.contentWindow && blackboxFrame.contentWindow.document);
+    } catch (err) {
+      return;
+    }
+    if (!doc || !doc.head || !doc.body) return;
+
+    if (!doc.getElementById('portalBlackboxMobileCompactStyle')){
+      const style = doc.createElement('style');
+      style.id = 'portalBlackboxMobileCompactStyle';
+      style.textContent = `
+@media (max-width:720px){
+  html,
+  body{
+    height:auto !important;
+    min-height:100dvh !important;
+    overflow:auto !important;
+  }
+
+  .app{
+    height:auto !important;
+    min-height:100dvh !important;
+    display:block !important;
+  }
+
+  .topbar{
+    display:none !important;
+  }
+
+  .main{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:10px !important;
+    padding:8px !important;
+  }
+
+  .right{
+    order:1 !important;
+    display:flex !important;
+    flex-direction:column !important;
+    min-height:0 !important;
+  }
+
+  .status-row{
+    order:1 !important;
+    grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
+    gap:6px !important;
+    padding:7px !important;
+  }
+
+  .stat{
+    padding:7px 6px !important;
+    border-radius:12px !important;
+  }
+
+  .stat span{
+    font-size:8px !important;
+    letter-spacing:.07em !important;
+  }
+
+  .stat b{
+    margin-top:5px !important;
+    font-size:18px !important;
+  }
+
+  .game-wrap{
+    display:contents !important;
+  }
+
+  .stage{
+    order:2 !important;
+    min-height:300px !important;
+    border-radius:18px !important;
+    margin:0 !important;
+  }
+
+  .stage-message{
+    left:12px !important;
+    right:12px !important;
+    bottom:12px !important;
+    font-size:13px !important;
+    line-height:1.55 !important;
+  }
+
+  .controls{
+    order:3 !important;
+    display:grid !important;
+    gap:8px !important;
+    padding:10px 0 4px !important;
+    border-top:0 !important;
+    background:transparent !important;
+  }
+
+  .result{
+    min-height:18px !important;
+    padding:0 2px !important;
+    font-size:13px !important;
+    text-align:center !important;
+  }
+
+  #startBtn{
+    width:100% !important;
+    min-height:56px !important;
+    border-radius:999px !important;
+    font-size:14px !important;
+    letter-spacing:.10em !important;
+  }
+
+  .side{
+    order:4 !important;
+    display:grid !important;
+    gap:8px !important;
+    align-content:start !important;
+  }
+
+  .side .stage-card{
+    padding:12px !important;
+    border-radius:16px !important;
+  }
+
+  .side .stage-card p{
+    display:none !important;
+  }
+
+  .side .stage-card h3{
+    margin:0 !important;
+    font-size:20px !important;
+    line-height:1.25 !important;
+  }
+
+  .stage-list{
+    gap:7px !important;
+  }
+
+  .stage-btn{
+    min-height:46px !important;
+    padding:8px 10px !important;
+    border-radius:14px !important;
+  }
+
+  .stage-btn strong{
+    font-size:13px !important;
+  }
+
+  .stage-btn span{
+    font-size:8px !important;
+  }
+
+  .left{
+    order:5 !important;
+    min-height:0 !important;
+    display:block !important;
+  }
+
+  .left .section-head{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:10px !important;
+    padding:12px !important;
+    border-bottom:0 !important;
+  }
+
+  .left .section-head .kicker{
+    display:none !important;
+  }
+
+  .left .section-head h2{
+    margin:0 !important;
+    font-size:16px !important;
+    line-height:1.3 !important;
+  }
+
+  .left .section-head p{
+    display:none !important;
+  }
+
+  .mobile-log-toggle{
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    min-height:34px !important;
+    padding:0 11px !important;
+    border:1px solid rgba(255,43,99,.34) !important;
+    border-radius:999px !important;
+    color:#ffdce5 !important;
+    background:rgba(255,255,255,.04) !important;
+    font:900 11px/1 var(--font-display) !important;
+    letter-spacing:.05em !important;
+    white-space:nowrap !important;
+  }
+
+  .left:not(.mobile-log-open) .log-area{
+    display:none !important;
+  }
+
+  .left.mobile-log-open .log-area{
+    display:grid !important;
+    max-height:260px !important;
+    overflow:auto !important;
+    padding:10px !important;
+    gap:8px !important;
+    -webkit-overflow-scrolling:touch !important;
+  }
+
+  .log-card{
+    padding:10px !important;
+    border-radius:14px !important;
+  }
+
+  .log-card-title strong{
+    font-size:13px !important;
+  }
+
+  .log-card-title span{
+    font-size:8px !important;
+  }
+
+  .log-card small{
+    font-size:11px !important;
+  }
+}
+
+@media (max-width:420px){
+  .stage{
+    min-height:284px !important;
+  }
+
+  #startBtn{
+    min-height:54px !important;
+  }
+
+  .status-row{
+    padding:6px !important;
+  }
+
+  .stat b{
+    font-size:17px !important;
+  }
+}
+`;
+      doc.head.appendChild(style);
+    }
+
+    const left = doc.querySelector('.left');
+    const sectionHead = left && left.querySelector('.section-head');
+
+    if (left && sectionHead && !doc.getElementById('mobileLogToggle')){
+      const btn = doc.createElement('button');
+      btn.id = 'mobileLogToggle';
+      btn.className = 'mobile-log-toggle';
+      btn.type = 'button';
+
+      const syncLabel = () => {
+        btn.textContent = left.classList.contains('mobile-log-open') ? '기록 닫기' : '열린 기록 보기';
+      };
+
+      btn.addEventListener('click', event => {
+        event.preventDefault();
+        event.stopPropagation();
+        left.classList.toggle('mobile-log-open');
+        syncLabel();
+      });
+
+      sectionHead.appendChild(btn);
+      if (!left.dataset.portalCompactReady){
+        left.classList.remove('mobile-log-open');
+        left.dataset.portalCompactReady = '1';
+      }
+      syncLabel();
+    }
+
+    const stage = doc.getElementById('gameStage');
+    const startBtn = doc.getElementById('startBtn');
+
+    if (stage && startBtn && !startBtn.dataset.portalScrollPatch){
+      startBtn.dataset.portalScrollPatch = '1';
+      startBtn.addEventListener('click', () => {
+        setTimeout(() => {
+          stage.scrollIntoView({ block:'start', behavior:'smooth' });
+        }, 60);
+      });
+    }
+
+    if (stage){
+      doc.querySelectorAll('.stage-btn').forEach(btn => {
+        if (btn.dataset.portalScrollPatch) return;
+        btn.dataset.portalScrollPatch = '1';
+        btn.addEventListener('click', () => {
+          setTimeout(() => {
+            stage.scrollIntoView({ block:'start', behavior:'smooth' });
+          }, 80);
+        });
+      });
+    }
   }
 
   function renderErrorsAlbum(){
@@ -7998,6 +8300,14 @@ setTimeout(() => {
     employeeNameInput.addEventListener('keydown', e => {
       if (e.key === 'Enter') forceLoginClick(e);
     }, true);
+  }
+
+
+  if (blackboxFrame){
+    blackboxFrame.addEventListener('load', () => {
+      setTimeout(applyBlackboxMobileCompact, 80);
+      setTimeout(applyBlackboxMobileCompact, 420);
+    });
   }
 
 })();
