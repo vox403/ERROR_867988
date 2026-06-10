@@ -6520,6 +6520,308 @@ body.error-red .login-sound-warning{
 }
 </style>
 
+
+<style id="trace-graffiti-style">
+.trace-graffiti-layer{
+  position:fixed;
+  inset:var(--header-h) 0 0 0;
+  z-index:6;
+  pointer-events:none;
+  overflow:hidden;
+  display:none;
+}
+
+body.error-red .trace-graffiti-layer{
+  display:block;
+}
+
+.trace-graffiti{
+  position:absolute;
+  max-width:min(340px, 46vw);
+  color:rgba(255,220,229,.88);
+  font-family:var(--font-title-kr);
+  font-weight:800;
+  line-height:1.45;
+  word-break:keep-all;
+  overflow-wrap:anywhere;
+  text-shadow:
+    0 0 12px rgba(255,43,99,.55),
+    0 0 26px rgba(255,43,99,.20),
+    1px 1px 0 rgba(0,0,0,.55);
+  opacity:.82;
+  filter:blur(.08px);
+  mix-blend-mode:screen;
+  animation:traceGraffitiAppear .34s steps(3,end) both;
+}
+
+.trace-graffiti.trace-style-1{
+  color:rgba(255,151,181,.90);
+  font-family:var(--font-display);
+  letter-spacing:.05em;
+  text-transform:uppercase;
+}
+
+.trace-graffiti.trace-style-2{
+  color:rgba(196,239,255,.78);
+  font-weight:700;
+}
+
+.trace-graffiti.trace-style-3{
+  color:rgba(255,78,116,.86);
+  font-family:var(--font-mono);
+  letter-spacing:.02em;
+}
+
+.trace-graffiti.trace-style-4{
+  color:rgba(255,236,242,.82);
+  font-style:italic;
+}
+
+@keyframes traceGraffitiAppear{
+  0%{ opacity:0; transform:translateY(6px) scale(.96) rotate(var(--trace-rotate, 0deg)); filter:blur(2px); }
+  45%{ opacity:.95; filter:contrast(1.45) brightness(1.18); }
+  100%{ opacity:.82; transform:translateY(0) scale(1) rotate(var(--trace-rotate, 0deg)); filter:blur(.08px); }
+}
+
+.trace-dock{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:68;
+  pointer-events:none;
+}
+
+body.error-red .trace-dock{
+  display:block;
+}
+
+body.route-switch-lock .trace-dock,
+body.route-switch-lock .trace-graffiti-layer{
+  display:none !important;
+}
+
+.trace-tab{
+  pointer-events:auto;
+  position:fixed;
+  right:-1px;
+  top:calc(var(--header-h) + 42%);
+  width:34px;
+  min-height:108px;
+  border:1px solid rgba(255,43,99,.46);
+  border-right:0;
+  border-radius:16px 0 0 16px;
+  color:#ffdce5;
+  background:
+    linear-gradient(180deg, rgba(255,43,99,.18), rgba(8,0,8,.92)),
+    rgba(8,0,8,.90);
+  box-shadow:
+    0 0 18px rgba(255,43,99,.24),
+    inset 1px 0 0 rgba(255,255,255,.06);
+  cursor:pointer;
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+  font:900 11px/1 var(--font-display);
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 7px;
+  transform:translateX(0);
+}
+
+.trace-tab:hover{
+  background:
+    linear-gradient(180deg, rgba(255,43,99,.30), rgba(8,0,8,.94)),
+    rgba(8,0,8,.94);
+  box-shadow:0 0 24px rgba(255,43,99,.34);
+}
+
+.trace-panel{
+  pointer-events:auto;
+  position:fixed;
+  right:12px;
+  top:calc(var(--header-h) + 16px);
+  width:min(370px, calc(100vw - 42px));
+  max-height:calc(100dvh - var(--header-h) - 34px);
+  transform:translateX(calc(100% + 28px));
+  transition:transform .22s cubic-bezier(.2,.8,.2,1);
+  border:1px solid rgba(255,43,99,.38);
+  border-radius:20px;
+  background:
+    radial-gradient(circle at top left, rgba(255,43,99,.13), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(37,208,255,.06), transparent 28%),
+    rgba(5,7,13,.96);
+  box-shadow:
+    0 22px 70px rgba(0,0,0,.56),
+    0 0 34px rgba(255,43,99,.14);
+  overflow:hidden;
+  backdrop-filter:blur(10px);
+}
+
+.trace-dock.open .trace-panel{
+  transform:translateX(0);
+}
+
+.trace-dock.open .trace-tab{
+  opacity:.72;
+}
+
+.trace-head{
+  min-height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:0 11px 0 15px;
+  border-bottom:1px solid rgba(255,43,99,.22);
+  background:rgba(0,0,0,.22);
+}
+
+.trace-head strong{
+  color:#fff1f5;
+  font:900 13px/1 var(--font-display);
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+
+.trace-head span{
+  color:#ff9db7;
+  font:900 10px/1 var(--font-display);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.trace-close{
+  width:31px;
+  height:31px;
+  border-radius:11px;
+  border:1px solid rgba(255,255,255,.12);
+  color:#ffdce5;
+  background:rgba(255,255,255,.04);
+  cursor:pointer;
+}
+
+.trace-body{
+  display:grid;
+  gap:11px;
+  padding:13px;
+}
+
+.trace-identity{
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:15px;
+  padding:10px 11px;
+  background:rgba(0,0,0,.22);
+  color:#ffc9d7;
+  font-size:12px;
+  line-height:1.55;
+  overflow-wrap:anywhere;
+}
+
+.trace-write{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:8px;
+  border:1px solid rgba(255,43,99,.26);
+  border-radius:17px;
+  background:rgba(0,0,0,.26);
+  padding:8px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+.trace-write input{
+  min-width:0;
+  border:0;
+  outline:0;
+  color:#fff3f7;
+  background:transparent;
+  padding:9px 9px;
+  font-size:14px;
+  line-height:1.4;
+}
+
+.trace-write input::placeholder{
+  color:rgba(255,220,229,.42);
+}
+
+.trace-send{
+  min-height:38px;
+  border:0;
+  border-radius:13px;
+  padding:0 13px;
+  cursor:pointer;
+  color:#150107;
+  background:linear-gradient(90deg, #ff2b63, #ff8aa6);
+  font:900 11px/1 var(--font-display);
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  box-shadow:0 0 16px rgba(255,43,99,.20);
+}
+
+.trace-send:disabled,
+.trace-write input:disabled{
+  opacity:.46;
+  cursor:not-allowed;
+}
+
+.trace-status{
+  min-height:20px;
+  color:#ffb7c8;
+  font-size:12px;
+  line-height:1.55;
+}
+
+.trace-help{
+  color:rgba(255,220,229,.55);
+  font-size:11px;
+  line-height:1.6;
+  word-break:keep-all;
+}
+
+@media (max-width:720px){
+  .trace-graffiti-layer{
+    inset:54px 0 0 0;
+  }
+
+  .trace-graffiti{
+    max-width:56vw;
+    line-height:1.42;
+  }
+
+  .trace-tab{
+    top:calc(54px + 38%);
+    width:32px;
+    min-height:98px;
+    border-radius:15px 0 0 15px;
+    font-size:10px;
+  }
+
+  .trace-panel{
+    right:8px;
+    top:64px;
+    width:calc(100vw - 42px);
+    max-height:calc(100dvh - 78px);
+    border-radius:18px;
+  }
+
+  .trace-body{
+    padding:12px;
+    gap:10px;
+  }
+
+  .trace-write{
+    grid-template-columns:1fr;
+  }
+
+  .trace-send{
+    width:100%;
+    min-height:42px;
+  }
+}
+</style>
+
 </head>
 <body class="error-site">
   <div class="error-noise" aria-hidden="true"></div>
@@ -6879,6 +7181,28 @@ body.error-red .login-sound-warning{
       </div>
     </div>
 
+
+    <div id="traceGraffitiLayer" class="trace-graffiti-layer" aria-hidden="true"></div>
+
+    <aside id="traceDock" class="trace-dock" aria-hidden="true">
+      <button id="traceTab" class="trace-tab" type="button">TRACE</button>
+      <section class="trace-panel" aria-label="SIGNAL TRACE">
+        <div class="trace-head">
+          <div><strong>낙서 찌끄리기 테스트</strong><span>이름미정 </span></div>
+          <button id="traceClose" class="trace-close" type="button" aria-label="닫기">✕</button>
+        </div>
+        <div class="trace-body">
+          <div id="traceIdentity" class="trace-identity">ID 확인 중.</div>
+          <div class="trace-write">
+            <input id="traceInput" type="text" maxlength="80" autocomplete="off" placeholder="흔적 입력..." />
+            <button id="traceSend" class="trace-send" type="button">등록</button>
+          </div>
+          <div id="traceStatus" class="trace-status"></div>
+          <div class="trace-help">등록된 흔적은 RED ROUTE 화면 위 임의의 위치에 남김</div>
+        </div>
+      </section>
+    </aside>
+
     <div id="adminLoginModal" class="modal-backdrop admin-login-backdrop hidden">
       <div class="modal admin-login-modal">
         <h3>관리자 로그인</h3>
@@ -6920,12 +7244,19 @@ body.error-red .login-sound-warning{
   </div>
 
 
-  <script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
 (function(){
   'use strict';
   const STORAGE_KEY = 'voxtek_error_employee_v8';
   const SOUND_KEY = 'voxtek_error_sound_v8';
   const CONTENTS_KEY = 'voxtek_error_contents_v8';
+  const TRACE_SUPABASE_URL = 'https://gvuhbxpkmyiakyfhuish.supabase.co';
+  const TRACE_SUPABASE_KEY = 'sb_publishable_uCymLmzy-3NR9JyOL-9DtA_HmkGb0-k';
+  const TRACE_TABLE = 'voxtek_graffiti';
+  const LOGIN_TABLE = 'voxtek_login_logs';
+  const TRACE_ALLOWED_EMPLOYEE_IDS = [];
+  const TRACE_MAX_ITEMS = 90;
 
 const OLD_BOOT_LINES = [
   { text: "[OK] login token accepted", type: "ok", delay: 170 },
@@ -6992,6 +7323,15 @@ const OLD_BOOT_LINES = [
   const desktopIcons = $$('.desktop-icon');
   const heroImg = $('.desktop-hero img');
   const blackboxFrame = $('#blackboxFrame');
+  const traceDock = $('#traceDock');
+  const traceTab = $('#traceTab');
+  const traceClose = $('#traceClose');
+  const tracePanel = $('.trace-panel');
+  const traceGraffitiLayer = $('#traceGraffitiLayer');
+  const traceInput = $('#traceInput');
+  const traceSend = $('#traceSend');
+  const traceStatus = $('#traceStatus');
+  const traceIdentity = $('#traceIdentity');
   const errorsImage = $('#errorsImage');
   const errorsIndexLabel = $('#errorsIndex');
   const errorsPrevBtn = $('#errorsPrev');
@@ -7055,6 +7395,10 @@ const OLD_BOOT_LINES = [
       if (!raw) return null;
       const parsed = JSON.parse(raw);
       if (!parsed || !parsed.name) return null;
+      if (!parsed.employeeId){
+        parsed.employeeId = `ERR-${Math.floor(100000 + Math.random()*900000)}`;
+        safeSet(STORAGE_KEY, JSON.stringify(parsed));
+      }
       return parsed;
     }catch(e){ return null; }
   }
@@ -7096,6 +7440,8 @@ const OLD_BOOT_LINES = [
       if (nextHero) heroImg.src = nextHero;
     }
     updateIconTheme();
+    updateTraceVisibility();
+    if (redRoute) initTraceGraffiti();
   }
 
   function showRouteSwitchCover(){
@@ -7307,6 +7653,7 @@ const OLD_BOOT_LINES = [
     }
     loginStatus.textContent = '';
     const employee = saveEmployee(raw);
+    recordLoginLog(employee, raw);
     runBootSequence(() => showIntroProfile(employee));
   }
 
@@ -7790,6 +8137,245 @@ const OLD_BOOT_LINES = [
     }
   }
 
+
+  let traceClient = null;
+  let traceChannel = null;
+  let traceInitStarted = false;
+  const traceSeenIds = new Set();
+
+  function getPortalSupabaseClient(){
+    if (traceClient) return traceClient;
+    if (!window.supabase || !window.supabase.createClient) return null;
+    traceClient = window.supabase.createClient(TRACE_SUPABASE_URL, TRACE_SUPABASE_KEY);
+    return traceClient;
+  }
+
+  async function recordLoginLog(employee, loginName){
+    try{
+      if (!employee || !employee.employeeId || !employee.name) return;
+      const client = getPortalSupabaseClient();
+      if (!client){
+        console.warn('[VOXTEK LOGIN LOG] Supabase client is not ready.');
+        return;
+      }
+
+      const payload = {
+        employee_id: employee.employeeId,
+        display_name: employee.name,
+        login_name: loginName || employee.name,
+        route: redRoute ? 'RED_ROUTE' : 'LOGIN',
+        user_agent: navigator.userAgent || ''
+      };
+
+      const { error } = await client
+        .from(LOGIN_TABLE)
+        .insert(payload);
+
+      if (error) console.warn('[VOXTEK LOGIN LOG]', error.message);
+    }catch(err){
+      console.warn('[VOXTEK LOGIN LOG]', err);
+    }
+  }
+
+
+  function getTraceEmployee(){
+    return activeEmployee || getStoredEmployee();
+  }
+
+  function traceCanWrite(){
+    const employee = getTraceEmployee();
+    if (!employee || !employee.employeeId) return false;
+    return !TRACE_ALLOWED_EMPLOYEE_IDS.length || TRACE_ALLOWED_EMPLOYEE_IDS.includes(employee.employeeId);
+  }
+
+  function updateTraceVisibility(){
+    if (!traceDock) return;
+    traceDock.setAttribute('aria-hidden', redRoute ? 'false' : 'true');
+    if (!redRoute) closeTracePanel();
+    updateTraceIdentity();
+  }
+
+  function updateTraceIdentity(){
+    if (!traceIdentity) return;
+    const employee = getTraceEmployee();
+    const id = employee && employee.employeeId ? employee.employeeId : 'NO-ID';
+    const name = employee && employee.name ? employee.name : '-';
+    const allowed = traceCanWrite();
+    traceIdentity.textContent = `${name} // ${id} // ${allowed ? 'WRITE OPEN' : 'READ ONLY'}`;
+    if (traceInput) traceInput.disabled = !allowed;
+    if (traceSend) traceSend.disabled = !allowed;
+    if (traceStatus && !allowed) traceStatus.textContent = employee ? '이 계정은 아직 작성 권한이 없습니다.' : '로그인 정보가 없습니다.';
+  }
+
+  function openTracePanel(){
+    if (!traceDock) return;
+    traceDock.classList.add('open');
+    updateTraceIdentity();
+    initTraceGraffiti();
+    setTimeout(() => traceInput && !traceInput.disabled && traceInput.focus(), 80);
+  }
+
+  function closeTracePanel(){
+    if (!traceDock) return;
+    traceDock.classList.remove('open');
+  }
+
+  function toggleTracePanel(){
+    if (!traceDock) return;
+    if (traceDock.classList.contains('open')) closeTracePanel();
+    else openTracePanel();
+  }
+
+  function setTraceStatus(message){
+    if (traceStatus) traceStatus.textContent = message || '';
+  }
+
+  function normalizeTraceRow(row){
+    return {
+      id: row.id || `${row.employee_id || 'local'}-${row.created_at || Date.now()}-${row.body || ''}`,
+      employee_id: row.employee_id || '',
+      display_name: row.display_name || 'UNKNOWN',
+      body: String(row.body || '').slice(0, 80),
+      x_percent: Number(row.x_percent || 50),
+      y_percent: Number(row.y_percent || 50),
+      rotate_deg: Number(row.rotate_deg || 0),
+      font_size: Number(row.font_size || 18),
+      style_no: Number(row.style_no || 0),
+      created_at: row.created_at || new Date().toISOString()
+    };
+  }
+
+  function renderTraceGraffiti(row, fresh=false){
+    if (!traceGraffitiLayer || !row) return;
+    const item = normalizeTraceRow(row);
+    if (!item.body.trim()) return;
+    if (traceSeenIds.has(item.id)) return;
+    traceSeenIds.add(item.id);
+
+    const el = document.createElement('div');
+    el.className = `trace-graffiti trace-style-${Math.abs(item.style_no) % 5}`;
+    el.dataset.traceId = item.id;
+    el.textContent = item.body;
+    el.title = `${item.display_name} // ${item.employee_id}`;
+    el.style.left = `${Math.max(4, Math.min(88, item.x_percent))}%`;
+    el.style.top = `${Math.max(8, Math.min(86, item.y_percent))}%`;
+    el.style.fontSize = `${Math.max(13, Math.min(28, item.font_size))}px`;
+    el.style.setProperty('--trace-rotate', `${Math.max(-24, Math.min(24, item.rotate_deg))}deg`);
+    el.style.transform = `rotate(${Math.max(-24, Math.min(24, item.rotate_deg))}deg)`;
+    if (fresh) el.classList.add('is-new');
+    traceGraffitiLayer.appendChild(el);
+
+    while (traceGraffitiLayer.children.length > TRACE_MAX_ITEMS){
+      traceSeenIds.delete(traceGraffitiLayer.children[0].dataset.traceId);
+      traceGraffitiLayer.children[0].remove();
+    }
+  }
+
+  function makeTracePayload(body){
+    const employee = getTraceEmployee();
+    const mobile = window.matchMedia('(max-width:720px)').matches;
+    return {
+      employee_id: employee && employee.employeeId ? employee.employeeId : 'NO-ID',
+      display_name: employee && employee.name ? employee.name : 'UNKNOWN',
+      body: body.slice(0, 80),
+      x_percent: Math.round((mobile ? 8 + Math.random()*68 : 8 + Math.random()*76) * 10) / 10,
+      y_percent: Math.round((12 + Math.random()*70) * 10) / 10,
+      rotate_deg: Math.round((Math.random()*34 - 17) * 10) / 10,
+      font_size: Math.floor(15 + Math.random()*9),
+      style_no: Math.floor(Math.random()*5)
+    };
+  }
+
+  async function loadTraceGraffiti(){
+    if (!traceClient) return;
+    const { data, error } = await traceClient
+      .from(TRACE_TABLE)
+      .select('id, employee_id, display_name, body, x_percent, y_percent, rotate_deg, font_size, style_no, created_at')
+      .order('created_at', { ascending:false })
+      .limit(TRACE_MAX_ITEMS);
+
+    if (error){
+      setTraceStatus(`TRACE 연결 대기: ${error.message}`);
+      return;
+    }
+
+    if (Array.isArray(data)){
+      data.reverse().forEach(row => renderTraceGraffiti(row, false));
+      if (data.length) setTraceStatus('기존 흔적을 불러왔습니다.');
+      else setTraceStatus('아직 남은 흔적이 없습니다.');
+    }
+  }
+
+  function initTraceGraffiti(){
+    updateTraceIdentity();
+    if (!redRoute) return;
+    if (traceInitStarted) return;
+    if (!window.supabase || !window.supabase.createClient){
+      setTraceStatus('Supabase 스크립트 로딩 대기 중.');
+      return;
+    }
+
+    traceInitStarted = true;
+    traceClient = getPortalSupabaseClient();
+    if (!traceClient){
+      traceInitStarted = false;
+      setTraceStatus('Supabase 연결을 확인하세요.');
+      return;
+    }
+    loadTraceGraffiti();
+
+    traceChannel = traceClient
+      .channel('voxtek-graffiti-live')
+      .on('postgres_changes', { event:'INSERT', schema:'public', table:TRACE_TABLE }, payload => {
+        renderTraceGraffiti(payload.new, true);
+        setTraceStatus('새 흔적이 수신되었습니다.');
+      })
+      .subscribe(status => {
+        if (status === 'SUBSCRIBED') setTraceStatus('LIVE TRACE 연결 완료.');
+      });
+  }
+
+  async function submitTraceGraffiti(){
+    if (!redRoute) return;
+    updateTraceIdentity();
+    if (!traceCanWrite()){
+      setTraceStatus('이 계정은 아직 작성 권한이 없습니다.');
+      return;
+    }
+
+    const text = traceInput ? traceInput.value.trim().replace(/\s+/g, ' ') : '';
+    if (!text){
+      setTraceStatus('남길 문장을 입력하세요.');
+      return;
+    }
+
+    initTraceGraffiti();
+    if (!traceClient){
+      setTraceStatus('Supabase 연결을 확인하세요.');
+      return;
+    }
+
+    const payload = makeTracePayload(text);
+    if (traceSend) traceSend.disabled = true;
+
+    const { data, error } = await traceClient
+      .from(TRACE_TABLE)
+      .insert(payload)
+      .select()
+      .single();
+
+    if (traceSend) traceSend.disabled = false;
+
+    if (error){
+      setTraceStatus(`등록 실패: ${error.message}`);
+      return;
+    }
+
+    if (traceInput) traceInput.value = '';
+    if (data) renderTraceGraffiti(data, true);
+    setTraceStatus('흔적이 남았습니다.');
+  }
+
   function renderErrorsAlbum(){
     if (!errorsImage || !errorsIndexLabel || !ERROR_ALBUM.length) return;
     const item = ERROR_ALBUM[currentErrorAlbumIndex];
@@ -8216,6 +8802,11 @@ setTimeout(() => {
     btn.addEventListener('click', action);
     btn.addEventListener('touchend', () => setTimeout(clearDesktopIconState, 0), { passive:true });
   });
+  if (traceTab) traceTab.addEventListener('click', toggleTracePanel);
+  if (traceClose) traceClose.addEventListener('click', closeTracePanel);
+  if (traceSend) traceSend.addEventListener('click', submitTraceGraffiti);
+  if (traceInput) traceInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); submitTraceGraffiti(); } });
+  if (tracePanel) tracePanel.addEventListener('click', e => e.stopPropagation());
   if (wikiSearchBtn) wikiSearchBtn.addEventListener('click', searchWiki);
   if (wikiSearchInput) wikiSearchInput.addEventListener('keydown', e => { if (e.key === 'Enter') searchWiki(); });
   $$('[data-wiki-entry]').forEach(btn => btn.addEventListener('click', () => renderWiki(btn.dataset.wikiEntry)));
