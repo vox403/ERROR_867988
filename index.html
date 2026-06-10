@@ -6369,7 +6369,7 @@ body.error-red .desktop-hero img{
   animation:none !important;
 }
 </style>
-  <style>
+<style>
 .conversion-overlay::before,
 .conversion-overlay::after,
 .conversion-frame::before,
@@ -6380,6 +6380,11 @@ body.error-red .desktop-hero img{
 .conversion-overlay.final-noise .conversion-frame::before,
 .conversion-overlay.final-noise .conversion-frame::after{
   animation:none !important;
+}
+
+body.route-switch-lock,
+body.route-switch-lock *{
+  transition:none !important;
 }
 </style>
 </head>
@@ -7350,15 +7355,26 @@ body.error-red .desktop-hero img{
       cutLog.textContent = '';
     }, 3450);
 
-    setTimeout(() => {
+   setTimeout(() => {
+  document.body.classList.add('route-switch-lock');
+
+  setRedRoute(true);
+  document.body.classList.remove('glitch-hit', 'noise-burst');
+  stopTransitionAudio();
+  stopErrorAudio(true);
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
       cutscene.className = 'cutscene';
       cutscene.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('glitch-hit', 'noise-burst');
-      stopTransitionAudio();
-      setRedRoute(true);
-      stopErrorAudio(true);
       cutsceneRunning = false;
-    }, 4100);
+
+      setTimeout(() => {
+        document.body.classList.remove('route-switch-lock');
+      }, 80);
+    });
+  });
+}, 4100);
   }
 
 
