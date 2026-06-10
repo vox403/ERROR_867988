@@ -6487,6 +6487,39 @@ body.route-switch-lock *{
 }
 </style>
 
+
+<style id="login-sound-warning-style">
+.login-sound-warning{
+  position:absolute;
+  left:30px;
+  right:30px;
+  bottom:28px;
+  z-index:3;
+  margin:0;
+  padding:0;
+  color:rgba(255, 255, 255, .84);
+  font-size:13px;
+  line-height:1.45;
+  letter-spacing:-.01em;
+  text-shadow:0 0 10px rgba(255,71,167,.20);
+  pointer-events:none;
+}
+
+body.error-red .login-sound-warning{
+  color:rgba(255, 202, 216, .86);
+}
+
+@media (max-width:720px){
+  .login-sound-warning{
+    left:20px;
+    right:20px;
+    bottom:20px;
+    font-size:12px;
+    line-height:1.45;
+  }
+}
+</style>
+
 </head>
 <body class="error-site">
   <div class="error-noise" aria-hidden="true"></div>
@@ -6522,10 +6555,10 @@ body.route-switch-lock *{
             <button id="quitBtn" class="vox-btn vox-btn-secondary hidden" type="button">퇴사하기</button>
             <button id="adminLoginOpenBtn" class="vox-btn vox-btn-secondary" type="button">관리자 로그인</button>
           </div>
-
-          <div id="loginStatus" class="login-status"></div>
+<div id="loginStatus" class="login-status"></div>
           <div id="loginNote" class="login-note"></div>
         </div>
+              <div class="login-sound-warning">※ 갑작스러운 소리 및 화면 전환 주의</div>
       </div>
     </section>
 
@@ -6695,7 +6728,8 @@ body.route-switch-lock *{
                     class="blackbox-iframe"
                     src="https://vox403.github.io/blackbox/"
                     title="BLACKBOX INNER SIGNAL"
-                    loading="lazy"
+                    loading="eager"
+                    data-src="https://vox403.github.io/blackbox/"
                     referrerpolicy="strict-origin-when-cross-origin"
                     allow="fullscreen"
                   ></iframe>
@@ -6957,6 +6991,7 @@ const OLD_BOOT_LINES = [
   const windows = $$('.window');
   const desktopIcons = $$('.desktop-icon');
   const heroImg = $('.desktop-hero img');
+  const blackboxFrame = $('#blackboxFrame');
   const errorsImage = $('#errorsImage');
   const errorsIndexLabel = $('#errorsIndex');
   const errorsPrevBtn = $('#errorsPrev');
@@ -7439,6 +7474,20 @@ const OLD_BOOT_LINES = [
   }
 
 
+  function ensureBlackboxFrame(){
+    if (!blackboxFrame) return;
+    const target = blackboxFrame.dataset.src || 'https://vox403.github.io/blackbox/';
+    const current = blackboxFrame.getAttribute('src') || '';
+    if (!current || current === 'about:blank') blackboxFrame.setAttribute('src', target);
+    blackboxFrame.style.display = 'block';
+    blackboxFrame.style.visibility = 'visible';
+    blackboxFrame.style.opacity = '1';
+    requestAnimationFrame(() => {
+      blackboxFrame.style.width = '100%';
+      blackboxFrame.style.height = '100%';
+    });
+  }
+
   function renderErrorsAlbum(){
     if (!errorsImage || !errorsIndexLabel || !ERROR_ALBUM.length) return;
     const item = ERROR_ALBUM[currentErrorAlbumIndex];
@@ -7488,6 +7537,7 @@ const OLD_BOOT_LINES = [
     if (app === 'contents') renderContents();
     if (app === 'errors') renderErrorsAlbum();
     if (app === 'despair') { renderDespairBlank(); resetDespairMobileView(); }
+    if (app === 'blackbox') ensureBlackboxFrame();
     if (app === 'wiki') { if (wikiSearchInput) wikiSearchInput.value = ''; renderWikiWaiting(); }
   }
 
@@ -9510,6 +9560,78 @@ body.route-switch-lock .desktop-hero{
 
   .route-switch-cover.active{
     opacity:1 !important;
+  }
+}
+</style>
+
+
+<style id="blackbox-mobile-visible-fix">
+@media (max-width:720px){
+  #window-blackbox.window{
+    left:8px !important;
+    top:58px !important;
+    width:calc(100vw - 16px) !important;
+    height:calc(100dvh - 66px) !important;
+    min-height:0 !important;
+    max-height:none !important;
+    border-radius:18px !important;
+    overflow:hidden !important;
+  }
+
+  #window-blackbox .window-body{
+    flex:1 1 auto !important;
+    height:calc(100% - 50px) !important;
+    min-height:0 !important;
+    max-height:none !important;
+    padding:7px !important;
+    overflow:hidden !important;
+  }
+
+  #window-blackbox .blackbox-embed-shell{
+    width:100% !important;
+    height:100% !important;
+    min-height:0 !important;
+    display:block !important;
+  }
+
+  #window-blackbox .blackbox-embed-frame{
+    width:100% !important;
+    height:100% !important;
+    min-height:0 !important;
+    display:block !important;
+    border-radius:15px !important;
+    overflow:hidden !important;
+  }
+
+  #window-blackbox .blackbox-iframe{
+    position:absolute !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    min-height:100% !important;
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    border:0 !important;
+    background:#030105 !important;
+  }
+
+  #window-blackbox .blackbox-embed-frame::after{
+    opacity:.08 !important;
+  }
+}
+
+@media (max-width:420px){
+  #window-blackbox.window{
+    left:6px !important;
+    top:56px !important;
+    width:calc(100vw - 12px) !important;
+    height:calc(100dvh - 62px) !important;
+  }
+
+  #window-blackbox .window-body{
+    height:calc(100% - 50px) !important;
+    padding:6px !important;
   }
 }
 </style>
