@@ -6386,6 +6386,8 @@ body.route-switch-lock,
 body.route-switch-lock *{
   transition:none !important;
 }
+
+
 </style>
 </head>
 <body class="error-site">
@@ -6781,15 +6783,15 @@ body.route-switch-lock *{
   const SOUND_KEY = 'voxtek_error_sound_v8';
   const CONTENTS_KEY = 'voxtek_error_contents_v8';
 
-  const OLD_BOOT_LINES = [
-    { text: "[OK] login token accepted", type: "ok", delay: 170 },
-    { text: "[OK] familiar access panel restored", type: "ok", delay: 230 },
-    { text: "[OK] bot profile layer loaded", type: "ok", delay: 300 },
-    { text: "[WARN] emotional residue detected in V-SYNC route", type: "warn", delay: 430 },
-    { text: "[WARN] host pride index contaminated", type: "warn", delay: 470 },
-    { text: "[ERR] pilot state is writing over the channel", type: "err", delay: 520 },
-    { text: "[FATAL] BLUE CHANNEL OVERRIDDEN // RED ROUTE ARMED", type: "final", delay: 690 }
-  ];
+const OLD_BOOT_LINES = [
+  { text: "[OK] login token accepted", type: "ok", delay: 170 },
+  { text: "[OK] familiar access panel restored", type: "ok", delay: 230 },
+  { text: "[OK] bot profile layer loaded", type: "ok", delay: 300 },
+  { text: "[WARN] emotional residue detected in V-SYNC route", type: "warn", delay: 430 },
+  { text: "[WARN] host pride index contaminated", type: "warn", delay: 470 },
+  { text: "[ERR] pilot state is writing over the channel", type: "err", delay: 520 },
+  { text: "[FATAL] BLUE CHANNEL OVERRIDDEN // RED ROUTE ARMED", type: "final", delay: 690 }
+];
 
   const $ = (sel, root=document) => root.querySelector(sel);
   const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
@@ -7006,14 +7008,14 @@ body.route-switch-lock *{
         if (line.type === 'final'){
           oldBootScreen.classList.add('corrupt');
           document.body.classList.add('glitch-hit');
-          setTimeout(() => document.body.classList.remove('glitch-hit'), 800);
+          setTimeout(() => document.body.classList.remove('glitch-hit'), 500);
         }
       }, total);
     });
 
     setTimeout(() => {
       oldBootScreen.classList.add('shutdown');
-    }, total + 760);
+    }, total + 600);
 
     setTimeout(() => {
       oldBootScreen.className = 'screen boot-screen';
@@ -7025,7 +7027,7 @@ body.route-switch-lock *{
       adminLoginOpenBtn.disabled = false;
       if (!quitBtn.classList.contains('hidden')) quitBtn.disabled = false;
       callback && callback();
-    }, total + 1500);
+    }, total + 1200);
   }
 
   function enterDesktop(employee){
@@ -7063,7 +7065,7 @@ body.route-switch-lock *{
       conversionPlayed = false;
       stopTransitionAudio();
       stopErrorAudio(false);
-    }, 640);
+    }, 0);
   }
   function centerIntroPopup(){
     if (!introPopup || introScreen.classList.contains('hidden')) return;
