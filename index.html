@@ -6327,12 +6327,7 @@ body.error-red .chip{
   
 body.error-red .desktop-hero{
   opacity:.26;
-  filter:
-    drop-shadow(0 0 30px rgba(255,43,99,.38))
-    hue-rotate(145deg)
-    saturate(1.18)
-    contrast(1.12)
-    blur(.3px);
+  filter:drop-shadow(0 0 26px rgba(255,43,99,.18)) blur(.2px);
   animation:heroRedBreathe 4.5s ease-in-out infinite alternate;
 }
 
@@ -6340,40 +6335,6 @@ body.error-red .desktop-hero img{
   position:relative;
   z-index:1;
 }
-
-body.error-red .desktop-hero::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  margin:auto;
-  width:min(520px, 48vw);
-  max-width:70%;
-  height:54vh;
-  max-height:54vh;
-  pointer-events:none;
-  z-index:2;
-  background:rgba(75,7,29,.32);
-  mix-blend-mode:multiply;
-  opacity:.92;
-  -webkit-mask-image:url("voxtek_1.png");
-  mask-image:url("voxtek_1.png");
-  -webkit-mask-repeat:no-repeat;
-  mask-repeat:no-repeat;
-  -webkit-mask-position:center;
-  mask-position:center;
-  -webkit-mask-size:contain;
-  mask-size:contain;
-}
-
-@media (max-width:720px){
-  body.error-red .desktop-hero::after{
-    width:min(76vw, 320px);
-    max-width:82%;
-    height:42vh;
-    max-height:42vh;
-  }
-}
-
 
 .credit-shell{display:grid;gap:16px}
 .credit-head{border:1px solid rgba(255,43,99,.26);border-radius:20px;padding:20px 20px 18px;background:radial-gradient(circle at top left,rgba(255,43,99,.13),transparent 38%),radial-gradient(circle at bottom right,rgba(37,208,255,.06),transparent 34%),rgba(0,0,0,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.025),0 0 22px rgba(255,43,99,.08)}
@@ -6511,7 +6472,7 @@ body.error-red .desktop-hero::after{
         </div>
 
         <div class="desktop-hero">
-          <img src="voxtek_1.png" alt="VOXTEK 메인 이미지" onerror="assetFail(this)" loading="lazy" decoding="async">
+          <img src="voxtek_1.png" data-blue-src="voxtek_1.png" data-red-src="voxtek_2.png" alt="VOXTEK 메인 이미지" onerror="assetFail(this)" loading="lazy" decoding="async">
           <div class="fallback">VOXTEK</div>
         </div>
 
@@ -6854,6 +6815,7 @@ body.error-red .desktop-hero::after{
 
   const windows = $$('.window');
   const desktopIcons = $$('.desktop-icon');
+  const heroImg = $('.desktop-hero img');
   const errorsImage = $('#errorsImage');
   const errorsIndexLabel = $('#errorsIndex');
   const errorsPrevBtn = $('#errorsPrev');
@@ -6951,6 +6913,10 @@ body.error-red .desktop-hero::after{
   function setRedRoute(on){
     redRoute = !!on;
     document.body.classList.toggle('error-red', redRoute);
+    if (heroImg){
+      const nextHero = redRoute ? heroImg.dataset.redSrc : heroImg.dataset.blueSrc;
+      if (nextHero) heroImg.src = nextHero;
+    }
     updateIconTheme();
   }
   function updateIconTheme(){
