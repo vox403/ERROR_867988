@@ -6822,6 +6822,457 @@ body.route-switch-lock .trace-graffiti-layer{
 }
 </style>
 
+
+<style id="trace-graffiti-board-patch">
+.trace-graffiti-layer{
+  display:none !important;
+}
+
+.trace-tab{
+  top:calc(var(--header-h) + 72px) !important;
+  width:46px !important;
+  min-height:186px !important;
+  padding:15px 9px !important;
+  border-radius:20px 0 0 20px !important;
+  font-size:12px !important;
+  letter-spacing:.18em !important;
+  background:
+    linear-gradient(180deg, rgba(255,43,99,.28), rgba(12,0,10,.96)) !important;
+  box-shadow:
+    0 0 20px rgba(255,43,99,.28),
+    inset 1px 0 0 rgba(255,255,255,.07) !important;
+}
+
+.trace-panel{
+  top:calc(var(--header-h) + 58px) !important;
+  right:12px !important;
+  width:min(520px, calc(100vw - 58px)) !important;
+  max-height:calc(100dvh - var(--header-h) - 78px) !important;
+  border-radius:22px !important;
+  background:
+    radial-gradient(circle at top left, rgba(255,43,99,.12), transparent 34%),
+    linear-gradient(180deg, rgba(11,5,13,.98), rgba(3,6,12,.97)) !important;
+}
+
+.trace-dock.open .trace-panel{
+  transform:translateX(0) !important;
+}
+
+.trace-head{
+  min-height:50px !important;
+  padding:0 12px 0 16px !important;
+}
+
+.trace-head strong{
+  font-size:13px !important;
+  letter-spacing:.13em !important;
+}
+
+.trace-head span{
+  margin-left:6px;
+  color:#ff9db7 !important;
+}
+
+.trace-body{
+  padding:14px !important;
+  gap:10px !important;
+}
+
+.trace-identity{
+  padding:9px 11px !important;
+  border-radius:15px !important;
+  font-size:11px !important;
+  color:rgba(255,214,225,.78) !important;
+}
+
+.trace-graffiti-board{
+  position:relative !important;
+  width:100% !important;
+  height:min(52vh, 480px) !important;
+  min-height:360px !important;
+  border:1px solid rgba(255,43,99,.36) !important;
+  border-radius:18px !important;
+  background:
+    linear-gradient(rgba(255,43,99,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,43,99,.045) 1px, transparent 1px),
+    radial-gradient(circle at 30% 18%, rgba(255,43,99,.08), transparent 30%),
+    radial-gradient(circle at 78% 74%, rgba(37,208,255,.035), transparent 24%),
+    rgba(2,5,10,.74) !important;
+  background-size:
+    34px 34px,
+    34px 34px,
+    100% 100%,
+    100% 100%,
+    100% 100% !important;
+  box-shadow:
+    inset 0 0 26px rgba(255,43,99,.055),
+    0 0 18px rgba(255,43,99,.08) !important;
+  overflow:hidden !important;
+  transform:none !important;
+}
+
+.trace-graffiti-board::before{
+  content:"";
+  position:absolute;
+  inset:10px;
+  border:1px solid rgba(255,255,255,.035);
+  border-radius:14px;
+  pointer-events:none;
+}
+
+.trace-graffiti-board::after{
+  content:"NOISE MEMO AREA";
+  position:absolute;
+  right:14px;
+  bottom:12px;
+  color:rgba(255,157,183,.16);
+  font:900 10px/1 var(--font-display);
+  letter-spacing:.14em;
+  pointer-events:none;
+}
+
+.trace-graffiti-board .trace-graffiti{
+  max-width:68% !important;
+  z-index:1;
+}
+
+.trace-write{
+  grid-template-columns:minmax(0,1fr) 74px !important;
+  gap:8px !important;
+  border-radius:17px !important;
+  padding:8px !important;
+  background:rgba(0,0,0,.30) !important;
+  border-color:rgba(255,43,99,.30) !important;
+}
+
+.trace-write input{
+  padding:10px 11px !important;
+  font-size:14px !important;
+}
+
+.trace-send{
+  min-height:40px !important;
+  border-radius:13px !important;
+  padding:0 12px !important;
+}
+
+.trace-status{
+  min-height:18px !important;
+  font-size:12px !important;
+}
+
+.trace-help{
+  display:none !important;
+}
+
+@media (max-width:720px){
+  .trace-tab{
+    top:88px !important;
+    width:38px !important;
+    min-height:150px !important;
+    padding:12px 8px !important;
+    border-radius:17px 0 0 17px !important;
+    font-size:10px !important;
+  }
+
+  .trace-panel{
+    top:64px !important;
+    right:8px !important;
+    width:calc(100vw - 42px) !important;
+    max-height:calc(100dvh - 78px) !important;
+    border-radius:18px !important;
+  }
+
+  .trace-body{
+    padding:12px !important;
+    gap:9px !important;
+  }
+
+  .trace-graffiti-board{
+    min-height:330px !important;
+    height:min(48dvh, 410px) !important;
+    border-radius:16px !important;
+    background-size:
+      28px 28px,
+      28px 28px,
+      100% 100%,
+      100% 100%,
+      100% 100% !important;
+  }
+
+  .trace-write{
+    grid-template-columns:1fr 68px !important;
+  }
+
+  .trace-send{
+    width:auto !important;
+    min-height:40px !important;
+  }
+
+  .trace-graffiti-board .trace-graffiti{
+    max-width:74% !important;
+  }
+}
+
+@media (max-width:420px){
+  .trace-panel{
+    width:calc(100vw - 34px) !important;
+    right:7px !important;
+  }
+
+  .trace-graffiti-board{
+    min-height:300px !important;
+    height:min(46dvh, 370px) !important;
+  }
+}
+</style>
+
+
+<style id="trace-list-board-style">
+.trace-list-board{
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:flex-end !important;
+  gap:0 !important;
+  padding:10px !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  background:
+    linear-gradient(0deg, transparent calc(20% - 1px), rgba(255,255,255,.065) 20%, transparent calc(20% + 1px)),
+    linear-gradient(0deg, transparent calc(40% - 1px), rgba(255,255,255,.065) 40%, transparent calc(40% + 1px)),
+    linear-gradient(0deg, transparent calc(60% - 1px), rgba(255,255,255,.065) 60%, transparent calc(60% + 1px)),
+    linear-gradient(0deg, transparent calc(80% - 1px), rgba(255,255,255,.065) 80%, transparent calc(80% + 1px)),
+    linear-gradient(rgba(255,43,99,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,43,99,.035) 1px, transparent 1px),
+    radial-gradient(circle at 30% 18%, rgba(255,43,99,.08), transparent 30%),
+    rgba(2,5,10,.74) !important;
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    34px 34px,
+    34px 34px,
+    100% 100%,
+    100% 100% !important;
+}
+
+.trace-list-board::after{
+  content:"TRACE MEMO AREA" !important;
+  z-index:0 !important;
+}
+
+.trace-list-board .trace-graffiti{
+  position:relative !important;
+  left:auto !important;
+  top:auto !important;
+  right:auto !important;
+  bottom:auto !important;
+  width:100% !important;
+  max-width:100% !important;
+  min-height:54px !important;
+  margin:0 !important;
+  padding:13px 14px !important;
+  border-top:1px solid rgba(255,255,255,.08) !important;
+  border-bottom:1px solid rgba(255,43,99,.14) !important;
+  border-radius:0 !important;
+  background:
+    linear-gradient(90deg, rgba(255,43,99,.045), rgba(255,255,255,.018), transparent) !important;
+  color:rgba(255,220,229,.90) !important;
+  font-family:var(--font-title-kr) !important;
+  font-size:15px !important;
+  font-weight:800 !important;
+  line-height:1.62 !important;
+  letter-spacing:-.01em !important;
+  text-transform:none !important;
+  white-space:pre-wrap !important;
+  word-break:keep-all !important;
+  overflow-wrap:anywhere !important;
+  text-align:left !important;
+  opacity:.92 !important;
+  filter:none !important;
+  mix-blend-mode:screen !important;
+  transform:none !important;
+  text-shadow:
+    0 0 10px rgba(255,43,99,.45),
+    0 0 22px rgba(255,43,99,.16) !important;
+  animation:traceListItemIn .22s steps(3,end) both !important;
+  z-index:1 !important;
+}
+
+.trace-list-board .trace-graffiti:first-of-type{
+  margin-top:auto !important;
+}
+
+.trace-list-board .trace-graffiti.is-new{
+  background:
+    linear-gradient(90deg, rgba(255,43,99,.12), rgba(255,255,255,.026), transparent) !important;
+}
+
+@keyframes traceListItemIn{
+  0%{ opacity:0; transform:translateY(8px); filter:blur(2px); }
+  55%{ opacity:1; filter:contrast(1.25) brightness(1.1); }
+  100%{ opacity:.92; transform:translateY(0); filter:none; }
+}
+
+.trace-list-board::-webkit-scrollbar{
+  width:6px;
+}
+
+.trace-list-board::-webkit-scrollbar-thumb{
+  background:rgba(255,43,99,.26);
+  border-radius:999px;
+}
+
+@media (max-width:720px){
+  .trace-list-board{
+    padding:8px !important;
+    background-size:
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      28px 28px,
+      28px 28px,
+      100% 100%,
+      100% 100% !important;
+  }
+
+  .trace-list-board .trace-graffiti{
+    min-height:50px !important;
+    padding:11px 12px !important;
+    font-size:14px !important;
+    line-height:1.58 !important;
+  }
+}
+</style>
+
+
+<style id="trace-list-8-slot-style">
+.trace-list-board{
+  height:min(58vh, 560px) !important;
+  min-height:440px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:flex-end !important;
+  gap:0 !important;
+  padding:12px !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  background:
+    linear-gradient(0deg, transparent calc(12.5% - 1px), rgba(255,255,255,.060) 12.5%, transparent calc(12.5% + 1px)),
+    linear-gradient(0deg, transparent calc(25% - 1px), rgba(255,255,255,.060) 25%, transparent calc(25% + 1px)),
+    linear-gradient(0deg, transparent calc(37.5% - 1px), rgba(255,255,255,.060) 37.5%, transparent calc(37.5% + 1px)),
+    linear-gradient(0deg, transparent calc(50% - 1px), rgba(255,255,255,.060) 50%, transparent calc(50% + 1px)),
+    linear-gradient(0deg, transparent calc(62.5% - 1px), rgba(255,255,255,.060) 62.5%, transparent calc(62.5% + 1px)),
+    linear-gradient(0deg, transparent calc(75% - 1px), rgba(255,255,255,.060) 75%, transparent calc(75% + 1px)),
+    linear-gradient(0deg, transparent calc(87.5% - 1px), rgba(255,255,255,.060) 87.5%, transparent calc(87.5% + 1px)),
+    linear-gradient(rgba(255,43,99,.042) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,43,99,.032) 1px, transparent 1px),
+    radial-gradient(circle at 30% 18%, rgba(255,43,99,.08), transparent 30%),
+    rgba(2,5,10,.74) !important;
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    34px 34px,
+    34px 34px,
+    100% 100%,
+    100% 100% !important;
+}
+
+.trace-list-board .trace-graffiti{
+  min-height:calc((100% - 2px) / 8) !important;
+  display:flex !important;
+  align-items:center !important;
+  padding:14px 16px !important;
+  border-top:1px solid rgba(255,255,255,.055) !important;
+  border-bottom:1px solid rgba(255,43,99,.115) !important;
+  background:
+    linear-gradient(90deg, rgba(255,43,99,.055), rgba(255,255,255,.018), transparent) !important;
+  font-size:15px !important;
+  line-height:1.62 !important;
+}
+
+.trace-list-board .trace-graffiti:first-of-type{
+  margin-top:auto !important;
+}
+
+.trace-list-board .trace-graffiti.is-new{
+  background:
+    linear-gradient(90deg, rgba(255,43,99,.14), rgba(255,255,255,.03), transparent) !important;
+}
+
+.trace-list-board::after{
+  content:"TRACE MEMO AREA" !important;
+  right:14px !important;
+  bottom:12px !important;
+}
+
+@media (max-width:720px){
+  .trace-list-board{
+    height:min(52dvh, 470px) !important;
+    min-height:390px !important;
+    padding:10px !important;
+    background-size:
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      28px 28px,
+      28px 28px,
+      100% 100%,
+      100% 100% !important;
+  }
+
+  .trace-list-board .trace-graffiti{
+    min-height:calc((100% - 2px) / 8) !important;
+    padding:12px 13px !important;
+    font-size:14px !important;
+    line-height:1.58 !important;
+  }
+}
+
+@media (max-width:420px){
+  .trace-list-board{
+    height:min(50dvh, 430px) !important;
+    min-height:360px !important;
+  }
+}
+</style>
+
+
+<style id="trace-no-tilt-fix">
+.trace-list-board,
+.trace-list-board *{
+  transform:none !important;
+  font-style:normal !important;
+}
+
+.trace-list-board .trace-graffiti,
+.trace-list-board .trace-graffiti.trace-style-1,
+.trace-list-board .trace-graffiti.trace-style-2,
+.trace-list-board .trace-graffiti.trace-style-3,
+.trace-list-board .trace-graffiti.trace-style-4{
+  transform:none !important;
+  font-style:normal !important;
+  rotate:0deg !important;
+  letter-spacing:-.01em !important;
+}
+
+.trace-list-board::before,
+.trace-list-board::after{
+  transform:none !important;
+}
+</style>
+
 </head>
 <body class="error-site">
   <div class="error-noise" aria-hidden="true"></div>
@@ -7193,12 +7644,12 @@ body.route-switch-lock .trace-graffiti-layer{
         </div>
         <div class="trace-body">
           <div id="traceIdentity" class="trace-identity">ID 확인 중.</div>
+          <div id="traceGraffitiBoard" class="trace-graffiti-board trace-list-board" aria-label="낙서장"></div>
           <div class="trace-write">
-            <input id="traceInput" type="text" maxlength="80" autocomplete="off" placeholder="흔적 입력..." />
+            <input id="traceInput" type="text" maxlength="80" autocomplete="off" placeholder="메시지 내용" />
             <button id="traceSend" class="trace-send" type="button">등록</button>
           </div>
           <div id="traceStatus" class="trace-status"></div>
-          <div class="trace-help">등록된 흔적은 RED ROUTE 화면 위 임의의 위치에 남김</div>
         </div>
       </section>
     </aside>
@@ -7255,8 +7706,8 @@ body.route-switch-lock .trace-graffiti-layer{
   const TRACE_SUPABASE_KEY = 'sb_publishable_uCymLmzy-3NR9JyOL-9DtA_HmkGb0-k';
   const TRACE_TABLE = 'voxtek_graffiti';
   const LOGIN_TABLE = 'voxtek_login_logs';
-  const TRACE_ALLOWED_EMPLOYEE_IDS = [];
-  const TRACE_MAX_ITEMS = 90;
+  const TRACE_ALLOWED_EMPLOYEE_IDS = ['ERR-772310', 'ERR-553168', 'ERR-654731', 'ERR-845568'];
+  const TRACE_MAX_ITEMS = 8;
 
 const OLD_BOOT_LINES = [
   { text: "[OK] login token accepted", type: "ok", delay: 170 },
@@ -7322,12 +7773,14 @@ const OLD_BOOT_LINES = [
   const windows = $$('.window');
   const desktopIcons = $$('.desktop-icon');
   const heroImg = $('.desktop-hero img');
+  const topbarLogo = $('.topbar-logo');
   const blackboxFrame = $('#blackboxFrame');
   const traceDock = $('#traceDock');
   const traceTab = $('#traceTab');
   const traceClose = $('#traceClose');
   const tracePanel = $('.trace-panel');
   const traceGraffitiLayer = $('#traceGraffitiLayer');
+  const traceGraffitiBoard = $('#traceGraffitiBoard');
   const traceInput = $('#traceInput');
   const traceSend = $('#traceSend');
   const traceStatus = $('#traceStatus');
@@ -7439,6 +7892,7 @@ const OLD_BOOT_LINES = [
       const nextHero = redRoute ? heroImg.dataset.redSrc : heroImg.dataset.blueSrc;
       if (nextHero) heroImg.src = nextHero;
     }
+    if (topbarLogo) topbarLogo.textContent = redRoute ? 'VOGITEK' : 'VOXTEK';
     updateIconTheme();
     updateTraceVisibility();
     if (redRoute) initTraceGraffiti();
@@ -8246,29 +8700,29 @@ const OLD_BOOT_LINES = [
   }
 
   function renderTraceGraffiti(row, fresh=false){
-    if (!traceGraffitiLayer || !row) return;
+    const traceTarget = traceGraffitiBoard || traceGraffitiLayer;
+    if (!traceTarget || !row) return;
     const item = normalizeTraceRow(row);
     if (!item.body.trim()) return;
     if (traceSeenIds.has(item.id)) return;
     traceSeenIds.add(item.id);
 
     const el = document.createElement('div');
-    el.className = `trace-graffiti trace-style-${Math.abs(item.style_no) % 5}`;
+    el.className = `trace-graffiti trace-list-item trace-style-${Math.abs(item.style_no) % 5}`;
     el.dataset.traceId = item.id;
     el.textContent = item.body;
     el.title = `${item.display_name} // ${item.employee_id}`;
-    el.style.left = `${Math.max(4, Math.min(88, item.x_percent))}%`;
-    el.style.top = `${Math.max(8, Math.min(86, item.y_percent))}%`;
-    el.style.fontSize = `${Math.max(13, Math.min(28, item.font_size))}px`;
-    el.style.setProperty('--trace-rotate', `${Math.max(-24, Math.min(24, item.rotate_deg))}deg`);
-    el.style.transform = `rotate(${Math.max(-24, Math.min(24, item.rotate_deg))}deg)`;
     if (fresh) el.classList.add('is-new');
-    traceGraffitiLayer.appendChild(el);
+    traceTarget.appendChild(el);
 
-    while (traceGraffitiLayer.children.length > TRACE_MAX_ITEMS){
-      traceSeenIds.delete(traceGraffitiLayer.children[0].dataset.traceId);
-      traceGraffitiLayer.children[0].remove();
+    while (traceTarget.querySelectorAll('.trace-graffiti').length > TRACE_MAX_ITEMS){
+      const first = traceTarget.querySelector('.trace-graffiti');
+      if (!first) break;
+      traceSeenIds.delete(first.dataset.traceId);
+      first.remove();
     }
+
+    traceTarget.scrollTop = traceTarget.scrollHeight;
   }
 
   function makeTracePayload(body){
@@ -8278,10 +8732,10 @@ const OLD_BOOT_LINES = [
       employee_id: employee && employee.employeeId ? employee.employeeId : 'NO-ID',
       display_name: employee && employee.name ? employee.name : 'UNKNOWN',
       body: body.slice(0, 80),
-      x_percent: Math.round((mobile ? 8 + Math.random()*68 : 8 + Math.random()*76) * 10) / 10,
-      y_percent: Math.round((12 + Math.random()*70) * 10) / 10,
-      rotate_deg: Math.round((Math.random()*34 - 17) * 10) / 10,
-      font_size: Math.floor(15 + Math.random()*9),
+      x_percent: Math.round((mobile ? 7 + Math.random()*58 : 8 + Math.random()*64) * 10) / 10,
+      y_percent: Math.round((8 + Math.random()*76) * 10) / 10,
+      rotate_deg: Math.round((Math.random()*32 - 16) * 10) / 10,
+      font_size: Math.floor((mobile ? 13 : 15) + Math.random()*8),
       style_no: Math.floor(Math.random()*5)
     };
   }
@@ -8301,7 +8755,7 @@ const OLD_BOOT_LINES = [
 
     if (Array.isArray(data)){
       data.reverse().forEach(row => renderTraceGraffiti(row, false));
-      if (data.length) setTraceStatus('기존 흔적을 불러왔습니다.');
+      if (data.length) setTraceStatus('낙서장 기록을 불러왔습니다.');
       else setTraceStatus('아직 남은 흔적이 없습니다.');
     }
   }
@@ -8373,7 +8827,7 @@ const OLD_BOOT_LINES = [
 
     if (traceInput) traceInput.value = '';
     if (data) renderTraceGraffiti(data, true);
-    setTraceStatus('흔적이 남았습니다.');
+    setTraceStatus('낙서장에 남았습니다.');
   }
 
   function renderErrorsAlbum(){
