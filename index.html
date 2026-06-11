@@ -7625,8 +7625,9 @@ body.route-switch-lock .trace-graffiti-layer{
 
 
 <style id="errors-arrow-align-fix">
+  /* padding 숫자 픽셀 올리면 기호도 위로 올라감 */
 .errors-nav{
-  top:47.5% !important;
+  top:50% !important;
   display:flex !important;
   align-items:center !important;
   justify-content:center !important;
@@ -7641,7 +7642,7 @@ body.route-switch-lock .trace-graffiti-layer{
 
 @media (max-width:720px){
   .errors-nav{
-    top:47% !important;
+    top:50% !important;
     padding-bottom:2px !important;
   }
 }
@@ -7727,7 +7728,6 @@ body.route-switch-lock .trace-graffiti-layer{
 @media (max-width:720px){ .errors-comment{ font-size:12px; } .errors-comment.is-reply{ margin-left:18px; padding-left:8px; } .errors-nav{ top:43.5% !important; } }
 </style>
 
-
 <style id="errors-photo-up-and-arrow-raise-v2">
 .errors-post-photo{
   aspect-ratio:1 / 1 !important;
@@ -7744,8 +7744,9 @@ body.route-switch-lock .trace-graffiti-layer{
   transform-origin:center center !important;
   background:#000 !important;
 }
+
 .errors-nav{
-  top:41.6% !important;
+  top:50% !important;
 }
 @media (max-width:720px){
   .errors-post-photo img{
@@ -7753,7 +7754,42 @@ body.route-switch-lock .trace-graffiti-layer{
     transform:scale(1.03) translateY(-10px) !important;
   }
   .errors-nav{
-    top:41% !important;
+    top:50% !important;
+  }
+}
+</style>
+
+<style id="errors-arrow-symbol-fix">
+  /* 앨범 < > 버튼 위치 조정 */
+.errors-nav{
+  top:50% !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  padding:0 !important;
+  line-height:1 !important;
+  font-size:0 !important; /* 기존 < > 텍스트 숨김 */
+}
+
+.errors-nav::before{
+  display:block;
+  font-size:25px;
+  line-height:1;
+  transform:translateY(-3px); /* 이 값으로 기호만 위아래 조정 (마이너스가 커지면 위로 올라감) */
+}
+
+.errors-nav.left::before{
+  content:"‹";
+}
+
+.errors-nav.right::before{
+  content:"›";
+}
+
+@media (max-width:720px){
+  .errors-nav::before{
+    font-size:23px;
+    transform:translateY(-3px); /* 모바일 조정 */
   }
 }
 </style>
