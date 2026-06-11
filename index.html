@@ -9901,6 +9901,10 @@ const OLD_BOOT_LINES = [
       const style = doc.createElement('style');
       style.id = 'portalBlackboxMobileCompactStyle';
       style.textContent = `
+.mobile-log-toggle{
+  display:none !important;
+}
+
 @media (max-width:720px){
   html,
   body{
