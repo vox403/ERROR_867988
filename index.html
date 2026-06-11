@@ -7709,6 +7709,55 @@ body.route-switch-lock .trace-graffiti-layer{
   }
 }
 </style>
+
+<style id="errors-comments-and-hashtag-style">
+.errors-caption,
+.errors-comment{ white-space:normal; }
+.errors-hashtag,
+.errors-mention{ color:#49b8ff !important; font-weight:800; }
+.errors-comments-panel{ display:grid; gap:6px; padding:5px 0 2px; }
+.errors-comments-panel.hidden{ display:none !important; }
+.errors-comment{ color:rgba(246,237,241,.78); font-size:13px; line-height:1.52; word-break:keep-all; overflow-wrap:anywhere; }
+.errors-comment strong{ color:#f6edf1; font-weight:900; }
+.errors-comment.is-reply{ margin-left:24px; padding-left:10px; border-left:1px solid rgba(73,184,255,.28); color:rgba(246,237,241,.70); }
+.errors-comment-empty{ color:rgba(246,237,241,.48); font-size:13px; line-height:1.5; }
+.errors-post-photo{ aspect-ratio:1 / 1 !important; background:#000 !important; }
+.errors-post-photo img{ width:100% !important; height:100% !important; object-fit:cover !important; object-position:center center !important; transform:none !important; background:#000 !important; }
+.errors-nav{ top:44% !important; }
+@media (max-width:720px){ .errors-comment{ font-size:12px; } .errors-comment.is-reply{ margin-left:18px; padding-left:8px; } .errors-nav{ top:43.5% !important; } }
+</style>
+
+
+<style id="errors-photo-up-and-arrow-raise-v2">
+.errors-post-photo{
+  aspect-ratio:1 / 1 !important;
+  overflow:hidden !important;
+  background:#000 !important;
+}
+.errors-post-photo img{
+  width:100% !important;
+  height:100% !important;
+  display:block !important;
+  object-fit:cover !important;
+  object-position:center 34% !important;
+  transform:scale(1.03) translateY(-12px) !important;
+  transform-origin:center center !important;
+  background:#000 !important;
+}
+.errors-nav{
+  top:41.6% !important;
+}
+@media (max-width:720px){
+  .errors-post-photo img{
+    object-position:center 33% !important;
+    transform:scale(1.03) translateY(-10px) !important;
+  }
+  .errors-nav{
+    top:41% !important;
+  }
+}
+</style>
+
 </head>
 <body class="error-site">
   <div class="error-noise" aria-hidden="true"></div>
@@ -7965,7 +8014,8 @@ body.route-switch-lock .trace-graffiti-layer{
                     <div class="errors-like-line">좋아요 <strong id="errorsLikeCount">25,241</strong>개</div>
                     <p class="errors-caption"><strong id="errorsCaptionUser">radvelvetcakes</strong> <span id="errorsCaption">이것은 한국어로 쓴 텍스트입니다.</span></p>
                     <button class="errors-comments" type="button" id="errorsCommentButton">댓글 304개 모두 보기</button>
-                    <div class="errors-date-row"><span></span><span id="errorsIndex">ERROR_01 / 14</span></div>
+                    <div id="errorsCommentsPanel" class="errors-comments-panel hidden"></div>
+                    <div class="errors-date-row"><span>2020.07.10</span><span id="errorsIndex">ERROR_01 / 14</span></div>
                   </div>
                 </article>
               </div>
@@ -8262,6 +8312,7 @@ const OLD_BOOT_LINES = [
   const errorsCaptionUser = $('#errorsCaptionUser');
   const errorsLikeCount = $('#errorsLikeCount');
   const errorsCommentButton = $('#errorsCommentButton');
+  const errorsCommentsPanel = $('#errorsCommentsPanel');
   const despairTitle = $('#despairTitle');
   const despairText = $('#despairText');
   const despairPageLabel = $('#despairPageLabel');
@@ -8274,156 +8325,689 @@ const OLD_BOOT_LINES = [
   {
     "src": "error_1.png",
     "label": "ERROR_01",
-    "ko": "오늘의 양식 픽업 중 🍔🍟🥤\n@radvelvetcakes 🎀 @voxtagram_8k 📺",
-    "en": "Picking up the goods 🍔🍟🥤\n@radvelvetcakes 🎀 @voxtagram_8k 📺",
     "account": "moth_pimp",
     "avatar": "val_in.png",
     "avatarFallback": "M",
     "likes": 25841,
-    "comments": 348
+    "commentsCount": 417,
+    "en": "Don't hate me cause you ain't me❣️❤️ #pimplife",
+    "ko": "날 따라할 수 없다고 너무 질투하진 마❣️❤️ #포주일상",
+    "comments": {
+      "en": [
+        {
+          "type": "comment",
+          "user": "radvelvetcakes",
+          "text": "Good to see you on here finally ❤️"
+        },
+        {
+          "type": "comment",
+          "user": "angie_fluffy_bootz",
+          "text": "Oh shit,"
+        },
+        {
+          "type": "comment",
+          "user": "angie_fluffy_bootz",
+          "text": "I didn't know you had an account 0-0"
+        },
+        {
+          "type": "reply",
+          "user": "moth_pimp",
+          "text": "@angie_fluffy_bootz Vox, how do I dislike Instagram"
+        },
+        {
+          "type": "reply",
+          "user": "angie_fluffy_bootz",
+          "text": "@moth_pimp :/"
+        }
+      ],
+      "ko": [
+        {
+          "type": "comment",
+          "user": "radvelvetcakes",
+          "text": "여기서 보니 넘 좋다 ❤️"
+        },
+        {
+          "type": "comment",
+          "user": "angie_fluffy_bootz",
+          "text": "헐 젠장,"
+        },
+        {
+          "type": "comment",
+          "user": "angie_fluffy_bootz",
+          "text": "계정이 있는 줄 몰랐어 0-0"
+        },
+        {
+          "type": "reply",
+          "user": "moth_pimp",
+          "text": "@angie_fluffy_bootz 복스, 헬스타에 싫어요는 어떻게 눌러?"
+        },
+        {
+          "type": "reply",
+          "user": "angie_fluffy_bootz",
+          "text": "@moth_pimp :/"
+        }
+      ]
+    }
   },
   {
     "src": "error_2.png",
     "label": "ERROR_02",
-    "ko": "발이 길바닥에서 주운 막대사탕 같은 거 먹지 말래. 근데 걔는 내가 지가 쓰레기통에 버린 걸 다시 주웠다는 걸 모르지! (¬‿‿¬) @voxtagram_8k @moth_pimp #공짜사탕 #내맘대로삶 #쥐들도맨날길바닥에떨어진거처먹음",
-    "en": "Val stopped me from eating a lollipop I found on the ground. But what he doesnt know is I grabbed it after he tossed it in the bin! (¬‿‿¬) @voxtagram_8k @moth_pimp #FreeCandy #LivingFree #RatsEatShitOffTheGroundAllTheTime",
-    "account": "radvelvetcakes",
-    "avatar": "vel_in.png",
-    "avatarFallback": "R",
-    "likes": 27116,
-    "comments": 512
+    "account": "voxtagram_8k",
+    "avatar": "vox_in.png",
+    "avatarFallback": "V",
+    "likes": 31192,
+    "commentsCount": 623,
+    "en": "Chillin in the studio. Rad photo by my gurl @radvelvetcakes",
+    "ko": "스튜디오에서 쉬는 중. 예쁜이가 쩔게 찍어 줬어. @radvelvetcakes",
+    "comments": {
+      "en": [
+        {
+          "type": "comment",
+          "user": "radvelvetcakes",
+          "text": "We look gooood ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️"
+        },
+        {
+          "type": "comment",
+          "user": "moth_pimp",
+          "text": "Stunning."
+        }
+      ],
+      "ko": [
+        {
+          "type": "comment",
+          "user": "radvelvetcakes",
+          "text": "우리 잘 나왔네에에❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️"
+        },
+        {
+          "type": "comment",
+          "user": "moth_pimp",
+          "text": "멋져."
+        }
+      ]
+    }
   },
   {
     "src": "error_3.png",
     "label": "ERROR_03",
-    "ko": "이것은 한국어로 쓴 텍스트입니다.",
-    "en": "This is English text.",
-    "account": "voxtagram_8k",
-    "avatar": "vox_in.png",
-    "avatarFallback": "V",
-    "likes": 30528,
-    "comments": 467
+    "account": "radvelvetcakes",
+    "avatar": "vel_in.png",
+    "avatarFallback": "R",
+    "likes": 29678,
+    "commentsCount": 512,
+    "en": "This is my newest account! BE SURE TO TELL YOUR FRIENDS! Ain't I a cutie? ≧◉◡◉≦",
+    "ko": "이게 내 최신 계정이야! 네 친구들한테도 모두 퍼나르기 알지! 나 넘 귀엽지 않아? ≧◉◡◉≦",
+    "comments": {
+      "en": [
+        {
+          "type": "comment",
+          "user": "voxtagram_8k",
+          "text": "Lovely 💖"
+        },
+        {
+          "type": "reply",
+          "user": "radvelvetcakes",
+          "text": "@voxtagram_8k I am a gift"
+        },
+        {
+          "type": "comment",
+          "user": "moth_pimp",
+          "text": "❤️"
+        },
+        {
+          "type": "reply",
+          "user": "radvelvetcakes",
+          "text": "@moth_pimp 0w0 ❤️❤️❤️"
+        }
+      ],
+      "ko": [
+        {
+          "type": "comment",
+          "user": "voxtagram_8k",
+          "text": "사랑스러워 💖"
+        },
+        {
+          "type": "reply",
+          "user": "radvelvetcakes",
+          "text": "@voxtagram_8k 난 선물 같은 존재야"
+        },
+        {
+          "type": "comment",
+          "user": "moth_pimp",
+          "text": "❤️"
+        },
+        {
+          "type": "reply",
+          "user": "radvelvetcakes",
+          "text": "@moth_pimp 0w0 ❤️❤️❤️"
+        }
+      ]
+    }
   },
   {
     "src": "error_4.png",
     "label": "ERROR_04",
-    "ko": "이것은 한국어로 쓴 텍스트입니다.",
-    "en": "This is English text.",
-    "account": "voxtagram_8k",
-    "avatar": "vox_in.png",
-    "avatarFallback": "V",
-    "likes": 26490,
-    "comments": 389
+    "account": "moth_pimp",
+    "avatar": "val_in.png",
+    "avatarFallback": "M",
+    "likes": 28733,
+    "commentsCount": 484,
+    "en": "Picking up the goods 🍔🍟🥤@radvelvetcakes 🎀 @voxtagram_8k 📺",
+    "ko": "오늘의 양식 픽업 중 🍔🍟🥤@radvelvetcakes 🎀 @voxtagram_8k 📺",
+    "comments": {
+      "en": [
+        {
+          "type": "comment",
+          "user": "radvelvetcakes",
+          "text": "And only 20 minutes late (ō_ō)"
+        },
+        {
+          "type": "reply",
+          "user": "moth_pimp",
+          "text": "@radvelvetcakes I had business Babydoll 💖"
+        },
+        {
+          "type": "comment",
+          "user": "voxtagram_8k",
+          "text": "You still owe me 20 cents for the chimken supreme you ordered."
+        },
+        {
+          "type": "reply",
+          "user": "moth_pimp",
+          "text": "@voxtagram_8k oh l will pay you back... later 😛🍆💦"
+        }
+      ],
+      "ko": [
+        {
+          "type": "comment",
+          "user": "radvelvetcakes",
+          "text": "그리고 20분 밖에 안 늦으셨지 (ō_ō)"
+        },
+        {
+          "type": "reply",
+          "user": "moth_pimp",
+          "text": "@radvelvetcakes 사업이란게 원래 그래 💖"
+        },
+        {
+          "type": "comment",
+          "user": "voxtagram_8k",
+          "text": "너 아직 나한테 치킨 수프림 값 중 20센트 안 줬어."
+        },
+        {
+          "type": "reply",
+          "user": "moth_pimp",
+          "text": "@voxtagram_8k 앗, 갚을게…  이따가 😛🍆💦"
+        }
+      ]
+    }
   },
   {
     "src": "error_5.png",
     "label": "ERROR_05",
-    "ko": "이것은 한국어로 쓴 텍스트입니다.",
-    "en": "This is English text.",
-    "account": "radvelvetcakes",
-    "avatar": "vel_in.png",
-    "avatarFallback": "R",
-    "likes": 28677,
-    "comments": 603
+    "account": "voxtagram_8k",
+    "avatar": "vox_in.png",
+    "avatarFallback": "V",
+    "likes": 34209,
+    "commentsCount": 931,
+    "en": "Lookit this guy with his chimken supreme 🍔🍟 Bisch disgusten 🐀",
+    "ko": "얘 치킨 슈프림 먹는것 봐라 🍔🍟 존나 웃김 🐀",
+    "comments": {
+      "en": [
+        {
+          "type": "comment",
+          "user": "radvelvetcakes",
+          "text": "Wow Val! your really gross"
+        },
+        {
+          "type": "comment",
+          "user": "moth_pimp",
+          "text": "Delete this 😡😡😡"
+        },
+        {
+          "type": "reply",
+          "user": "voxtagram_8k",
+          "text": "@moth_pimp Neva. U look good in this 😌"
+        },
+        {
+          "type": "reply",
+          "user": "moth_pimp",
+          "text": "@voxtagram_8k FUCK YOu YOu StUPiD ASShOLe, fuCk YoU and yOuR stUpiD fLat FUcKInG faCe"
+        },
+        {
+          "type": "reply",
+          "user": "moth_pimp",
+          "text": "@voxtagram_8k of cOuRse I Look FuCking Good DuMb Ass"
+        },
+        {
+          "type": "reply",
+          "user": "moth_pimp",
+          "text": "@voxtagram_8k block"
+        },
+        {
+          "type": "reply",
+          "user": "voxtagram_8k",
+          "text": "@moth_pimp Blocked 😝"
+        },
+        {
+          "type": "reply",
+          "user": "voxtagram_8k",
+          "text": "@moth_pimp I'm never getting my money back am I?"
+        },
+        {
+          "type": "reply",
+          "user": "moth_pimp",
+          "text": "@voxtagram_ 🖕🖕🖕🖕🖕🖕🖕"
+        }
+      ],
+      "ko": [
+        {
+          "type": "comment",
+          "user": "radvelvetcakes",
+          "text": "우와, 발l! 너 진짜 더러워"
+        },
+        {
+          "type": "comment",
+          "user": "moth_pimp",
+          "text": "지워 😡😡😡"
+        },
+        {
+          "type": "reply",
+          "user": "voxtagram_8k",
+          "text": "@moth_pimp 시름. 너 되게 잘 나왔어 😌"
+        },
+        {
+          "type": "reply",
+          "user": "moth_pimp",
+          "text": "@voxtagram_8k 좆까 멍청한 ㅅㄲ야 니랑 니 평평한 면상도 좆까"
+        },
+        {
+          "type": "reply",
+          "user": "moth_pimp",
+          "text": "@voxtagram_8k 당연히 난 존나 멋지지 쌍놈아!"
+        },
+        {
+          "type": "reply",
+          "user": "moth_pimp",
+          "text": "@voxtagram_8k 차단함"
+        },
+        {
+          "type": "reply",
+          "user": "voxtagram_8k",
+          "text": "@moth_pimp 차단당했네 😝"
+        },
+        {
+          "type": "reply",
+          "user": "voxtagram_8k",
+          "text": "@moth_pimp 나 이제 내 돈 돌려받기는 글렀어?"
+        },
+        {
+          "type": "reply",
+          "user": "moth_pimp",
+          "text": "@voxtagram_8k 🖕🖕🖕🖕🖕🖕🖕"
+        }
+      ]
+    }
   },
   {
     "src": "error_6.png",
     "label": "ERROR_06",
-    "ko": "이것은 한국어로 쓴 텍스트입니다.",
-    "en": "This is English text.",
     "account": "radvelvetcakes",
     "avatar": "vel_in.png",
     "avatarFallback": "R",
-    "likes": 31244,
-    "comments": 451
+    "likes": 27450,
+    "commentsCount": 712,
+    "en": "LOL @voxtagram_8k is one to talk. He's hardly as cool as he thinks he is. (¬‿¬)",
+    "ko": "ㅋㅋㅋ @voxtagram_8k 도 장난 아님. 얘도 자기가 생각하는 것만큼은 안 멋져. (¬‿¬)",
+    "comments": {
+      "en": [
+        {
+          "type": "comment",
+          "user": "moth_pimp",
+          "text": "Velvet DELETE THIS 😡😡😡😡😤😤😤🤬🤬😡😤😤😡😡"
+        },
+        {
+          "type": "reply",
+          "user": "radvelvetcakes",
+          "text": "@moth_pimp Hmmmmmm,.. No (✿◠‿◠)"
+        },
+        {
+          "type": "comment",
+          "user": "voxtagram_8k",
+          "text": "I thought we were fwiends 🥺 Whhyyyy~"
+        },
+        {
+          "type": "reply",
+          "user": "radvelvetcakes",
+          "text": "@voxtagram_8k If I don't shame you you'll never learn. ᕙ(`▿´)ᕗ"
+        }
+      ],
+      "ko": [
+        {
+          "type": "comment",
+          "user": "moth_pimp",
+          "text": "벨벳 이거 삭제해!! 😡😡😡😡😤😤😤🤬🤬😡😤😤😡😡"
+        },
+        {
+          "type": "reply",
+          "user": "radvelvetcakes",
+          "text": "@moth_pimp 흐으으으으음,.. 싫어 (✿◠‿◠)"
+        },
+        {
+          "type": "comment",
+          "user": "voxtagram_8k",
+          "text": "난 우리가 친구인줄 알았는데 🥺 왜애애ㅠ"
+        },
+        {
+          "type": "reply",
+          "user": "radvelvetcakes",
+          "text": "@voxtagram_8k 내가 이렇게 창피주지 않으면 넌 배우는 게 없잖아. ᕙ(`▿´)ᕗ"
+        }
+      ]
+    }
   },
   {
     "src": "error_7.png",
     "label": "ERROR_07",
-    "ko": "이것은 한국어로 쓴 텍스트입니다.",
-    "en": "This is English text.",
-    "account": "radvelvetcakes",
-    "avatar": "vel_in.png",
-    "avatarFallback": "R",
-    "likes": 25593,
-    "comments": 334
+    "account": "voxtagram_8k",
+    "avatar": "vox_in.png",
+    "avatarFallback": "V",
+    "likes": 39218,
+    "commentsCount": 506,
+    "en": "💸💸💸 A lil gift for someone. Now off to pick up a lil baby 💖🦈💖",
+    "ko": "💸💸💸 누군가를 위한 작은 선물. 이제 내 베이비 픽업하러 가야지. 💖🦈💖",
+    "comments": {
+      "en": [
+        {
+          "type": "comment",
+          "user": "radvelvetcakes",
+          "text": "Be sure not to sit too close to the Screen or your eyes will turn square! (っ ͝﹏╰)"
+        },
+        {
+          "type": "comment",
+          "user": "moth_pimp",
+          "text": "Is that... That better be for me."
+        },
+        {
+          "type": "reply",
+          "user": "voxtagram_8k",
+          "text": "@moth_pimp Hurry up and come back if you want to find out 😝"
+        }
+      ],
+      "ko": [
+        {
+          "type": "comment",
+          "user": "radvelvetcakes",
+          "text": "TV 너무 가까이서 보지 마. 그러다 눈 네모 된다! (っ ͝﹏╰)"
+        },
+        {
+          "type": "comment",
+          "user": "moth_pimp",
+          "text": "저거… 저거 내 거여야 할 거야."
+        },
+        {
+          "type": "reply",
+          "user": "voxtagram_8k",
+          "text": "@moth_pimp 누구 건지 알고 싶으면 빨리 와 😝"
+        }
+      ]
+    }
   },
   {
     "src": "error_8.png",
     "label": "ERROR_08",
-    "ko": "이것은 한국어로 쓴 텍스트입니다.",
-    "en": "This is English text.",
-    "account": "radvelvetcakes",
-    "avatar": "vel_in.png",
-    "avatarFallback": "R",
-    "likes": 29812,
-    "comments": 782
+    "account": "moth_pimp",
+    "avatar": "val_in.png",
+    "avatarFallback": "M",
+    "likes": 32877,
+    "commentsCount": 374,
+    "en": "Voxy got me a new TV to apologise, compensating much? 📺💗 (smashed up my other\none yesterday😛) His lucky it doesn't vibrate or l would have a new Boyfriend 👏🤗",
+    "ko": "복시가 사과의 표시로 새 TV 사줬어. 나 넘 사랑받는다 📺💗(다른 거는 어제 박살내버렸어😛) 쟤 진짜 운 좋은 거야. 이거 진동 됐으면 나 지금 새 남친 생겼거든. 👏🤗",
+    "comments": {
+      "en": [],
+      "ko": []
+    }
   },
   {
     "src": "error_9.png",
     "label": "ERROR_09",
-    "ko": "이것은 한국어로 쓴 텍스트입니다.",
-    "en": "This is English text.",
-    "account": "voxtagram_8k",
-    "avatar": "vox_in.png",
-    "avatarFallback": "V",
-    "likes": 27654,
-    "comments": 418
+    "account": "moth_pimp",
+    "avatar": "val_in.png",
+    "avatarFallback": "M",
+    "likes": 30564,
+    "commentsCount": 689,
+    "en": "Yo y Voxy, luciendo jodidamente sexy 💗me voy a joder a Velvet por publicar fotos de mierda de nosotros 🦈",
+    "ko": "나랑 복시, 씨발 존나 핫하네 💗그런데도 우리 엽사 이딴 식으로 올린 벨벳 조지러 가는 중 🦈",
+    "comments": {
+      "en": [
+        {
+          "type": "comment",
+          "user": "voxtagram_8k",
+          "text": "La mierda va a caer >:)"
+        },
+        {
+          "type": "reply",
+          "user": "moth_pimp",
+          "text": "@voxtagram_8k 😛"
+        }
+      ],
+      "ko": [
+        {
+          "type": "comment",
+          "user": "voxtagram_8k",
+          "text": "딱 대고 있어라 >:)"
+        },
+        {
+          "type": "reply",
+          "user": "moth_pimp",
+          "text": "@voxtagram_8k 😛"
+        }
+      ]
+    }
   },
   {
     "src": "error_10.png",
     "label": "ERROR_10",
-    "ko": "이것은 한국어로 쓴 텍스트입니다.",
-    "en": "This is English text.",
-    "account": "moth_pimp",
-    "avatar": "val_in.png",
-    "avatarFallback": "M",
-    "likes": 34108,
-    "comments": 559
+    "account": "radvelvetcakes",
+    "avatar": "vel_in.png",
+    "avatarFallback": "R",
+    "likes": 31702,
+    "commentsCount": 329,
+    "en": "Bored and missing the boys so l decided to do my nails up pretty!\n ≧ᵔᴥᵔ≦✊",
+    "ko": "심심하고 우리 애들도 보고 싶어서 손톱이나 예쁘게 꾸며봤엉! ≧ᵔᴥᵔ≦✊",
+    "comments": {
+      "en": [],
+      "ko": []
+    }
   },
   {
     "src": "error_11.png",
     "label": "ERROR_11",
-    "ko": "이것은 한국어로 쓴 텍스트입니다.",
-    "en": "This is English text.",
     "account": "moth_pimp",
     "avatar": "val_in.png",
     "avatarFallback": "M",
-    "likes": 28931,
-    "comments": 673
+    "likes": 36610,
+    "commentsCount": 441,
+    "en": "Got her 🤭😛 This is the only time I'll say this but Vox having a giant pet demon shark actually came in handy 🦈",
+    "ko": "잡았다, 요년 🤭😛 이번 한 번만 인정할게. 복스가 존나 큰 애완 악마 상어 끼고 사는 게 의외로 도움 되긴 하네 🦈",
+    "comments": {
+      "en": [],
+      "ko": []
+    }
   },
   {
     "src": "error_12.png",
     "label": "ERROR_12",
-    "ko": "이것은 한국어로 쓴 텍스트입니다.",
-    "en": "This is English text.",
-    "account": "radvelvetcakes",
-    "avatar": "vel_in.png",
-    "avatarFallback": "R",
-    "likes": 32776,
-    "comments": 391
+    "account": "voxtagram_8k",
+    "avatar": "vox_in.png",
+    "avatarFallback": "V",
+    "likes": 35290,
+    "commentsCount": 804,
+    "en": "The baby is running wild!!! Aaaagghhhhhh!!!! NO BABY!! NOT THAT WAY!!!! 🦈🖥🐀💦",
+    "ko": "우리 애가 미쳐 날뛴다!!! 아아ㅏ아아악!!!! 안 돼, 애기야!! 이쪽은 안된다고!!!! 🦈🖥🐀💦",
+    "comments": {
+      "en": [],
+      "ko": []
+    }
   },
   {
     "src": "error_13.png",
     "label": "ERROR_13",
-    "ko": "이것은 한국어로 쓴 텍스트입니다.",
-    "en": "This is English text.",
-    "account": "moth_pimp",
-    "avatar": "val_in.png",
-    "avatarFallback": "M",
-    "likes": 26345,
-    "comments": 446
+    "account": "voxtagram_8k",
+    "avatar": "vox_in.png",
+    "avatarFallback": "V",
+    "likes": 42177,
+    "commentsCount": 615,
+    "en": "Pile on in 💖🐀🦈📺 💖new member to the family.",
+    "ko": "다같이 모여서 💖🐀🦈📺 💖우리 가족의 새 멤버 환영 중.",
+    "comments": {
+      "en": [
+        {
+          "type": "comment",
+          "user": "moth_pimp",
+          "text": "We cute ❤️💜💙"
+        },
+        {
+          "type": "reply",
+          "user": "voxtagram_8k",
+          "text": "@moth_pimp Hell yeah 😘"
+        }
+      ],
+      "ko": [
+        {
+          "type": "comment",
+          "user": "moth_pimp",
+          "text": "우리 귀엽네 ❤️💜💙"
+        },
+        {
+          "type": "reply",
+          "user": "voxtagram_8k",
+          "text": "@moth_pimp 당연하지 😘"
+        }
+      ]
+    }
   },
   {
     "src": "error_14.png",
     "label": "ERROR_14",
-    "ko": "이것은 한국어로 쓴 텍스트입니다.",
-    "en": "This is English text.",
+    "account": "radvelvetcakes",
+    "avatar": "vel_in.png",
+    "avatarFallback": "R",
+    "likes": 29481,
+    "commentsCount": 533,
+    "en": "Val stopped me from eating a lollipop I found on the ground. But what he doesnt know is I grabbed it after he tossed it in the bin! (¬‿‿¬) @voxtagram_8k @moth_pimp #FreeCandy #LivingFree #RatsEatShitOffTheGroundAllTheTime",
+    "ko": "발이 길바닥에서 주운 막대사탕 같은 거 먹지 말래. 근데 걔는 내가 지가 쓰레기통에 버린 걸 다시 주웠다는 걸 모르지! (¬‿‿¬) @voxtagram_8k @moth_pimp #공짜사탕 #내맘대로삶 #쥐들도맨날길바닥에떨어진거처먹음",
+    "comments": {
+      "en": [],
+      "ko": []
+    }
+  },
+  {
+    "src": "error_15.png",
+    "label": "ERROR_15",
     "account": "moth_pimp",
     "avatar": "val_in.png",
     "avatarFallback": "M",
-    "likes": 35012,
-    "comments": 588
+    "likes": 27866,
+    "commentsCount": 387,
+    "en": "Lowkey wish Voxy would get up there instead. 👀 -sent from Vphone",
+    "ko": "솔직히 복시가 대신 저 위에 올라갔으면 좋겠는데. 👀 -브이폰에서 작성함",
+    "comments": {
+      "en": [
+        {
+          "type": "comment",
+          "user": "angie_fluffy_bootz",
+          "text": "😒"
+        },
+        {
+          "type": "reply",
+          "user": "moth_pimp",
+          "text": "@angie_fluffy_bootz loose the attitude"
+        }
+      ],
+      "ko": [
+        {
+          "type": "comment",
+          "user": "angie_fluffy_bootz",
+          "text": "😒"
+        },
+        {
+          "type": "reply",
+          "user": "moth_pimp",
+          "text": "@angie_fluffy_bootz 눈깔 착하게 안 떠?"
+        }
+      ]
+    }
+  },
+  {
+    "src": "error_16.png",
+    "label": "ERROR_16",
+    "account": "moth_pimp",
+    "avatar": "val_in.png",
+    "avatarFallback": "M",
+    "likes": 30945,
+    "commentsCount": 472,
+    "en": "Amazing what a set of new speakers can buy these days 🫢💵",
+    "ko": "요즘은 새 스피커 한 세트로 별걸 다 살 수 있다니까 🫢💵",
+    "comments": {
+      "en": [
+        {
+          "type": "comment",
+          "user": "voxtagram_8k",
+          "text": "I'm conflicted now 🙃 But thanks for da bomb ass speakers 🤙🤙🤙"
+        }
+      ],
+      "ko": [
+        {
+          "type": "comment",
+          "user": "voxtagram_8k",
+          "text": "나 마음이 좀 복잡해졌는데 🙃 그래도 존나 개쩌는 스피커 고마워 🤙🤙🤙"
+        }
+      ]
+    }
+  },
+  {
+    "src": "error_17.png",
+    "label": "ERROR_17",
+    "account": "moth_pimp",
+    "avatar": "val_in.png",
+    "avatarFallback": "M",
+    "likes": 33712,
+    "commentsCount": 749,
+    "en": "5:30am… I asked Vox to get me a Strawberry Iced coffee SEVERAL hours ago. The fucker shows up NOW with a half finished DIET SODA! Do I kill him Y/N? 🤗",
+    "ko": "새벽 다섯 시 반… 복스한테 딸기 아이스커피 하나 사오라는 말을 몇 시간 전에 했는데, 이 씹새끼가 이제 들어와서 반이나 처마신 다이어트 소다를 내밀어! 이거 죽여? 말아? 🤗",
+    "comments": {
+      "en": [],
+      "ko": []
+    }
+  },
+  {
+    "src": "error_18.png",
+    "label": "ERROR_18",
+    "account": "moth_pimp",
+    "avatar": "val_in.png",
+    "avatarFallback": "M",
+    "likes": 26853,
+    "commentsCount": 318,
+    "en": "Thanks for the Soda Voxy 🤗 DONT fuck up my order next time 🖕",
+    "ko": "소다 고마워 복시 🤗 다음 번엔 내 주문 처망치지 마 🖕",
+    "comments": {
+      "en": [],
+      "ko": []
+    }
+  },
+  {
+    "src": "error_19.png",
+    "label": "ERROR_19",
+    "account": "voxtagram_8k",
+    "avatar": "vox_in.png",
+    "avatarFallback": "V",
+    "likes": 39104,
+    "commentsCount": 544,
+    "en": "Time to get a new screen. Ungrateful rat 🐀😡#notmyboyfriend",
+    "ko": "새 스크린을 장만할 타이밍. 배은망덕한 년 🐀😡 #애인아님",
+    "comments": {
+      "en": [],
+      "ko": []
+    }
   }
 ];
   let activeEmployee = null;
@@ -8436,6 +9020,7 @@ const OLD_BOOT_LINES = [
   let cutsceneRunning = false;
   let currentErrorAlbumIndex = 0;
   let currentErrorsLang = 'ko';
+  let errorsCommentsOpen = false;
   let currentDespairIndex = -1;
 
   function safeGet(key){ try{ return localStorage.getItem(key); }catch(e){ return null; } }
@@ -9443,6 +10028,32 @@ const OLD_BOOT_LINES = [
     setTraceStatus('낙서장에 남았습니다.');
   }
 
+  function renderErrorsText(text){
+    const safe = escapeHtml(text || '');
+    return safe
+      .replace(/(@[A-Za-z0-9_]+)/g, '<span class="errors-mention">$1</span>')
+      .replace(/(#[^\s#<]+)/g, '<span class="errors-hashtag">$1</span>')
+      .replace(/\n/g, '<br>');
+  }
+
+  function renderErrorsComments(item){
+    if (!errorsCommentsPanel) return;
+    const list = (item.comments && item.comments[currentErrorsLang]) || [];
+    errorsCommentsPanel.classList.toggle('hidden', !errorsCommentsOpen);
+    if (!errorsCommentsOpen) {
+      errorsCommentsPanel.innerHTML = '';
+      return;
+    }
+    if (!list.length){
+      errorsCommentsPanel.innerHTML = '<div class="errors-comment-empty">표시할 댓글 데이터가 없습니다.</div>';
+      return;
+    }
+    errorsCommentsPanel.innerHTML = list.map(comment => {
+      const cls = comment.type === 'reply' ? 'errors-comment is-reply' : 'errors-comment';
+      return `<div class="${cls}"><strong>${escapeHtml(comment.user || '')}</strong> <span>${renderErrorsText(comment.text || '')}</span></div>`;
+    }).join('');
+  }
+
   function renderErrorsAlbum(){
     if (!errorsImage || !errorsIndexLabel || !ERROR_ALBUM.length) return;
     const item = ERROR_ALBUM[currentErrorAlbumIndex];
@@ -9455,9 +10066,9 @@ const OLD_BOOT_LINES = [
     errorsImage.style.display = 'block';
     errorsIndexLabel.textContent = `${item.label} / ${ERROR_ALBUM.length}`;
     if (errorsCaption) {
-      errorsCaption.textContent = currentErrorsLang === 'en'
-        ? (item.en || 'This is English text.')
-        : (item.ko || '이것은 한국어로 쓴 텍스트입니다.');
+      errorsCaption.innerHTML = currentErrorsLang === 'en'
+        ? renderErrorsText(item.en || 'This is English text.')
+        : renderErrorsText(item.ko || '이것은 한국어로 쓴 텍스트입니다.');
     }
     if (errorsLangToggle) {
       errorsLangToggle.textContent = currentErrorsLang === 'en' ? 'KR' : 'EN';
@@ -9475,7 +10086,18 @@ const OLD_BOOT_LINES = [
     if (errorsAccountId) errorsAccountId.textContent = item.account || 'radvelvetcakes';
     if (errorsCaptionUser) errorsCaptionUser.textContent = item.account || 'radvelvetcakes';
     if (errorsLikeCount) errorsLikeCount.textContent = Number(item.likes || 25241).toLocaleString('en-US');
-    if (errorsCommentButton) errorsCommentButton.textContent = `댓글 ${Number(item.comments || 304).toLocaleString('en-US')}개 모두 보기`;
+    if (errorsCommentButton) {
+      const count = Number(item.commentsCount || 304).toLocaleString('en-US');
+      errorsCommentButton.textContent = currentErrorsLang === 'en'
+        ? (errorsCommentsOpen ? 'Hide comments' : `View all ${count} comments`)
+        : (errorsCommentsOpen ? '댓글 접기' : `댓글 ${count}개 모두 보기`);
+    }
+    renderErrorsComments(item);
+  }
+
+  function toggleErrorsComments(){
+    errorsCommentsOpen = !errorsCommentsOpen;
+    renderErrorsAlbum();
   }
 
   function toggleErrorsLanguage(){
@@ -9486,6 +10108,7 @@ const OLD_BOOT_LINES = [
   function stepErrorsAlbum(direction){
     if (!ERROR_ALBUM.length) return;
     currentErrorAlbumIndex = (currentErrorAlbumIndex + direction + ERROR_ALBUM.length) % ERROR_ALBUM.length;
+    errorsCommentsOpen = false;
     renderErrorsAlbum();
     renderDespairBlank();
     renderWikiWaiting();
@@ -9911,6 +10534,7 @@ setTimeout(() => {
   if (errorsPrevBtn) errorsPrevBtn.addEventListener('click', () => stepErrorsAlbum(-1));
   if (errorsNextBtn) errorsNextBtn.addEventListener('click', () => stepErrorsAlbum(1));
   if (errorsLangToggle) errorsLangToggle.addEventListener('click', toggleErrorsLanguage);
+  if (errorsCommentButton) errorsCommentButton.addEventListener('click', toggleErrorsComments);
   document.addEventListener('keydown', handleErrorsAlbumKey);
     $$('.window-close').forEach(btn => btn.addEventListener('click', () => closeWindow(btn.dataset.close)));
   windows.forEach(win => { win.addEventListener('mousedown', () => bringFront(win)); makeDraggable(win); });
