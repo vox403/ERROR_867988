@@ -9284,12 +9284,18 @@ body.dread-hard-screen-glitching .error-scanline{
   const TRACE_TEXT_MAX = 21;
   const RESERVED_LOGIN_NAMES = ['VOX', 'VAL', 'VEL'];
   const ERROR_ROUTE_ID_PATTERN = /^ERR-\d{6}$/;
+  const SPECIAL_ERROR_ROUTE_IDENTITIES = {
+    'ERR-654731': { name:'VOX', employeeId:'ERR-654731' },
+    'ERR-553168': { name:'VEL', employeeId:'ERR-553168' },
+    'ERR-772310': { name:'VOX', employeeId:'ERR-772310' }
+  };
   const ERROR_ROUTE_RECOVERY = {
     'VT-957413': { name:'VOX', employeeId:'ERR-772310' }
   };
   const ERROR_ROUTE_RECOVERY_CODES = {
-    'ERR-772310': { name:'VOX', employeeId:'ERR-772310' },
-    'VOX': { name:'VOX', employeeId:'ERR-772310' }
+    'ERR-654731': { name:'VOX', employeeId:'ERR-654731' },
+    'ERR-553168': { name:'VEL', employeeId:'ERR-553168' },
+    'ERR-772310': { name:'VOX', employeeId:'ERR-772310' }
   };
   const DEFEAT_MAIL_READ_KEY = 'voxtek_error_defeat_mail_read_v1';
 
@@ -10097,6 +10103,7 @@ const OLD_BOOT_LINES = [
   function safeSet(key, value){ try{ localStorage.setItem(key, value); }catch(e){} }
   function safeRemove(key){ try{ localStorage.removeItem(key); }catch(e){} }
   function isReservedLoginName(name){ return RESERVED_LOGIN_NAMES.includes(String(name || '').trim().toUpperCase()); }
+  function getSpecialIdentityById(employeeId){ return SPECIAL_ERROR_ROUTE_IDENTITIES[String(employeeId || '').trim().toUpperCase()] || null; }
 
   function escapeHtml(str){
     return String(str || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -10129,6 +10136,22 @@ const OLD_BOOT_LINES = [
       if (key && key !== STORAGE_KEY) safeRemove(key);
       return payload;
     }
+    const special = parsed.employeeId ? getSpecialIdentityById(parsed.employeeId) : null;
+    if (special){
+      const payload = {
+        name:special.name,
+        employeeId:special.employeeId,
+        joinedAt:parsed.joinedAt || now,
+        lastLoginAt:parsed.lastLoginAt || now
+      };
+      safeSet(STORAGE_KEY, JSON.stringify(payload));
+      if (key && key !== STORAGE_KEY) safeRemove(key);
+      return payload;
+    }
+    if (isReservedLoginName(parsed.name)){
+      if (key) safeRemove(key);
+      return null;
+    }
     if (parsed.employeeId && !ERROR_ROUTE_ID_PATTERN.test(String(parsed.employeeId))){
       if (key) safeRemove(key);
       return null;
@@ -10151,6 +10174,11 @@ const OLD_BOOT_LINES = [
   }
   function getRecoveryLogin(name){
     return ERROR_ROUTE_RECOVERY_CODES[String(name || '').trim().toUpperCase()] || null;
+  }
+  function canUseReservedLoginName(name){
+    const current = getStoredEmployee();
+    const special = current ? getSpecialIdentityById(current.employeeId) : null;
+    return !!special && special.name === String(name || '').trim().toUpperCase();
   }
   function saveEmployee(name){
     const current = getStoredEmployee();
@@ -10409,7 +10437,7 @@ const OLD_BOOT_LINES = [
       employeeNameInput.focus();
       return;
     }
-    if (isReservedLoginName(raw) && !getRecoveryLogin(raw)){
+    if (isReservedLoginName(raw) && !canUseReservedLoginName(raw)){
       loginStatus.textContent = '■■■ ■■■ ■■ 그건 안 돼.';
       employeeNameInput.focus();
       return;
