@@ -9272,6 +9272,7 @@ body.dread-hard-screen-glitching .error-scanline{
 (function(){
   'use strict';
   const STORAGE_KEY = 'voxtek_error_employee_v8';
+  const LEGACY_STORAGE_KEYS = ['voxtek_error_employee_v7','voxtek_error_employee_v6','voxtek_error_employee_v5','voxtek_error_employee_v4','voxtek_error_employee_v3','voxtek_error_employee_v2','voxtek_error_employee_v1','voxtek_error_employee','voxtek_employee_v8','voxtek_employee_v7','voxtek_employee_v6','voxtek_employee_v5','voxtek_employee_v4','voxtek_employee_v3','voxtek_employee_v2','voxtek_employee_v1','voxtek_employee'];
   const SOUND_KEY = 'voxtek_error_sound_v8';
   const CONTENTS_KEY = 'voxtek_error_contents_v8';
   const TRACE_SUPABASE_URL = 'https://gvuhbxpkmyiakyfhuish.supabase.co';
@@ -10102,22 +10103,23 @@ const OLD_BOOT_LINES = [
     if (clockChip) clockChip.textContent = `${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}`;
   }
 
+  function getStorageKeys(){
+    return [STORAGE_KEY].concat(LEGACY_STORAGE_KEYS || []);
+  }
   function getStoredEmployee(){
-    try{
-      const raw = safeGet(STORAGE_KEY);
-      if (!raw) return null;
-      const parsed = JSON.parse(raw);
-      if (!parsed || !parsed.name) return null;
-      if (isReservedLoginName(parsed.name)){
-        safeRemove(STORAGE_KEY);
-        return null;
-      }
-      if (!parsed.employeeId){
-        parsed.employeeId = `ERR-${Math.floor(100000 + Math.random()*900000)}`;
+    const keys = getStorageKeys();
+    for (const key of keys){
+      try{
+        const raw = safeGet(key);
+        if (!raw) continue;
+        const parsed = JSON.parse(raw);
+        if (!parsed || !parsed.name) continue;
+        if (!parsed.employeeId) parsed.employeeId = `ERR-${Math.floor(100000 + Math.random()*900000)}`;
         safeSet(STORAGE_KEY, JSON.stringify(parsed));
-      }
-      return parsed;
-    }catch(e){ return null; }
+        return parsed;
+      }catch(e){}
+    }
+    return null;
   }
   function saveEmployee(name){
     const current = getStoredEmployee();
@@ -10370,7 +10372,7 @@ const OLD_BOOT_LINES = [
       return;
     }
     if (isReservedLoginName(raw)){
-      loginStatus.textContent = '■■■ ■■■ ■■ Absolutely not.';
+      loginStatus.textContent = '■■■ ■■■ ■■ 그건 안 돼.';
       employeeNameInput.focus();
       return;
     }
@@ -10381,7 +10383,7 @@ const OLD_BOOT_LINES = [
   }
 
   function resetEmployee(){
-    safeRemove(STORAGE_KEY);
+    getStorageKeys().forEach(safeRemove);
     safeRemove(SOUND_KEY);
     safeRemove(DEFEAT_MAIL_READ_KEY);
     if (bgAudio){ bgAudio.pause(); bgAudio.currentTime = 0; }
@@ -14083,6 +14085,32 @@ body.route-switch-lock .desktop-hero{
 
   #window-defeat .window-title small{
     display:none !important;
+  }
+}
+
+@media (max-width:720px){
+  #window-defeat .mail-list{
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:stretch !important;
+    justify-content:flex-start !important;
+    gap:8px !important;
+  }
+
+  #window-defeat .mail-item{
+    flex:0 0 auto !important;
+    min-height:0 !important;
+  }
+
+  #window-defeat .mail-item-subject-row{
+    align-items:flex-start !important;
+  }
+
+  #window-defeat .mail-item-subject,
+  #window-defeat .mail-item-meta,
+  #window-defeat .mail-item-badge{
+    overflow-wrap:anywhere !important;
+    word-break:keep-all !important;
   }
 }
 </style>
