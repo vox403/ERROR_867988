@@ -9288,7 +9288,8 @@ body.dread-hard-screen-glitching .error-scanline{
     'VT-957413': { name:'VOX', employeeId:'ERR-772310' }
   };
   const ERROR_ROUTE_RECOVERY_CODES = {
-    'ERR-772310': { name:'VOX', employeeId:'ERR-772310' }
+    'ERR-772310': { name:'VOX', employeeId:'ERR-772310' },
+    'VOX': { name:'VOX', employeeId:'ERR-772310' }
   };
   const DEFEAT_MAIL_READ_KEY = 'voxtek_error_defeat_mail_read_v1';
 
@@ -10408,7 +10409,7 @@ const OLD_BOOT_LINES = [
       employeeNameInput.focus();
       return;
     }
-    if (isReservedLoginName(raw)){
+    if (isReservedLoginName(raw) && !getRecoveryLogin(raw)){
       loginStatus.textContent = '■■■ ■■■ ■■ 그건 안 돼.';
       employeeNameInput.focus();
       return;
