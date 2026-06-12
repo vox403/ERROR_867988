@@ -9272,7 +9272,7 @@ body.dread-hard-screen-glitching .error-scanline{
 (function(){
   'use strict';
   const STORAGE_KEY = 'voxtek_error_employee_v8';
-  const LEGACY_STORAGE_KEYS = ['voxtek_error_employee_v7','voxtek_error_employee_v6','voxtek_error_employee_v5','voxtek_error_employee_v4','voxtek_error_employee_v3','voxtek_error_employee_v2','voxtek_error_employee_v1','voxtek_error_employee','voxtek_employee_v8','voxtek_employee_v7','voxtek_employee_v6','voxtek_employee_v5','voxtek_employee_v4','voxtek_employee_v3','voxtek_employee_v2','voxtek_employee_v1','voxtek_employee'];
+  const LEGACY_STORAGE_KEYS = ['voxtek_error_employee_v7','voxtek_error_employee_v6','voxtek_error_employee_v5','voxtek_error_employee_v4','voxtek_error_employee_v3','voxtek_error_employee_v2','voxtek_error_employee_v1','voxtek_error_employee'];
   const SOUND_KEY = 'voxtek_error_sound_v8';
   const CONTENTS_KEY = 'voxtek_error_contents_v8';
   const TRACE_SUPABASE_URL = 'https://gvuhbxpkmyiakyfhuish.supabase.co';
@@ -9283,6 +9283,13 @@ body.dread-hard-screen-glitching .error-scanline{
   const TRACE_MAX_ITEMS = 8;
   const TRACE_TEXT_MAX = 21;
   const RESERVED_LOGIN_NAMES = ['VOX', 'VAL', 'VEL'];
+  const ERROR_ROUTE_ID_PATTERN = /^ERR-\d{6}$/;
+  const ERROR_ROUTE_RECOVERY = {
+    'VT-957413': { name:'VOX', employeeId:'ERR-772310' }
+  };
+  const ERROR_ROUTE_RECOVERY_CODES = {
+    'ERR-772310': { name:'VOX', employeeId:'ERR-772310' }
+  };
   const DEFEAT_MAIL_READ_KEY = 'voxtek_error_defeat_mail_read_v1';
 
 const OLD_BOOT_LINES = [
@@ -10106,28 +10113,58 @@ const OLD_BOOT_LINES = [
   function getStorageKeys(){
     return [STORAGE_KEY].concat(LEGACY_STORAGE_KEYS || []);
   }
+  function normalizeErrorEmployee(parsed, key){
+    if (!parsed || !parsed.name) return null;
+    const now = new Date().toISOString();
+    const recovery = parsed.employeeId ? ERROR_ROUTE_RECOVERY[String(parsed.employeeId)] : null;
+    if (recovery){
+      const payload = {
+        name:recovery.name,
+        employeeId:recovery.employeeId,
+        joinedAt:parsed.joinedAt || now,
+        lastLoginAt:now
+      };
+      safeSet(STORAGE_KEY, JSON.stringify(payload));
+      if (key && key !== STORAGE_KEY) safeRemove(key);
+      return payload;
+    }
+    if (parsed.employeeId && !ERROR_ROUTE_ID_PATTERN.test(String(parsed.employeeId))){
+      if (key) safeRemove(key);
+      return null;
+    }
+    if (!parsed.employeeId) parsed.employeeId = `ERR-${Math.floor(100000 + Math.random()*900000)}`;
+    safeSet(STORAGE_KEY, JSON.stringify(parsed));
+    return parsed;
+  }
   function getStoredEmployee(){
     const keys = getStorageKeys();
     for (const key of keys){
       try{
         const raw = safeGet(key);
         if (!raw) continue;
-        const parsed = JSON.parse(raw);
-        if (!parsed || !parsed.name) continue;
-        if (!parsed.employeeId) parsed.employeeId = `ERR-${Math.floor(100000 + Math.random()*900000)}`;
-        safeSet(STORAGE_KEY, JSON.stringify(parsed));
-        return parsed;
+        const parsed = normalizeErrorEmployee(JSON.parse(raw), key);
+        if (parsed) return parsed;
       }catch(e){}
     }
     return null;
   }
+  function getRecoveryLogin(name){
+    return ERROR_ROUTE_RECOVERY_CODES[String(name || '').trim().toUpperCase()] || null;
+  }
   function saveEmployee(name){
     const current = getStoredEmployee();
-    const payload = current && current.name === name ? {...current, lastLoginAt:new Date().toISOString()} : {
+    const now = new Date().toISOString();
+    const recovery = getRecoveryLogin(name);
+    const payload = recovery ? {
+      name:recovery.name,
+      employeeId:recovery.employeeId,
+      joinedAt:current && current.employeeId === recovery.employeeId ? current.joinedAt : now,
+      lastLoginAt:now
+    } : current && current.name === name && current.employeeId && ERROR_ROUTE_ID_PATTERN.test(String(current.employeeId)) ? {...current, lastLoginAt:now} : {
       name,
-      joinedAt:new Date().toISOString(),
+      joinedAt:now,
       employeeId:`ERR-${Math.floor(100000 + Math.random()*900000)}`,
-      lastLoginAt:new Date().toISOString()
+      lastLoginAt:now
     };
     safeSet(STORAGE_KEY, JSON.stringify(payload));
     return payload;
@@ -10372,7 +10409,7 @@ const OLD_BOOT_LINES = [
       return;
     }
     if (isReservedLoginName(raw)){
-      loginStatus.textContent = '■■■ ■■■ ■■ Absolutely not.';
+      loginStatus.textContent = '■■■ ■■■ ■■ 그건 안 돼.';
       employeeNameInput.focus();
       return;
     }
@@ -14100,6 +14137,12 @@ body.route-switch-lock .desktop-hero{
   #window-defeat .mail-item{
     flex:0 0 auto !important;
     min-height:0 !important;
+    height:auto !important;
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:stretch !important;
+    justify-content:flex-start !important;
+    gap:6px !important;
   }
 
   #window-defeat .mail-item-subject-row{
